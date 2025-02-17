@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.ModifierOrganisateurController">
+    <children>
+
+        <ImageView fitHeight="228.0" fitWidth="309.0" layoutX="-35.0" layoutY="-48.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@img/475024986_3052058898283782_7784334910321707512_n-removebg-preview_(1).png" />
+            </image>
+        </ImageView>
+        <!-- Sidebar Menu -->
+        <VBox layoutY="95.2" prefHeight="755.0" prefWidth="232.0" style="-fx-background-color: #F4F4F9;" AnchorPane.topAnchor="95.0">
+            <VBox prefHeight="721.0" prefWidth="262.0" spacing="15" style="-fx-padding: 30;">
+                <Button fx:id="dashboard" onAction="#goToDashboard" prefHeight="40.0" prefWidth="219.0" stylesheets="@css/button.css" text="Dashboard" />
+                <Button fx:id="staff" onAction="#goToStaff" prefHeight="40.0" prefWidth="203.0" stylesheets="@css/button.css" text="Staff">
+                    <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/silhouette-dutilisateurs-multiples.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+                <Button fx:id="events" onAction="#goToEvents" prefHeight="40.0" prefWidth="203.0" stylesheets="@css/button.css" text="Events">
+                    <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/time-and-calendar.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+                <Button fx:id="logistics" onAction="#goToLogistics" prefHeight="40.0" prefWidth="205.0" stylesheets="@css/button.css" text="Logistics">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/logistics.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+                <Button fx:id="complaints" onAction="#goToComplaints" prefHeight="40.0" prefWidth="202.0" stylesheets="@css/button.css" text="Complaints">
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/bloc-notes.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+                <Button fx:id="forum" onAction="#goToForum" prefHeight="40.0" prefWidth="205.0" stylesheets="@css/button.css" text="Forums">
+                    <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/discussion.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+                <Button fx:id="organizers" onAction="#goToOrganizers" prefHeight="40.0" prefWidth="202.0" style="-fx-background-color: CC91FF; -fx-background-radius: 10px; -fx-font-size: 18px;" text="Organizers" textFill="WHITE">
+                    <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/employees.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+                <Button fx:id="offers" onAction="#goToOffers" prefHeight="40.0" prefWidth="216.0" stylesheets="@css/button.css" text="Offers">
+                    <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/logistics-delivery.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+                <Line endX="100.0" startX="-100.0" />
+                <Button fx:id="Account" onAction="#goToAccount" prefHeight="40.0" prefWidth="208.0" stylesheets="@css/button.css" text="Account">
+                    <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/utilisateur.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+                <Button fx:id="logout" onAction="#logout" prefHeight="40.0" prefWidth="202.0" stylesheets="@css/button.css" text="Logout">
+                    <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/se-deconnecter.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+                <VBox.margin>
+                    <Insets top="50.0" />
+                </VBox.margin>
+            </VBox>
+        </VBox>
+
+        <!-- Main Dashboard Area -->
+        <ScrollPane layoutX="262.0" layoutY="71.0" prefHeight="778.0" prefWidth="955.0">
+            <HBox alignment="TOP_CENTER" prefWidth="955.0">
+                <!-- Formulaire -->
+                <VBox alignment="CENTER" prefHeight="762.0" prefWidth="499.0" styleClass="root-container" stylesheets="@css/organisateur.css">
+
+                    <!-- bouton bich ira les organizateurs -->
+                    <HBox alignment="TOP_LEFT" spacing="20" style="-fx-padding: 0;">
+                        <Button onAction="#handleViewOrg" styleClass="ButtonViewOrg" text="Organizers" />
+                    </HBox>
+
+                    <!-- Title -->
+                    <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #CF97FF;" text="Modify Organizer" />
+
+
+                    <Label fx:id="labelIdOrganisateur" layoutX="100" layoutY="50" style="-fx-font-size: 18px; -fx-font-weight: bold;  -fx-text-fill: #CF97FF;" text="ID: 0" />
+
+                    <!-- Image Upload Section -->
+                    <VBox alignment="CENTER" spacing="10">
+                        <ImageView fx:id="imageOrg" fitHeight="200" fitWidth="200" style="-fx-border-radius: 10; -fx-border-color: #CF97FF;" />
+                        <Button onAction="#handleImageUpload" styleClass="custom-button" text="Choisir Image" />
+                        <Label fx:id="imageOrgError" style="-fx-text-fill: red;" />
+                    </VBox>
+
+                    <!-- Input Fields -->
+                    <VBox alignment="CENTER" spacing="10" style="-fx-padding: 10;">
+                        <TextField fx:id="nomOrg" promptText="Nom" styleClass="custom-textfield" />
+                        <Label fx:id="nomOrgError" style="-fx-text-fill: red;" />
+
+                        <TextField fx:id="prenomOrg" promptText="Prénom" styleClass="custom-textfield" />
+                        <Label fx:id="prenomOrgError" style="-fx-text-fill: red;" />
+
+                        <TextField fx:id="emailOrg" promptText="Email" styleClass="custom-textfield" />
+                        <Label fx:id="emailOrgError" style="-fx-text-fill: red;" />
+
+                        <TextField fx:id="numOrg" promptText="Numéro" styleClass="custom-textfield" />
+                        <Label fx:id="numOrgError" style="-fx-text-fill: red;" />
+
+                        <TextField fx:id="specialite" promptText="Spécialité" styleClass="custom-textfield" />
+                        <Label fx:id="specialiteError" style="-fx-text-fill: red;" />
+
+                        <DatePicker fx:id="dateEmbauche" promptText="Date d'embauche" styleClass="custom-textfield" />
+                        <Label fx:id="dateEmbaucheError" style="-fx-text-fill: red;" />
+
+                        <TextField fx:id="nbExp" promptText="Années d'expérience" styleClass="custom-textfield" />
+                        <Label fx:id="nbExpError" style="-fx-text-fill: red;" />
+                    </VBox>
+
+                    <!-- Submit Button -->
+                    <HBox alignment="CENTER" spacing="20" style="-fx-padding: 10;">
+                        <Button onAction="#modify" styleClass="submit-button" text="Modify" />
+                        <Button onAction="#handleClear" styleClass="submit-button" text="Clear" />
+                    </HBox>
+
+                </VBox>
+
+            </HBox>
+
+
+
+        </ScrollPane>
+        <ImageView fx:id="imgUser" fitHeight="53.0" fitWidth="50.0" layoutX="1159.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@img/474235702_1334526631227112_5362871318771249816_n.jpg" />
+            </image>
+        </ImageView>
+        <Label fx:id="labelNomUser" layoutX="1046.0" layoutY="25.0" prefHeight="26.0" prefWidth="82.0" />
+    </children>
+</AnchorPane>
