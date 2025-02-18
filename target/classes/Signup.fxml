@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="795.0" prefWidth="1193.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.SignUpController">
+    <children>
+        <Label layoutX="627.0" layoutY="729.0" prefHeight="28.0" prefWidth="235.0" text="Already have an account?">
+            <font>
+                <Font size="15.0" />
+            </font>
+        </Label>
+
+                          <ImageView fitHeight="795.0" fitWidth="524.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@img/6002c9aa-c433-489d-b2e1-b053bb7381f5.jpg" />
+            </image>
+        </ImageView>
+
+        <Hyperlink fx:id="signIn" layoutX="813.0" layoutY="724.0" onAction="#goToSignIn" prefHeight="38.0" prefWidth="84.0" text="Sign In" textFill="#cf97ff" underline="true">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font>
+        </Hyperlink>
+
+        <HBox layoutX="528.0" layoutY="14.0" prefHeight="616.0" prefWidth="524.0" spacing="30">
+            <children>
+                <!-- Colonne de gauche -->
+                <AnchorPane prefHeight="564.0" prefWidth="484.0">
+                    <children>
+                        <Label alignment="CENTER" layoutX="12.0" layoutY="5.0" prefHeight="32.0" prefWidth="511.0" text="Get Started Now" textFill="black">
+                            <font>
+                                <Font size="22" />
+                            </font>
+                        </Label>
+
+                        <TextField fx:id="firstNameField" layoutX="29.0" layoutY="60.0" prefHeight="32.0" prefWidth="222.0" promptText="Enter your first name" />
+                        <Label fx:id="firstNameError" layoutX="28.0" layoutY="92.0" prefHeight="18.0" prefWidth="243.0" textFill="red" />
+
+                        <TextField fx:id="lastNameField" layoutX="29.0" layoutY="119.0" prefHeight="32.0" prefWidth="222.0" promptText="Enter your last name" />
+                        <Label fx:id="lastNameError" layoutX="29.0" layoutY="151.0" prefHeight="18.0" prefWidth="243.0" textFill="red" />
+
+                        <TextField fx:id="cinField" layoutX="29.0" layoutY="181.0" prefHeight="32.0" prefWidth="222.0" promptText="Enter your CIN" />
+                        <Label fx:id="cinError" layoutX="29.0" layoutY="213.0" prefHeight="18.0" prefWidth="243.0" textFill="red" />
+
+                        <TextField fx:id="phoneNumberField" layoutX="29.0" layoutY="243.0" prefHeight="32.0" prefWidth="222.0" promptText="Enter your phone number" />
+                        <Label fx:id="phoneNumberError" layoutX="30.0" layoutY="275.0" prefHeight="18.0" prefWidth="251.0" textFill="red" />
+
+                        <TextField fx:id="emailField" layoutX="29.0" layoutY="300.0" prefHeight="32.0" prefWidth="222.0" promptText="Enter your email" />
+                        <Label fx:id="emailError" layoutX="29.0" layoutY="332.0" prefHeight="18.0" prefWidth="251.0" textFill="red" />
+
+                        <PasswordField fx:id="passwordField" layoutX="30.0" layoutY="360.0" prefHeight="32.0" prefWidth="222.0" promptText="Enter Your password" />
+                        <CheckBox fx:id="SignupShowPassword" layoutX="36.0" layoutY="425.0" mnemonicParsing="false" onAction="#ShowPassword" text="Show Password" />
+                        <Label fx:id="passwordError" layoutX="29.0" layoutY="392.0" prefHeight="28.0" prefWidth="272.0" textFill="red" />
+
+                      <!-- Colonne de droite -->
+                      <AnchorPane layoutX="284.0" layoutY="7.0" prefHeight="535.0" prefWidth="235.0">
+                          <children>
+                              <ImageView fx:id="selectedImageView" fitHeight="240.0" fitWidth="213.0" layoutX="6.0" layoutY="37.0" />
+
+                              <Button fx:id="selectImageButton" layoutX="30.0" layoutY="310.0" onAction="#selectImage" text="Select Image" />
+
+                              <ComboBox fx:id="comboGenre" layoutX="30.0" layoutY="360.0" prefHeight="30.0" prefWidth="194.0" promptText="Gender" />
+                              <Label fx:id="genreError" layoutX="30.0" layoutY="390.0" prefHeight="18.0" prefWidth="206.0" textFill="red" />
+
+                              <ComboBox fx:id="comboRole" layoutX="30.0" layoutY="420.0" prefHeight="31.0" prefWidth="194.0" promptText="Role" />
+                              <Label fx:id="roleError" layoutX="30.0" layoutY="450.0" prefHeight="18.0" prefWidth="213.0" textFill="red" />
+
+                              <DatePicker fx:id="birthDate" editable="false" layoutX="30.0" layoutY="480.0" prefHeight="30.0" prefWidth="194.0" promptText="Date of birth" />
+                              <Label fx:id="birthDateError" layoutX="30.0" layoutY="510.0" prefHeight="18.0" prefWidth="213.0" textFill="red" />
+                          </children>
+                      </AnchorPane>
+                  <TextField fx:id="PasswordField" layoutX="29.0" layoutY="359.0" prefHeight="32.0" prefWidth="222.0" promptText="Enter Your Password" />
+                    </children>
+                </AnchorPane>
+            </children>
+        </HBox>
+
+        <Button fx:id="signUpButton" layoutX="623.0" layoutY="630.0" onAction="#addUser" prefHeight="38.0" prefWidth="334.0" style="-fx-background-color: #CF97FF; -fx-text-fill: white; -fx-font-size: 16px; -fx-background-radius: 20;" text="Signup" />
+      <HBox layoutX="611.0" layoutY="700.0" prefHeight="47.0" prefWidth="403.0">
+         <children>
+            <Line endX="58.89288330078125" endY="0.0" startX="-100.0" />
+            <Label prefHeight="18.0" prefWidth="41.0" style="-fx-text-fill: #888;" text="or">
+               <HBox.margin>
+                  <Insets left="10.0" top="-10.0" />
+               </HBox.margin>
+            </Label>
+            <Line endX="70.492919921875" endY="-0.7071006894111633" startX="-82.82842254638672" startY="-0.707134485244751" />
+         </children>
+      </HBox>
+    </children>
+</AnchorPane>
