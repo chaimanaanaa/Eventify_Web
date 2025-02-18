@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="795.0" prefWidth="1193.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.ModifyAccountController">
+
+    <children>
+        <!-- Sidebar Menu -->
+        <VBox layoutY="72.0" prefHeight="778.0" prefWidth="232.0" style="-fx-background-color: white;" AnchorPane.topAnchor="72.0">
+            <VBox prefHeight="708.0" prefWidth="232.0" spacing="15" style="-fx-padding: 30;">
+                <Button fx:id="dashboard" onAction="#goToDashboard" prefHeight="40.0" prefWidth="219.0" style="-fx-background-color: CC91FF; -fx-background-radius: 10px; -fx-font-size: 18px;" text="Dashboard" textFill="WHITE" />
+                <Button fx:id="staff" onAction="#goToStaff" prefHeight="40.0" prefWidth="203.0" text="Staff">
+                    <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/silhouette-dutilisateurs-multiples.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+                <Button fx:id="events" onAction="#goToEvents" prefHeight="40.0" prefWidth="203.0" text="Events">
+                    <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/time-and-calendar.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+                <Button fx:id="logistics" onAction="#goToLogistics" prefHeight="40.0" prefWidth="205.0" text="Logistics">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/logistics.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+                <Button fx:id="complaints" onAction="#goToComplaints" prefHeight="40.0" prefWidth="202.0" text="Complaints">
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/bloc-notes.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+                <Button fx:id="forum" onAction="#goToForum" prefHeight="40.0" prefWidth="205.0" text="Forums">
+                    <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/discussion.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+                <Button fx:id="organizers" onAction="#goToOrganizers" prefHeight="40.0" prefWidth="202.0" text="Organizers">
+                    <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/employees.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+                <Button fx:id="offers" onAction="#goToOffers" prefHeight="40.0" prefWidth="216.0" text="Offers">
+                    <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/logistics-delivery.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+
+                <Button fx:id="Account" onAction="#goToAccount" prefHeight="40.0" prefWidth="208.0" text="Account">
+                    <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/utilisateur.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+
+                <Button fx:id="logout" onAction="#logout" prefHeight="40.0" prefWidth="202.0" text="Logout">
+                    <graphic>
+                        <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/se-deconnecter.png" />
+                            </image>
+                        </ImageView>
+                    </graphic></Button>
+                <VBox.margin>
+                    <Insets top="50.0" />
+                </VBox.margin>
+            </VBox>
+        </VBox>
+
+        <!-- Barre supérieure -->
+        <HBox alignment="CENTER_RIGHT" layoutX="0.8" prefHeight="70.0" prefWidth="1200.0" style="-fx-background-color: #FFFFFF;" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
+         <children>
+              <ImageView fitHeight="103.0" fitWidth="138.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                      <Image url="@img/475024986_3052058898283782_7784334910321707512_n-removebg-preview_(1).png" />
+                  </image>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+              </ImageView>
+            <HBox prefHeight="89.0" prefWidth="1023.0">
+               <children>
+                  <Label prefHeight="26.0" prefWidth="102.0" text="Hello">
+                     <HBox.margin>
+                        <Insets left="800.0" top="30.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="labelNomUser" prefHeight="26.0" prefWidth="122.0">
+                     <HBox.margin>
+                        <Insets top="30.0" />
+                     </HBox.margin>
+                  </Label>
+                  <ImageView fx:id="imgUser" fitHeight="53.0" fitWidth="43.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </HBox.margin>
+                  </ImageView>
+               </children>
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
+            </HBox>
+         </children>
+        </HBox>
+
+        <!-- Formulaire de modification du compte -->
+        <VBox alignment="CENTER" prefHeight="730.0" prefWidth="963.0" spacing="20" style="-fx-padding: 40;" AnchorPane.leftAnchor="230.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+         <HBox prefHeight="25.0" prefWidth="890.0">
+            <children>
+               <Button fx:id="back" mnemonicParsing="false" onAction="#backToAccount" prefHeight="39.0" prefWidth="50.0" style="-fx-background-color: transparent;">
+                  <graphic>
+                     <ImageView fitHeight="39.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                           <Image url="@img/fleche.png" />
+                        </image>
+                     </ImageView>
+                  </graphic>
+               </Button>
+            </children>
+         </HBox>
+            <Label style="-fx-font-size: 32px; -fx-font-weight: bold;" text="Modify Account" />
+
+            <!-- Photo de profil -->
+            <VBox alignment="CENTER">
+                <ImageView fx:id="selectedImageView" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/470051866_1753154092185605_248536548848885931_n.jpg" />
+               </image></ImageView>
+                <Hyperlink fx:id="uploadImg" onAction="#uploadImg" text="Upload Image" textFill="#cc91ff" />
+            </VBox>
+
+            <!-- Champs de formulaire -->
+            <VBox spacing="10">
+                <HBox prefHeight="82.0" prefWidth="848.0" spacing="20">
+                    <VBox prefHeight="82.0" prefWidth="394.0">
+                        <children>
+                            <Label text="First Name:" />
+                            <TextField fx:id="firstNameField" prefHeight="35.0" prefWidth="263.0" promptText="Enter your first name">
+                                <VBox.margin>
+                                    <Insets top="10.0" />
+                                </VBox.margin>
+                            </TextField>
+                            <Label fx:id="firstNameError" prefHeight="18.0" prefWidth="244.0" />
+                        </children>
+                        <padding>
+                            <Insets left="150.0" />
+                        </padding>
+                    </VBox>
+                    <VBox prefHeight="82.0" prefWidth="293.0">
+                        <children>
+                            <Label text="Last Name:" />
+                            <TextField fx:id="lastNameField" prefHeight="35.0" prefWidth="230.0" promptText="Enter your last name">
+                                <VBox.margin>
+                                    <Insets top="10.0" />
+                                </VBox.margin>
+                            </TextField>
+                            <Label fx:id="lastNameError" prefHeight="18.0" prefWidth="222.0" />
+                        </children>
+                        <padding>
+                            <Insets left="70.0" />
+                        </padding>
+                    </VBox>
+                </HBox>
+                <HBox prefHeight="74.0" prefWidth="890.0" spacing="20">
+                    <children>
+                        <VBox prefHeight="74.0" prefWidth="394.0">
+                            <children>
+                                <Label text="Your Email:" />
+                                <TextField fx:id="emailField" prefHeight="35.0" prefWidth="263.0" promptText="Enter your email" />
+                                <Label fx:id="emailError" prefHeight="18.0" prefWidth="250.0" />
+                            </children>
+                            <padding>
+                                <Insets left="150.0" />
+                            </padding>
+                        </VBox>
+                        <VBox prefHeight="74.0" prefWidth="296.0">
+                            <children>
+                                <Label text="Phone Number:" />
+                                <TextField fx:id="phoneNumberField" prefHeight="35.0" prefWidth="263.0" promptText="Enter your phone number" />
+                                <Label fx:id="phoneNumberError" prefHeight="18.0" prefWidth="231.0" />
+                            </children>
+                            <padding>
+                                <Insets left="70.0" />
+                            </padding>
+                        </VBox>
+                    </children>
+                </HBox>
+                <HBox prefHeight="82.0" prefWidth="890.0" spacing="20">
+                    <VBox prefHeight="82.0" prefWidth="399.0">
+                        <children>
+                            <Label text="Cin:" />
+                            <TextField fx:id="cinField" prefHeight="35.0" prefWidth="263.0" promptText="Enter your CIN" />
+                            <Label fx:id="cinError" prefHeight="18.0" prefWidth="258.0" />
+                        </children>
+                        <padding>
+                            <Insets left="150.0" />
+                        </padding>
+                    </VBox>
+                    <VBox prefHeight="82.0" prefWidth="296.0">
+                        <children>
+                            <Label text="Date Of Birth:" />
+                            <DatePicker fx:id="birthDate" prefHeight="35.0" prefWidth="263.0" promptText="MM/DD/YYYY">
+                                <VBox.margin>
+                                    <Insets />
+                                </VBox.margin>
+                            </DatePicker>
+                            <Label fx:id="dateError" prefHeight="18.0" prefWidth="232.0" />
+                        </children>
+                        <padding>
+                            <Insets left="70.0" />
+                        </padding>
+                    </VBox>
+                </HBox>
+                <HBox prefHeight="77.0" prefWidth="890.0" spacing="20">
+                    <VBox prefHeight="78.0" prefWidth="402.0">
+                        <children>
+                            <Label text="Gender:" />
+                            <ComboBox fx:id="comboGender" prefHeight="35.0" prefWidth="263.0" promptText="Select Gender">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="Male" />
+                                        <String fx:value="Female" />
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                            <Label fx:id="genreError" prefHeight="18.0" prefWidth="255.0" />
+                        </children>
+                        <padding>
+                            <Insets left="150.0" />
+                        </padding>
+                    </VBox>
+                    <VBox prefHeight="78.0" prefWidth="302.0">
+                        <children>
+                            <Label text="Role:" />
+                            <ComboBox fx:id="comboRole" prefHeight="35.0" prefWidth="263.0" promptText="Select Role">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="Client" />
+                                        <String fx:value="Admin" />
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                            <Label fx:id="RoleError" prefHeight="18.0" prefWidth="242.0" />
+                        </children>
+                        <padding>
+                            <Insets left="70.0" />
+                        </padding>
+                    </VBox>
+                </HBox>
+                <HBox spacing="20" />
+            </VBox>
+
+            <Button fx:id="modify" onAction="#modify" prefHeight="38.0" prefWidth="162.0" style="-fx-background-color: CC91FF; -fx-text-fill: white; -fx-padding: 10 20;" text="Modify Now" />
+        </VBox>
+    </children>
+</AnchorPane>

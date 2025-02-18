@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="795.0" prefWidth="1193.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.ShowUsersController">
+
+    <children>
+
+        <!-- Barre latérale -->
+        <VBox layoutY="70.0" prefWidth="232.0" style="-fx-background-color: #F4F4F9;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="70.0">
+            <VBox prefHeight="710.0" prefWidth="232.0" spacing="15" style="-fx-padding: 30;">
+                <Button fx:id="dashboard" onAction="#goToDashboard" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: CC91FF; -fx-background-radius: 10px; -fx-font-size: 18px;" text="Dashboard" textFill="WHITE" />
+                <Button fx:id="staff" onAction="#goToStaff" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: CC91FF" text="Staff">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/silhouette-dutilisateurs-multiples.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="events" onAction="#goToEvents" prefHeight="40.0" prefWidth="200.0" stylesheets="@css/button.css" text="Events">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/time-and-calendar.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="logistics" onAction="#goToLogistics" prefHeight="40.0" prefWidth="200.0" stylesheets="@css/button.css" text="Logistics">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/logistics.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="complaints" onAction="#goToComplaints" prefHeight="40.0" prefWidth="200.0" stylesheets="@css/button.css" text="Complaints">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/bloc-notes.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="forum" onAction="#goToForum" prefHeight="40.0" prefWidth="200.0" stylesheets="@css/button.css" text="Forums">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/discussion.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="organizers" onAction="#goToOrganizers" prefHeight="40.0" prefWidth="200.0" stylesheets="@css/button.css" text="Organizers">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/employees.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="offers" onAction="#goToOffers" prefHeight="40.0" prefWidth="200.0" stylesheets="@css/button.css" text="Offers">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/logistics-delivery.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="Account" onAction="#goToAccount" prefHeight="40.0" prefWidth="200.0" stylesheets="@css/button.css" text="Account">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/utilisateur.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="logout" onAction="#logout" prefHeight="40.0" prefWidth="200.0" stylesheets="@css/button.css" text="Logout">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/se-deconnecter.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            <VBox.margin>
+               <Insets top="50.0" />
+            </VBox.margin>
+            </VBox>
+        </VBox>
+
+        <!-- Zone principale de contenu -->
+        <AnchorPane layoutX="226.0" layoutY="70.0" prefHeight="730.0" prefWidth="968.0" style="-fx-background-color: #F9FAFB;" AnchorPane.bottomAnchor="0.39999999999997726" AnchorPane.leftAnchor="226.0" AnchorPane.rightAnchor="6.7999999999999545" AnchorPane.topAnchor="70.0">
+            <Label layoutX="20.0" layoutY="20.0" style="-fx-font-size: 24px; -fx-font-weight: bold;" text="Users' List" />
+         <ScrollPane layoutX="77.0" layoutY="172.0" prefHeight="396.0" prefWidth="832.0">
+            <content>
+               <VBox fx:id="grandVbox" prefHeight="394.0" prefWidth="830.0">
+                  <children>
+                     <HBox fx:id="boxh" prefHeight="190.0" prefWidth="830.0" />
+                  </children>
+               </VBox>
+            </content>
+         </ScrollPane>
+         <TextField layoutX="128.0" layoutY="83.0" prefHeight="35.0" prefWidth="254.0" promptText="Search" style="-fx-background-radius: 30;" />
+         <Button layoutX="389.0" layoutY="81.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="23.0" style="-fx-background-radius: 40;">
+            <graphic>
+               <ImageView fitHeight="29.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@img/rechercher-un-profil.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+         <ComboBox fx:id="comboSort" layoutX="540.0" layoutY="86.0" prefHeight="26.0" prefWidth="195.0" promptText="Sort By" />
+         <Button fx:id="pdf" layoutX="883.0" layoutY="74.0" mnemonicParsing="false" onAction="#exportPdf" prefHeight="40.0" prefWidth="39.0" style="-fx-background-color: transparent;">
+            <graphic>
+               <ImageView fitHeight="33.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@img/pdf.png" />
+                  </image>
+               </ImageView>
+            </graphic>
+         </Button>
+        </AnchorPane>
+         <ImageView fitHeight="228.0" fitWidth="309.0" layoutX="-55.0" layoutY="-44.0" pickOnBounds="true" preserveRatio="true" style="-fx-margin: 10px;">
+             <image>
+                 <Image url="@img/475024986_3052058898283782_7784334910321707512_n-removebg-preview_(1).png" />
+             </image>
+         </ImageView>
+      <HBox layoutX="973.0" layoutY="3.0" prefHeight="71.0" prefWidth="207.0">
+         <children>
+            <Label prefHeight="34.0" prefWidth="42.0" text="Hello">
+               <HBox.margin>
+                  <Insets top="30.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="labelNomUser" prefHeight="37.0" prefWidth="109.0">
+               <HBox.margin>
+                  <Insets top="30.0" />
+               </HBox.margin>
+            </Label>
+            <ImageView fx:id="imgUser" fitHeight="53.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="10.0" top="10.0" />
+               </HBox.margin>
+            </ImageView>
+         </children>
+      </HBox>
+
+    </children>
+</AnchorPane>

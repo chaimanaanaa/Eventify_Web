@@ -1,0 +1,32 @@
+/* Style des boutons de Home.fxml */
+.Home-button {
+    -fx-background-color: transparent;
+    -fx-font-size: 14px;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 10px;
+    -fx-border-color: transparent;
+    -fx-border-width: 0 0 2px 0; /* Bordure en bas uniquement */
+    -fx-border-style: solid;
+    -fx-border-insets: 10px;
+    -fx-border-radius: 0;
+    -fx-transition: all 0.3s ease-in-out; /* Transition sur tous les changements */
+}
+
+.Home-button:hover {
+    -fx-border-color: #CF97FF; /* Couleur du soulignement au survol */
+    -fx-font-weight: bold; /* Rendre gras lors du survol */
+    -fx-translate-y: -4px; /* Déplacement vers le haut de 4px */
+}
+
+/***/
+
+
+.Button-image .imageview {
+    -fx-transition: all 0.3s ease-in-out; /* Transition fluide */
+}
+
+.Button-image:hover .imageview {
+    -fx-scale-x: 1.2; /* Agrandir l'image de 20% sur l'axe X */
+    -fx-scale-y: 1.2; /* Agrandir l'image de 20% sur l'axe Y */
+}

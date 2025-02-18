@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+
+<AnchorPane prefHeight="795.0" prefWidth="1193.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.DetailsUser">
+   <children>
+
+      <ImageView fitHeight="228.0" fitWidth="309.0" layoutX="-35.0" layoutY="-48.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/475024986_3052058898283782_7784334910321707512_n-removebg-preview_(1).png" />
+         </image>
+      </ImageView>
+      <!-- Sidebar Menu -->
+      <VBox layoutY="95.2" prefHeight="755.0" prefWidth="232.0" style="-fx-background-color: #F4F4F9;" AnchorPane.topAnchor="95.0">
+         <VBox prefHeight="721.0" prefWidth="262.0" spacing="15" style="-fx-padding: 30;">
+            <Button fx:id="dashboard" onAction="#goToDashboard" prefHeight="40.0" prefWidth="219.0" stylesheets="@css/button.css" text="Dashboard" textFill="WHITE" />
+            <Button fx:id="staff" onAction="#goToStaff" prefHeight="40.0" prefWidth="203.0" stylesheets="@css/button.css" text="Staff">
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/silhouette-dutilisateurs-multiples.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="events" onAction="#goToEvents" prefHeight="40.0" prefWidth="203.0" stylesheets="@css/button.css" text="Events">
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/time-and-calendar.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="logistics" onAction="#goToLogistics" prefHeight="40.0" prefWidth="205.0" stylesheets="@css/button.css" text="Logistics">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/logistics.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="complaints" onAction="#goToComplaints" prefHeight="40.0" prefWidth="202.0" stylesheets="@css/button.css" text="Complaints">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/bloc-notes.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="forum" onAction="#goToForum" prefHeight="40.0" prefWidth="205.0" stylesheets="@css/button.css" text="Forums">
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/discussion.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="organizers" onAction="#goToOrganizers" prefHeight="40.0" prefWidth="202.0" style=" -fx-background-radius: 10px; -fx-font-size: 18px;" stylesheets="@css/button.css" text="Organizers" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/employees.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="offers" onAction="#goToOffers" prefHeight="40.0" prefWidth="216.0" stylesheets="@css/button.css" text="Offers">
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/logistics-delivery.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Line endX="100.0" startX="-100.0" />
+            <Button fx:id="Account" onAction="#goToAccount" prefHeight="40.0" prefWidth="208.0" stylesheets="@css/button.css" text="Account">
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/utilisateur.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="logout" onAction="#logout" prefHeight="40.0" prefWidth="202.0" stylesheets="@css/button.css" text="Logout">
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/se-deconnecter.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <VBox.margin>
+               <Insets top="50.0" />
+            </VBox.margin>
+         </VBox>
+      </VBox>
+
+      <!-- Main Dashboard Area -->
+      <ScrollPane layoutX="335.0" layoutY="104.0" prefHeight="706.0" prefWidth="653.0" style="-fx-background-radius: 40px;">
+         <VBox fx:id="cardContainer" prefHeight="702.0" prefWidth="639.0" spacing="20" style="-fx-background-color: #FFFFFF; -fx-border-radius: 40px; -fx-padding: 10; -fx-background-color: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 4); -fx-border-color: #CF97FF;">
+            <Button fx:id="backk" mnemonicParsing="false" onAction="#backToShowUsers" prefHeight="47.0" prefWidth="36.0" style="-fx-background-color: transparent;">
+               <graphic>
+                  <ImageView fx:id="back" fitHeight="39.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/fleche.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <!-- Organizer Card Template -->
+            <VBox fx:id="userCard" prefHeight="680.0" prefWidth="494.0" spacing="10" style="-fx-background-color: #FFFFFF; -fx-border-radius: 10px; -fx-padding: 10; -fx-background-color: transparent;" styleClass="organizer-card">
+
+               <!-- Organizer Image -->
+               <ImageView fx:id="img" fitHeight="284.0" fitWidth="227.0" preserveRatio="true" style="-fx-border-radius: 10px;">
+                  <VBox.margin>
+                     <Insets left="100.0" top="50.0" />
+                  </VBox.margin></ImageView>
+               <HBox prefHeight="27.0" prefWidth="434.0">
+                  <children>
+                     <Label prefHeight="30.0" prefWidth="92.0" text="First Name:" />
+
+                     <!-- Organizer Information -->
+                     <Label fx:id="firstName" prefHeight="27.0" prefWidth="216.0" style="-fx-font-size: 18px; -fx-font-weight: bold;">
+                        <padding>
+                           <Insets left="50.0" />
+                        </padding>
+                     </Label>
+                  </children>
+                  <padding>
+                     <Insets left="50.0" />
+                  </padding>
+                  <VBox.margin>
+                     <Insets top="10.0" />
+                  </VBox.margin>
+               </HBox>
+               <HBox prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                     <Label prefHeight="32.0" prefWidth="146.0" text="Last Name:">
+                        <padding>
+                           <Insets left="50.0" />
+                        </padding>
+                     </Label>
+                     <Label fx:id="lastName" prefHeight="26.0" prefWidth="198.0" style="-fx-font-size: 16px;" />
+                  </children>
+               </HBox>
+               <HBox prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                     <Label prefHeight="32.0" prefWidth="154.0" text="Email">
+                        <padding>
+                           <Insets left="50.0" />
+                        </padding>
+                     </Label>
+                     <Label fx:id="Email" prefHeight="26.0" prefWidth="198.0" style="-fx-font-size: 14px;" />
+                  </children>
+               </HBox>
+               <HBox prefHeight="46.0" prefWidth="757.0">
+                  <children>
+                     <Label prefHeight="26.0" prefWidth="130.0" text="Phone Number">
+                        <padding>
+                           <Insets left="45.0" />
+                        </padding>
+                     </Label>
+                     <Label fx:id="num" prefHeight="20.0" prefWidth="207.0" style="-fx-font-size: 14px;">
+                        <HBox.margin>
+                           <Insets left="50.0" />
+                        </HBox.margin>
+                     </Label>
+                  </children>
+               </HBox>
+               <HBox prefHeight="89.0" prefWidth="726.0">
+                  <children>
+                     <Label prefHeight="31.0" prefWidth="155.0" text="Cin:">
+                        <padding>
+                           <Insets left="50.0" />
+                        </padding>
+                     </Label>
+                     <Label fx:id="cin" prefHeight="26.0" prefWidth="198.0" style="-fx-font-size: 14px;" />
+                  </children>
+               </HBox>
+               <HBox prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                     <Label prefHeight="34.0" prefWidth="164.0" text="Date Of Birth">
+                        <padding>
+                           <Insets left="50.0" />
+                        </padding>
+                     </Label>
+                     <Label fx:id="date" prefHeight="26.0" prefWidth="198.0" style="-fx-font-size: 14px;" />
+                  </children>
+               </HBox>
+               <HBox prefHeight="100.0" prefWidth="200.0">
+                  <children>
+                     <Label prefHeight="33.0" prefWidth="162.0" text="Gender:">
+                        <padding>
+                           <Insets left="50.0" />
+                        </padding>
+                     </Label>
+                     <Label fx:id="gender" prefHeight="26.0" prefWidth="198.0" />
+                  </children>
+               </HBox>
+
+               <!-- Buttons for Modify and Delete -->
+               <HBox alignment="CENTER" prefHeight="24.0" prefWidth="536.0" spacing="10">
+                  <Button fx:id="delete" onAction="#deleteUser" style="-fx-background-color: transparent; -fx-border-width: 0;" styleClass="">
+                     <graphic>
+                        <ImageView fx:id="imgUpdate" fitHeight="50" fitWidth="50" preserveRatio="true">
+                           <image>
+                              <Image url="@img/supprimer-un-utilisateur.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <HBox.margin>
+                        <Insets left="-100.0" />
+                     </HBox.margin>
+                  </Button>
+                  <VBox.margin>
+                     <Insets top="20.0" />
+                  </VBox.margin>
+               </HBox>
+               <VBox.margin>
+                  <Insets left="100.0" />
+               </VBox.margin>
+
+            </VBox>
+            <padding>
+               <Insets left="300.0" top="190.0" />
+            </padding>
+         </VBox>
+
+
+
+      </ScrollPane>
+      <HBox layoutX="893.0" layoutY="-3.0" prefHeight="107.0" prefWidth="286.0">
+         <children>
+            <Label prefHeight="26.0" prefWidth="39.0" text="Hello">
+               <HBox.margin>
+                  <Insets top="30.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="labelNomUser" prefHeight="26.0" prefWidth="122.0">
+               <HBox.margin>
+                  <Insets top="30.0" />
+               </HBox.margin>
+            </Label>
+            <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="54.0" style="-fx-background-radius: 50;">
+               <HBox.margin>
+                  <Insets left="40.0" top="10.0" />
+               </HBox.margin>
+               <graphic>
+                  <ImageView fx:id="imgUser" fitHeight="46.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

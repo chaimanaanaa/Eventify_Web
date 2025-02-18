@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="670.0" prefWidth="1009.0" stylesheets="@css/Home.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.HomeController">
+
+    <children>
+
+        <!-- Barre de navigation -->
+        <HBox layoutX="0.0" layoutY="0.0" prefHeight="80.0" prefWidth="1200.0" AnchorPane.leftAnchor="200.0">
+            <children>
+                <HBox layoutX="200.0" layoutY="10.0" prefHeight="80.0" prefWidth="1035.0" spacing="30.0" style="-fx-padding: 15px;">
+                    <children>
+                        <Button fx:id="home" mnemonicParsing="false" onAction="#goToHome" style="-fx-background-color: transparent; -fx-font-size: 14px; -fx-font-weight: bold;-fx-border-width: 0 0 2px 0; -fx-border-style: solid; -fx-border-color: #CF97FF; -fx-border-insets: 10px; -fx-border-radius: 0;" text="Home">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="events" mnemonicParsing="false" onAction="#goToEvents" styleClass="Home-button" text="Events">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="reservation" mnemonicParsing="false" onAction="#goToReservations" styleClass="Home-button" text="Reservations">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="forum" mnemonicParsing="false" onAction="#goToForums" styleClass="Home-button" text="Forums">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="complaints" mnemonicParsing="false" onAction="#goToComplaints" styleClass="Home-button" text="Complaints">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="logistics" mnemonicParsing="false" onAction="#goToLogistics" styleClass="Home-button" text="Logistics">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                        <Button fx:id="organizer" mnemonicParsing="false" onAction="#goToOrganizers" styleClass="Home-button" text="Organizers">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Button>
+                    </children>
+                </HBox>
+                <HBox layoutX="900.0" layoutY="10.0" spacing="20.0" style="-fx-padding: 15px;">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#profile" prefHeight="50.0" prefWidth="82.0" style="-fx-background-color: transparent;" styleClass="Button-image">
+                            <graphic>
+                                <ImageView fitHeight="32.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true" styleClass="imageview">
+                                    <image>
+                                        <Image url="@img/utilisateur (1).png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#panier" prefHeight="60.0" prefWidth="83.0" style="-fx-background-color: transparent" styleClass="Button-image">
+                            <graphic>
+                                <ImageView fx:id="cartImg" fitHeight="32.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true" styleClass="imageview">
+                                    <image>
+                                        <Image url="@img/panier.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </children>
+                </HBox>
+            </children>
+        </HBox>
+        <VBox fx:id="vboxHome" layoutY="80.0" prefHeight="563.0" prefWidth="1364.0" style="-fx-background-image: url('/img/474082661_1721209051811638_8482980884134760980_n.jpg');              -fx-background-size: cover;              -fx-background-position: center center;" AnchorPane.topAnchor="100.0">
+            <children>
+                <ImageView fitHeight="943.0" fitWidth="1495.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@img/479691982_511439215322900_2595267402218371023_n.png" />
+                    </image>
+                </ImageView>
+                <VBox layoutX="300.0" layoutY="200.0" prefHeight="129.0" prefWidth="1200.0" spacing="20.0" style="-fx-alignment: center;">
+                    <children>
+                        <Label style="-fx-font-size: 40px; -fx-text-fill: white; -fx-font-weight: bold;" text="Planify your event with us" />
+                        <Label style="-fx-font-size: 20px; -fx-text-fill: white;" text="Our goal is perfection" />
+                        <Button style="-fx-background-color: #CF97FF; -fx-text-fill: white; -fx-font-size: 16px;" text="Personalize your event" />
+                    </children>
+                    <VBox.margin>
+                        <Insets top="-200.0" />
+                    </VBox.margin>
+                    <padding>
+                        <Insets top="-800.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </VBox>
+        <!-- Statistiques -->
+        <HBox layoutY="1050.0" prefHeight="80.0" prefWidth="1200.0" spacing="50.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="14.0">
+            <children>
+                <VBox spacing="5.0" style="-fx-alignment: center;">
+                    <Label style="-fx-font-size: 24px; -fx-text-fill: #CF97FF; -fx-font-weight: bold;" text="350+" />
+                    <Label style="-fx-font-size: 14px; -fx-text-fill: #000000;" text="Events" />
+                </VBox>
+                <VBox spacing="5.0" style="-fx-alignment: center;">
+                    <Label style="-fx-font-size: 24px; -fx-text-fill: #CF97FF; -fx-font-weight: bold;" text="150+" />
+                    <Label style="-fx-font-size: 14px; -fx-text-fill: #000000;" text="Decorations" />
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                </VBox>
+                <VBox spacing="5.0" style="-fx-alignment: center;">
+                    <Label style="-fx-font-size: 24px; -fx-text-fill: #CF97FF; -fx-font-weight: bold;" text="8+" />
+                    <Label style="-fx-font-size: 14px; -fx-text-fill: #000000;" text="Years of experience" />
+                </VBox>
+                <VBox spacing="5.0" style="-fx-alignment: center;">
+                    <Label style="-fx-font-size: 24px; -fx-text-fill: #CF97FF; -fx-font-weight: bold;" text="15K+" />
+                    <Label style="-fx-font-size: 14px; -fx-text-fill: #000000;" text="Reservations" />
+                </VBox>
+            </children>
+        </HBox>
+        <ImageView fitHeight="169.0" fitWidth="291.0" layoutX="-40.0" layoutY="-59.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@img/475024986_3052058898283782_7784334910321707512_n-removebg-preview_(1).png" />
+            </image>
+        </ImageView>
+    </children>
+</AnchorPane>

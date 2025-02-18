@@ -1,0 +1,15 @@
+/* alert-style.css */
+.dialog-pane {
+    -fx-background-color: #F9E6FF;  /* Fond rose pâle */
+    -fx-border-color: #D28BFF;      /* Bordure rose clair */
+    -fx-border-width: 2px;
+}
+
+.button {
+    -fx-background-color: #D28BFF;  /* Bouton rose clair */
+    -fx-text-fill: white;
+}
+
+.button:hover {
+    -fx-background-color: #CF97FF;  /* Survol du bouton rose */
+}
