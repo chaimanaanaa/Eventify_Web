@@ -16,13 +16,17 @@ use libphonenumber\PhoneNumberFormat;
 use libphonenumber\NumberParseException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+
+
 final class SignupController extends AbstractController
 {
     /**
      * Afficher le formulaire de signup et ajouter un utilisateur
      */
-    #[Route('/signup', name: 'app_signup', methods: ['GET', 'POST'])]
-    public function signup(Request $request, EntityManagerInterface $entityManager): Response
+   
+   #[Route('/signup', name: 'app_signup', methods: ['GET', 'POST'])]
+    public function signup(Request $request, EntityManagerInterface $entityManager, HttpClientInterface $httpClient): Response
     {
         if ($request->isMethod('POST')) {
             // Récupérer les données du formulaire
@@ -35,7 +39,23 @@ final class SignupController extends AbstractController
             $role = $request->request->get('role');
             $email = $request->request->get('email');
             $password = $request->request->get('password');
-    
+            $recaptchaResponse = $request->request->get('g-recaptcha-response'); // Récupérer la réponse reCAPTCHA
+
+        // Vérifier la réponse reCAPTCHA
+        $secretKey = $_ENV['GOOGLE_RECAPTCHA_SECRET']; // Récupérer la clé secrète depuis .env
+
+        $response = $httpClient->request('POST', 'https://www.google.com/recaptcha/api/siteverify', [
+            'body' => [
+                'secret' => $secretKey,
+                'response' => $recaptchaResponse,
+            ],
+        ]);
+
+        $recaptchaData = $response->toArray();
+        if (!$recaptchaData['success']) {
+            $this->addFlash('error', 'reCAPTCHA verification failed. Please try again.');
+            return $this->redirectToRoute('app_signup');
+        }
             // Créer un nouvel utilisateur
             $user = new User();
             $user->setFirstName($firstName);
@@ -66,41 +86,43 @@ final class SignupController extends AbstractController
             $user->setMdp($hashedPassword);
              // Gérer l'upload de l'image
       
-        /** @var UploadedFile|null $profileImage */
-        $profileImage = $request->files->get('fileInput');
-        $capturedPhoto = $request->request->get('capturedPhoto');
-       // dd($request->request->all());
-        if ($capturedPhoto) {
-            // Traiter la photo capturée (base64)
-            $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/public/assets';
-            $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $capturedPhoto));
-            $newFilename = 'captured-' . uniqid() . '.png';
-        
-            try {
-                file_put_contents($uploadsDirectory . '/' . $newFilename, $imageData);
-                $user->setImg('assets/' . $newFilename);
-            } catch (\Exception $e) {
-                $this->addFlash('error', 'Failed to save the captured photo.');
-                return $this->redirectToRoute('app_signup');
-            }
-        } elseif ($profileImage) {
-            // Traiter l'image téléchargée
-            $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/public/assets';
-            $originalFilename = pathinfo($profileImage->getClientOriginalName(), PATHINFO_FILENAME);
-            $safeFilename = preg_replace('/[^a-zA-Z0-9_-]/', '_', $originalFilename);
-            $newFilename = $safeFilename . '-' . uniqid() . '.' . $profileImage->guessExtension();
-        
-            try {
-                $profileImage->move($uploadsDirectory, $newFilename);
-                $user->setImg('assets/' . $newFilename);
-            } catch (FileException $e) {
-                $this->addFlash('error', 'Failed to upload the image.');
-                return $this->redirectToRoute('app_signup');
-            }
-        } else {
-            $this->addFlash('error', 'No image provided.');
-            return $this->redirectToRoute('app_signup');
-        }
+          
+             /** @var UploadedFile|null $profileImage */
+             $profileImage = $request->files->get('fileInput');
+             $capturedPhoto = $request->request->get('capturedPhoto');
+             
+             // Prioriser l'image téléchargée depuis la galerie
+             if ($profileImage) {
+                 // Traiter l'image téléchargée
+                 $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/public/assets';
+                 $originalFilename = pathinfo($profileImage->getClientOriginalName(), PATHINFO_FILENAME);
+                 $safeFilename = preg_replace('/[^a-zA-Z0-9_-]/', '_', $originalFilename);
+                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $profileImage->guessExtension();
+             
+                 try {
+                     $profileImage->move($uploadsDirectory, $newFilename);
+                     $user->setImg('assets/' . $newFilename);
+                 } catch (FileException $e) {
+                     $this->addFlash('error', 'Failed to upload the image.');
+                     return $this->redirectToRoute('app_signup');
+                 }
+             } elseif ($capturedPhoto) {
+                 // Traiter la photo capturée (base64)
+                 $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/public/assets';
+                 $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $capturedPhoto));
+                 $newFilename = 'captured-' . uniqid() . '.png';
+             
+                 try {
+                     file_put_contents($uploadsDirectory . '/' . $newFilename, $imageData);
+                     $user->setImg('assets/' . $newFilename);
+                 } catch (\Exception $e) {
+                     $this->addFlash('error', 'Failed to save the captured photo.');
+                     return $this->redirectToRoute('app_signup');
+                 }
+             } else {
+                 $this->addFlash('error', 'No image provided.');
+                 return $this->redirectToRoute('app_signup');
+             }
             // Sauvegarder l'utilisateur dans la base de données
             $entityManager->persist($user);
             $entityManager->flush();
@@ -116,11 +138,13 @@ final class SignupController extends AbstractController
              $this->addFlash('success', 'Your account has been successfully created!');
         }
     
-        return $this->render('signup/index.html.twig');
+        return $this->render('signup/index.html.twig', [
+            'recaptcha_site_key' => $_ENV['GOOGLE_RECAPTCHA_SITE_KEY'], // Passer la clé reCAPTCHA
+        ]);
     }
 
-    /**
-     * Afficher la liste des utilisateurs
+    
+     /* Afficher la liste des utilisateurs
      */
     #[Route('/users', name: 'app_user_index', methods: ['GET'])]
     public function getUsers(EntityManagerInterface $entityManager): Response
@@ -201,7 +225,8 @@ final class SignupController extends AbstractController
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
 
-//ajout de code pays pour le num
+
+    //ajout de code pays pour le num
 
     #[Route('/validate-phone', name: 'validate_phone', methods: ['POST'])]
     public function validatePhone(Request $request): JsonResponse

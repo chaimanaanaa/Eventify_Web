@@ -107,7 +107,7 @@ public function staff(EntityManagerInterface $entityManager): Response
 
   
 
- #[Route('/logout', name: 'app_logoutBack', methods: ['GET'])]
+ #[Route('/logoutBack', name: 'app_logoutBack', methods: ['GET'])]
 public function logoutBack(SessionInterface $session): Response
 {
     // Supprimer toutes les données de session

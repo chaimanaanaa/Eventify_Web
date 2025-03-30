@@ -132,6 +132,9 @@ input:focus, select:focus {
     width: 200px;
     margin-left: 35px;
 }
+.g-recaptcha {
+    margin: 20px 0;
+}
 /* Positionne le wrapper pour l'input et le bouton */
 .input-wrapper {
     position: relative;

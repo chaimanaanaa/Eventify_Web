@@ -117,6 +117,12 @@ final class LoginController extends AbstractController
 public function login(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
 {
     $alert = null;
+    //si remember me activé les champs sont prés remplies
+    if ($request->cookies->has('REMEMBER_ME')) {
+        $rememberMeData = json_decode($request->cookies->get('REMEMBER_ME'), true);
+        $email = $rememberMeData['email'] ?? '';
+        $password = $rememberMeData['password'] ?? '';
+    }
 
     // Récupérer l'email depuis la query string (GET) ou laisser vide par défaut
     $email = $request->query->get('email', '');
@@ -124,6 +130,7 @@ public function login(Request $request, EntityManagerInterface $entityManager, S
     if ($request->isMethod('POST')) {
         $email = $request->request->get('member-login-number');
         $password = $request->request->get('member-login-password');
+        $rememberMe = $request->request->get('_remember_me'); // Récupérer la valeur de la case "Remember Me"
 
         // Rechercher l'utilisateur par email
         $user = $entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
@@ -177,6 +184,23 @@ public function login(Request $request, EntityManagerInterface $entityManager, S
                 'alert' => $alert,
                 'email' => $email, // Pré-remplir le champ email avec la valeur saisie
             ]);
+        }
+        // Ajouter un cookie "Remember Me" si la case est cochée
+        if ($rememberMe) {
+            $response = $this->redirectToRoute('app_home'); // Redirection après connexion
+            $cookie = new \Symfony\Component\HttpFoundation\Cookie(
+                'REMEMBER_ME', // Nom du cookie
+                json_encode(['email' => $email, 'password' => $password]), // Contenu du cookie
+                time() + (7 * 24 * 60 * 60), // Expiration : 7 jours
+                '/', // Chemin
+                null, // Domaine
+                false, // HTTPS uniquement
+                true, // HTTPOnly
+                false, // Raw
+                'lax' // SameSite
+            );
+            $response->headers->setCookie($cookie);
+            return $response;
         }
 
         // Ajouter un message de succès
