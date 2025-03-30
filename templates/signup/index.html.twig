@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Started Now</title>
+    
+     <!-- CSS FILES -->    
+
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+
+     <link href="css/bootstrap.min.css" rel="stylesheet">
+  
+
+     <link href="css/bootstrap-icons.css" rel="stylesheet">
+      
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+     <link href="css/templatemo-tiya-golf-club.css" rel="stylesheet">
+     <link rel="stylesheet" href="css/signup.css">  
+
+      <style>
+        /* Style général du calendrier */
+.flatpickr-calendar {
+    background-color: #e0d6cf !important; /* Couleur de fond */
+    border: 1px solid #ccc !important; /* Bordure */
+    border-radius: 10px !important; /* Coins arrondis */
+    font-family: 'DM Sans', sans-serif; /* Police personnalisée */
+}
+
+/* Style pour les jours */
+.flatpickr-day {
+    color: #000 !important; /* Couleur du texte */
+    border-radius: 5px !important; /* Coins arrondis */
+}
+
+/* Style pour le jour actuel */
+.flatpickr-day.today {
+    background-color: #844062 !important; /* Couleur de fond pour la date actuelle */
+    color: #fff !important; /* Couleur du texte */
+}
+
+/* Style pour les jours sélectionnés */
+.flatpickr-day.selected {
+    background-color: #844062 !important; /* Couleur de fond pour la date sélectionnée */
+    color: #fff !important; /* Couleur du texte */
+}
+
+/* Style pour les jours désactivés */
+.flatpickr-day.disabled {
+    color: #ccc !important; /* Couleur des jours désactivés */
+    cursor: not-allowed !important; /* Curseur désactivé */
+}
+      </style>       
+
+</head>
+<body>
+
+  
+   
+    <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 1440 320"><path fill="#ADC29B" fill-opacity="1" d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,0L1405.7,0C1371.4,0,1303,0,1234,0C1165.7,0,1097,0,1029,0C960,0,891,0,823,0C754.3,0,686,0,617,0C548.6,0,480,0,411,0C342.9,0,274,0,206,0C137.1,0,69,0,34,0L0,0Z"></path></svg>
+           
+        <div class="container">
+        <!-- Section gauche : Image de fond -->
+
+        <div >
+            <img src="images/11.jpg" alt="Background Image" class="background-image" style="width: 100%; height: 100%; margin-top: -150px;">
+        </div>
+
+        <a href="{{ path('app_home') }}" class="postionHome">
+            <img 
+                src="images/home3.png" 
+                alt="Home" 
+                style="
+                    z-index: 9999; 
+                    position: absolute; 
+                    top: 50px; 
+                    left: 30px; 
+                    width: 30px; 
+                    height: 30px;
+                    transition: transform 0.3s ease; /* Transition fluide */
+                " 
+                onmouseover="this.style.transform='scale(1.2)';" 
+                onmouseout="this.style.transform='scale(1)';"
+            >
+        </a>
+
+       
+
+        <!-- Section centrale : Formulaire -->
+        <div class="center-section" style="margin-top: -230px;">
+            <h1 class="main-title" style="font-size:45px">Get Started Now</h1>
+            <p class="subtitle">You need an account to continue</p>
+
+            <form id="signup-form" class="signup-form" method="post" action="{{ path('app_signup') }}" enctype="multipart/form-data" autocomplete="off">
+                <!-- Ligne 1 : First Name & Last Name -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" name="firstName" placeholder="First Name" >
+                        <span class="error-message" id="firstNameError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" name="lastName" placeholder="Last Name" >
+                        <span class="error-message" id="lastNameError"></span>
+                    </div>
+                </div>
+
+                <!-- Ligne 2 : Date of Birth & CIN -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="dateOfBirth">Date of birth</label>
+                        <input type="date" id="dateOfBirth" name="dateOfBirth" onchange="calculateAge()">
+                        <span class="error-message" id="birthDateError"></span>
+                        <small id="ageMessage" style="color:  #844062;"></small>
+                    </div>
+                    <div class="form-group">
+                        <label for="cin">CIN</label>
+                        <input type="text" id="cin" name="cin" placeholder="CIN" >
+                        <span class="error-message" id="cinError"></span>
+                    </div>
+                </div>
+
+                <!-- Ligne 3 : Phone Number & Gender -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phoneNumber">Phone number</label>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" >
+                        <span class="error-message" id="phoneNumberError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender" >
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                        <span class="error-message" id="genreError"></span>
+                    </div>
+                </div>
+
+                <!-- Ligne 4 : Role -->
+                <div class="form-row">
+                    <div class="form-group full-width">
+                        <label for="role">Role</label>
+                        <select id="role" name="role" >
+                            <option value="">Select Role</option>
+                            <option value="Client">CLIENT</option>
+                            <option value="Partner">PARTENAIRE</option>
+                        </select>
+                        <span class="error-message" id="roleError"></span>
+                    </div>
+                </div>
+
+                <!-- Ligne 5 : Password & Email -->
+                <div class="form-row">
+                    <div class="form-group password-group">
+                        <label for="password">Password</label>
+                        <a href="#" class="signin-link mdp-link" style="font-size:14px;">Generate Password</a>
+                        <div class="input-wrapper">
+                            <input type="password" id="password" name="password" placeholder="Password" autocomplete="new-password" oninput="checkPasswordStrength()">
+                            <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">
+                                <img id="eye-icon" src="images/oeil (1).png" alt="Toggle Password Visibility">
+                            </button>
+                        </div>
+                        <div class="password-strength">
+                            <div id="passwordStrengthBar" style="height: 10px; width: 100%; margin-top:3px; background-color: #e0e0e0; border-radius: 5px; overflow: hidden;">
+                                <div id="passwordStrengthIndicator" style="height: 100%; width: 0%; background-color: red; transition: width 0.3s;"></div>
+                            </div>
+                            <small id="passwordStrengthText" style="font-size: 14px; color: #6c757d;">Weak</small>
+                        </div>
+                        <span class="error-message" id="passwordError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Email"  autocomplete="new-email">
+                        <span class="error-message" id="emailError"></span>
+                    </div>
+                </div>
+               
+                <!-- Bouton Signup -->
+                <button type="submit" class="signup-btn" onclick="return validateForm()">Signup</button>
+                <button type="submit" class="google-btn" style="width:300px; height:50px; margin-top:20px;" >
+                    <img src="images/google.png" alt="Google Icon" style="width: 20px; height: 20px; margin-right: 30px;">
+                    Continue With Google</button>
+                <!-- Lien Sign In -->
+                <p class="signin-text">
+                    Already have an account? 
+                    <a href="#" class="signin-link" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample">Sign In</a>
+                </p>
+                <!-- Champ caché pour la photo capturé a traver cam -->
+                <input type="hidden" id="capturedPhoto" name="capturedPhoto">
+                <!-- Champ caché pour sélectionner un fichier -->
+                <input type="file" id="fileInput" name="fileInput" accept="image/*" style="display: none;" onchange="displaySelectedImage(event)">
+            </form>
+            
+        </div>
+        <!--partie pour login-->
+        <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasExampleLabel">Welcome back!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <p>Enter your Credentials to access your account</p>
+            <div class="offcanvas-body d-flex flex-column">
+                <form id="login-form" class="custom-form member-login-form" action="{{ path('app_login') }}" method="post" role="form">
+                    <div class="member-login-form-body">
+                        <div class="mb-4">
+                            <label class="form-label mb-2" for="member-login-number">Email</label>
+                            <input type="text" name="member-login-number" id="member-login-number" class="form-control" placeholder="name@gmail.com" required autocomplete="new-email">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label mb-2" for="member-login-password">Password</label>
+                            
+                            <div class="input-wrapper">
+                                <input type="password" name="member-login-password" id="member-login-password"  class="form-control" placeholder="Password" required autocomplete="new-password">
+                                <button type="button" class="toggle-password" onclick="togglePasswordVisibilityLogIn()">
+                                    <img id="eye-icon2" src="images/oeil (1).png" alt="Toggle Password Visibility login">
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-check mb-4">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">Remember me</label>
+                        </div>
+                        <div class="col-lg-5 col-md-7 col-8 mx-auto">
+                            <button type="submit" class="form-control">Login</button>
+                        </div>
+                        <div class="text-center my-4">
+                            <a href="#" class="forgot-password-link" data-bs-toggle="offcanvas" data-bs-target="#forgotPasswordOffcanvas">Forgotten password?</a>
+                        </div>
+                    </div>
+                </form>
+               
+                <div class="mt-auto mb-5">
+                    <p class="offcanvas-header p-login">
+                        <strong class="text-black me-3">Don't have an account?</strong>
+                        <a href="{{path('app_signup')}}" class="contact-link">Create Account</a>
+                    </p>
+                </div>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ADC29B" fill-opacity="1" d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path></svg>
+        </div>
+
+
+        <!-- partie pour forgot password-->
+
+        <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="forgotPasswordOffcanvas" aria-labelledby="forgotPasswordOffcanvasLabel">
+            <div class="offcanvas-header">
+                <!-- Flèche de retour -->
+                <button type="button" class="btn btn-link text-decoration-none" onclick="switchToLoginOffcanvas()" aria-label="Back">
+                    <img src="images/fleche.png" alt="Back" style="width: 24px; height: 24px;">
+                </button>
+                <h5 class="offcanvas-title ms-2" id="forgotPasswordOffcanvasLabel">Forgot Password!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <p style="margin-top: 30px;">Enter your email to reset your password</p>
+            <div class="offcanvas-body d-flex flex-column" style="margin-top: 60px;">
+                <form id="forgot-password-form" class="custom-form" action="{{ path('app_forgot_password') }}" method="post" role="form">
+                    <div class="mb-4">
+                        <label class="form-label mb-2" for="forgot-password-email">Email</label>
+                        <input type="email" name="forgot-password-email" id="forgot-password-email" class="form-control" placeholder="name@gmail.com" required>
+                    </div>
+                    <div class="col-lg-5 col-md-7 col-8 mx-auto">
+                        <button type="submit" class="form-control">Send</button>
+                    </div>
+                   
+                </form>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ADC29B" fill-opacity="1" d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path></svg>
+        </div>
+
+
+        <!-- Section droite : Image sélectionnée -->
+        <div class="right-section" style="margin-top: -330px;">
+            <!--frame pour le camera-->
+            <div class="camera-container">
+                <video id="camera-stream" autoplay style="width: 100%; height: auto; display: none;"></video>
+                <canvas id="photo-canvas" style="display: none;"></canvas>
+            </div>
+            
+            <div class="image-frame">
+                <!-- L'image sélectionnée sera affichée ici -->
+            </div>
+            
+           
+            <div class="image-buttons">
+                <button type="button" class="gallery-btn" onclick="openGallery()">
+                    <img src="images/WhatsApp_Image_2025-02-21_at_22.33.28-removebg-preview.png" alt="Select from Gallery">
+                </button>
+                <span>or</span>
+                <button type="button" class="camera-btn">
+                    <img src="images/appareil-photo.png" alt="Take Photo">
+                </button>
+               
+              
+            </div>
+        </div>
+        <!--les alerte envoyées par flashes-->
+        {% for message in app.flashes('error') %}
+    <div class="alert-container">
+        <div class="alert alert-danger">
+            <span>{{ message }}</span>
+            <button class="close-btn" onclick="this.parentElement.style.display='none';">×</button>
+        </div>
+    </div>
+{% endfor %}
+{% for message in app.flashes('success') %}
+    <div class="alert-container">
+        <div class="alert alert-success">
+            <span>{{ message }}</span>
+            <button class="close-btn" onclick="this.parentElement.style.display='none';">×</button>
+        </div>
+    </div>
+{% endfor %}
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#ADC29B" fill-opacity="1" d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path></svg>
+   
+    <script>
+        function openGallery() {
+            // Ouvre la boîte de dialogue de sélection de fichiers
+            document.getElementById('fileInput').click();
+        }
+        function displaySelectedImage(event) {
+            const file = event.target.files[0]; // Récupérer le fichier sélectionné
+            const imageFrame = document.querySelector('.image-frame'); // Sélectionner le cadre
+        
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    // Afficher l'image dans le cadre
+                    imageFrame.innerHTML = `<img src="${e.target.result}" alt="Selected Image" style="width: 100%; height: auto; border-radius: 10px;">`;
+                };
+                reader.readAsDataURL(file); // Lire le fichier comme une URL de données
+            } else {
+                imageFrame.innerHTML = ''; // Effacer le cadre si aucun fichier n'est sélectionné
+            }
+        }
+    </script>
+    <script>
+        function closeAlert() {
+            const alert = event.target.parentElement;
+            alert.style.display = 'none';
+        }
+    </script>
+    <!--script pour le camera-->
+    <script>
+        document.querySelector('.camera-btn').addEventListener('click', function () {
+            console.log('Camera button clicked');
+            const video = document.getElementById('camera-stream');
+            const canvas = document.getElementById('photo-canvas');
+            const capturedPhotoInput = document.getElementById('capturedPhoto');
+            const imageFrame = document.querySelector('.image-frame');
+        
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    console.log('Camera access granted');
+                    video.srcObject = stream;
+                    video.style.display = 'block';
+        
+                    setTimeout(function () {
+                        console.log('Capturing photo...');
+                        canvas.width = video.videoWidth;
+                        canvas.height = video.videoHeight;
+        
+                        const context = canvas.getContext('2d');
+                        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        
+                        // Convertir l'image en base64 et la stocker dans le champ caché
+                        const imageData = canvas.toDataURL('image/png');
+                        console.log('Image captured:', imageData);
+                        capturedPhotoInput.value = imageData;
+                        console.log('Captured photo input value:', capturedPhotoInput.value);
+        
+                        // Afficher l'image capturée dans le conteneur
+                        imageFrame.innerHTML = `<img src="${imageData}" alt="Captured Photo" style="width: 100%; height: auto; border-radius: 10px;">`;
+        
+                        // Arrêter la caméra
+                        const tracks = stream.getTracks();
+                        tracks.forEach(track => track.stop());
+        
+                        video.style.display = 'none';
+                    }, 4000);
+                })
+                .catch(function (error) {
+                    console.error('Error accessing the camera:', error);
+                    alert('Unable to access the camera. Please check your permissions.');
+                });
+        });
+    </script>
+   
+    <script>
+        function validateForm() {
+            let isValid = true;
+        
+            // Récupérer les champs du formulaire
+            const firstName = document.getElementById('firstName');
+            const lastName = document.getElementById('lastName');
+            const dateOfBirth = document.getElementById('dateOfBirth');
+            const cin = document.getElementById('cin');
+            const phoneNumber = document.getElementById('phoneNumber');
+            const gender = document.getElementById('gender');
+            const role = document.getElementById('role');
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+        
+            // Récupérer les conteneurs d'erreurs
+            const errorMessages = document.querySelectorAll('.error-message');
+        
+            // Réinitialiser les messages d'erreur
+            errorMessages.forEach(error => error.textContent = '');
+        
+            // Vérifier chaque champ
+            if (!firstName.value.trim()) {
+                document.getElementById('firstNameError').textContent = 'First name is required.';
+                isValid = false;
+            }
+        
+            if (!lastName.value.trim()) {
+                document.getElementById('lastNameError').textContent = 'Last name is required.';
+                isValid = false;
+            }
+        
+            if (!dateOfBirth.value.trim()) {
+                document.getElementById('birthDateError').textContent = 'Date of birth is required.';
+                isValid = false;
+            }
+        
+            if (!cin.value.trim() || cin.value.length !== 8) {
+                document.getElementById('cinError').textContent = 'CIN must be exactly 8 characters long.';
+                isValid = false;
+            }
+        
+            if (!phoneNumber.value.trim()) {
+                document.getElementById('phoneNumberError').textContent = 'Phone number is required.';
+                isValid = false;
+            }
+        
+            if (!gender.value.trim()) {
+                document.getElementById('genreError').textContent = 'Gender is required.';
+                isValid = false;
+            }
+        
+            if (!role.value.trim()) {
+                document.getElementById('roleError').textContent = 'Role is required.';
+                isValid = false;
+            }
+        
+            if (!email.value.trim() || !email.value.includes('@')) {
+                document.getElementById('emailError').textContent = 'A valid email is required.';
+                isValid = false;
+            }
+        
+            if (!password.value.trim() || password.value.length < 8) {
+                document.getElementById('passwordError').textContent = 'Password must be at least 8 characters long.';
+                isValid = false;
+            }
+        
+            return isValid;
+        }
+    </script>
+    <!--script pour le design du calendrier-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            flatpickr("#dateOfBirth", {
+                dateFormat: "Y-m-d",
+                maxDate: "2007-12-31", // Dernière date autorisée
+                defaultDate: "2007-01-01", // Date par défaut
+                onReady: function (selectedDates, dateStr, instance) {
+                    // Appliquer un style personnalisé au conteneur du calendrier
+                    instance.calendarContainer.style.backgroundColor = "#e0d6cf"; // Couleur de fond
+                    instance.calendarContainer.style.color = "#000"; // Couleur du texte
+                },
+                onDayCreate: function (dObj, dStr, fp, dayElem) {
+                    const today = new Date();
+                    const date = new Date(dayElem.dateObj);
+                    if (date.toDateString() === today.toDateString()) {
+                        dayElem.style.backgroundColor = "#844062"; // Couleur de la date actuelle
+                        dayElem.style.color = "#fff"; // Couleur du texte
+                    }
+                }
+            });
+        });
+    </script>
+    <!--script pour désactiver les années aprés 2007-->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const dateOfBirthInput = document.getElementById('dateOfBirth');
+        
+            if (dateOfBirthInput) {
+                const maxDate = `2007-12-31`; // Dernier jour de l'année 2007
+        
+                // Définir la limite max
+                dateOfBirthInput.setAttribute('max', maxDate);
+        
+                // Validation de la date de naissance
+                dateOfBirthInput.addEventListener('input', function () {
+                    const birthDateError = document.getElementById('birthDateError');
+                    const selectedDate = new Date(this.value);
+                    const maxDateObj = new Date(maxDate);
+        
+                    if (!this.value) {
+                        birthDateError.textContent = 'Date of birth is required.';
+                    } else if (selectedDate > maxDateObj) {
+                        birthDateError.textContent = `Date must be in 2007 or earlier.`;
+                    } else {
+                        birthDateError.textContent = ''; // Effacer les erreurs si la date est valide
+                    }
+                });
+            }
+        });
+    </script>
+    <!--script pour calculer l'age-->
+    <script>
+        function calculateAge() {
+            const birthDateInput = document.getElementById('dateOfBirth').value;
+            const ageMessage = document.getElementById('ageMessage');
+    
+            if (birthDateInput) {
+                const birthDate = new Date(birthDateInput);
+                const today = new Date();
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const monthDifference = today.getMonth() - birthDate.getMonth();
+    
+                // Ajuster l'âge si l'anniversaire n'est pas encore passé cette année
+                if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
+                }
+    
+                if (age >= 0) {
+                    ageMessage.textContent = `You are ${age} years old.`;
+                } else {
+                    ageMessage.textContent = "Please enter a valid date of birth.";
+                }
+            } else {
+                ageMessage.textContent = ""; // Effacer le message si aucune date n'est saisie
+            }
+        }
+    </script>
+    <!--script pour ajouter le code pays au numero-->
+    <script>
+        const countryRules = [
+            { code: '+216', prefix: '2', length: 8, country: 'Tunisia' }, // Tunisie
+            { code: '+216', prefix: '5', length: 8, country: 'Tunisia' }, // Tunisie
+            { code: '+216', prefix: '9', length: 8, country: 'Tunisia' }, // Tunisie
+            { code: '+33', prefix: '', length: 9, country: 'France' },    // France
+            { code: '+1', prefix: '', length: 10, country: 'USA/Canada' }, // États-Unis et Canada
+            { code: '+44', prefix: '', length: 10, country: 'UK' },       // Royaume-Uni
+            { code: '+49', prefix: '', length: 10, country: 'Germany' },  // Allemagne
+            { code: '+39', prefix: '', length: 10, country: 'Italy' },    // Italie
+            { code: '+34', prefix: '', length: 9, country: 'Spain' },     // Espagne
+            { code: '+212', prefix: '', length: 9, country: 'Morocco' },  // Maroc
+            { code: '+213', prefix: '', length: 9, country: 'Algeria' },  // Algérie
+            { code: '+20', prefix: '', length: 10, country: 'Egypt' }     // Égypte
+        ];
+    
+        document.getElementById('phoneNumber').addEventListener('blur', function () {
+            const phoneNumberInput = document.getElementById('phoneNumber');
+            const phoneNumberError = document.getElementById('phoneNumberError');
+            let phoneNumber = phoneNumberInput.value.trim();
+    
+            // Vérifier si un code pays est déjà présent
+            if (phoneNumber.startsWith('+')) {
+                phoneNumberError.textContent = ''; // Aucun traitement nécessaire
+                return;
+            }
+    
+            // Ajouter le code pays en fonction des règles
+            let found = false;
+            for (const rule of countryRules) {
+                if (
+                    phoneNumber.startsWith(rule.prefix) &&
+                    phoneNumber.length === rule.length
+                ) {
+                    phoneNumberInput.value = rule.code + phoneNumber;
+                    phoneNumberError.textContent = ''; // Effacer les erreurs
+                    found = true;
+                    break;
+                }
+            }
+    
+            // Si aucun préfixe correspondant n'est trouvé
+            if (!found) {
+                phoneNumberError.textContent = 'Invalid phone number or unsupported region.';
+            }
+        });
+    </script>
+    <!--script pour générer auto un mdp-->
+    <script>
+        document.querySelector('.mdp-link').addEventListener('click', function (event) {
+            event.preventDefault(); // Empêche le comportement par défaut du lien
+    
+            const firstNameInput = document.getElementById('firstName');
+            const passwordInput = document.getElementById('password');
+            const passwordError = document.getElementById('passwordError');
+    
+            const firstName = firstNameInput.value.trim();
+    
+            if (!firstName) {
+                passwordError.textContent = 'Please enter your first name before generating a password.';
+                return;
+            }
+    
+            // Générer un mot de passe aléatoire
+            const specialChars = '!@#$%^&*()_+[]{}|;:,.<>?';
+            const numbers = '0123456789';
+            const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+            const minLength = 8;
+    
+            let generatedPassword = firstName;
+    
+            // Ajouter des caractères spéciaux et des chiffres
+            for (let i = 0; i < 2; i++) {
+                generatedPassword += specialChars.charAt(Math.floor(Math.random() * specialChars.length));
+            }
+    
+            for (let i = 0; i < 2; i++) {
+                generatedPassword += numbers.charAt(Math.floor(Math.random() * numbers.length));
+            }
+    
+            // Compléter avec des caractères aléatoires pour atteindre la longueur minimale
+            while (generatedPassword.length < minLength) {
+                generatedPassword += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+            }
+    
+            // Mettre à jour le champ mot de passe
+            passwordInput.value = generatedPassword;
+            passwordError.textContent = ''; // Effacer les erreurs
+        });
+    </script>
+    <!--progress bar du mdp-->
+    <script>
+        function checkPasswordStrength() {
+            const passwordInput = document.getElementById('password').value;
+            const strengthBar = document.getElementById('passwordStrengthIndicator');
+            const strengthText = document.getElementById('passwordStrengthText');
+    
+            let strength = 0;
+    
+            // Vérifier si le mot de passe contient des lettres
+            if (/[a-zA-Z]/.test(passwordInput)) {
+                strength += 1;
+            }
+    
+            // Vérifier si le mot de passe contient des chiffres
+            if (/\d/.test(passwordInput)) {
+                strength += 1;
+            }
+    
+            // Vérifier si le mot de passe contient des caractères spéciaux
+            if (/[!@#$%^&*(),.?":{}|<>]/.test(passwordInput)) {
+                strength += 1;
+            }
+    
+            // Vérifier la longueur du mot de passe
+            if (passwordInput.length >= 8) {
+                strength += 1;
+            }
+    
+            // Mettre à jour la barre de progression et le texte
+            if (strength === 1) {
+                strengthBar.style.width = '25%';
+                strengthBar.style.backgroundColor = 'red';
+                strengthText.textContent = 'Weak';
+                strengthText.style.color = 'red';
+            } else if (strength === 2) {
+                strengthBar.style.width = '50%';
+                strengthBar.style.backgroundColor = 'orange';
+                strengthText.textContent = 'Medium';
+                strengthText.style.color = 'orange';
+            } else if (strength >= 3) {
+                strengthBar.style.width = '100%';
+                strengthBar.style.backgroundColor = 'green';
+                strengthText.textContent = 'Strong';
+                strengthText.style.color = 'green';
+            } else {
+                strengthBar.style.width = '0%';
+                strengthBar.style.backgroundColor = '#e0e0e0';
+                strengthText.textContent = 'Weak';
+                strengthText.style.color = '#6c757d';
+            }
+        }
+    </script>
+    <!--progress bar pour le mdp généré automatiquement-->
+    <script>
+        document.querySelector('.mdp-link').addEventListener('click', function (event) {
+            event.preventDefault(); // Empêche le comportement par défaut du lien
+    
+            const firstNameInput = document.getElementById('firstName');
+            const passwordInput = document.getElementById('password');
+            const passwordError = document.getElementById('passwordError');
+    
+            const firstName = firstNameInput.value.trim();
+    
+            if (!firstName) {
+                passwordError.textContent = 'Please enter your first name before generating a password.';
+                return;
+            }
+    
+            // Générer un mot de passe aléatoire
+            const specialChars = '!@#$%^&*()_+[]{}|;:,.<>?';
+            const numbers = '0123456789';
+            const randomChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+            const minLength = 8;
+    
+            let generatedPassword = firstName;
+    
+            // Ajouter des caractères spéciaux et des chiffres
+            for (let i = 0; i < 2; i++) {
+                generatedPassword += specialChars.charAt(Math.floor(Math.random() * specialChars.length));
+            }
+    
+            for (let i = 0; i < 2; i++) {
+                generatedPassword += numbers.charAt(Math.floor(Math.random() * numbers.length));
+            }
+    
+            // Compléter avec des caractères aléatoires pour atteindre la longueur minimale
+            while (generatedPassword.length < minLength) {
+                generatedPassword += randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+            }
+    
+            // Mettre à jour le champ mot de passe
+            passwordInput.value = generatedPassword;
+            passwordError.textContent = ''; // Effacer les erreurs
+    
+            // Vérifier la force du mot de passe généré
+            checkPasswordStrength();
+        });
+    </script>
+    
+    <script>
+    
+        function togglePasswordVisibility() {
+            const passwordField = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
+    
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text'; // Affiche le mot de passe
+                eyeIcon.src = 'images/oeil.png'; // Change l'image pour l'œil ouvert
+            } else {
+                passwordField.type = 'password'; // Masque le mot de passe
+                eyeIcon.src = 'images/oeil (1).png'; // Change l'image pour l'œil fermé
+            }
+        }
+
+
+
+        function togglePasswordVisibilityLogIn() {
+            const passwordField = document.getElementById('member-login-password');
+            const eyeIcon = document.getElementById('eye-icon2');
+    
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text'; // Affiche le mot de passe
+                eyeIcon.src = 'images/oeil.png'; // Change l'image pour l'œil ouvert
+            } else {
+                passwordField.type = 'password'; // Masque le mot de passe
+                eyeIcon.src = 'images/oeil (1).png'; // Change l'image pour l'œil fermé
+            }
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Réinitialiser les champs email et mot de passe
+            const emailField = document.getElementById('email');
+            const passwordField = document.getElementById('password');
+    
+            if (emailField) emailField.value = '';
+            if (passwordField) passwordField.value = '';
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Réinitialiser les champs email et mot de passe
+            const emailField = document.getElementById('member-login-number');
+            const passwordField = document.getElementById('member-login-password');
+    
+            if (emailField) emailField.value = '';
+            if (passwordField) passwordField.value = '';
+        });
+    </script>
+    <!-- Flatpickr JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+     <!-- JAVASCRIPT FILES -->
+     
+     <script src="js/jquery.min.js"></script>
+     <script src="js/bootstrap.bundle.min.js"></script>
+     <script src="js/jquery.sticky.js"></script>
+     <script src="js/click-scroll.js"></script>
+     <script src="js/animated-headline.js"></script>
+     <script src="js/modernizr.js"></script>
+     <script src="js/custom.js"></script>
+     <script src="js/user.js"></script>
+     
+</body>
+</html>
