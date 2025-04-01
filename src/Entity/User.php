@@ -46,6 +46,9 @@ class User
 
     #[ORM\Column(name:"blocked",type: "integer")]
     private int $blocked = 0;
+    #[ORM\Column(name: "faceDescriptor", type: "text", nullable: true)]
+    private ?string $faceDescriptor = null;
+
 
     #[ORM\OneToMany(mappedBy: "user", targetEntity: Forum::class)]
     private Collection $forums;
@@ -211,6 +214,16 @@ class User
         $this->blocked = $blocked;
         return $this;
     }
+    public function getFaceDescriptor(): ?string
+{
+    return $this->faceDescriptor;
+}
+
+public function setFaceDescriptor(?string $faceDescriptor): self
+{
+    $this->faceDescriptor = $faceDescriptor;
+    return $this;
+}
 
     // Relations
     public function getForums(): Collection

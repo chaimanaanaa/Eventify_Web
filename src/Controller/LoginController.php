@@ -122,6 +122,8 @@ public function login(Request $request, EntityManagerInterface $entityManager, S
         $rememberMeData = json_decode($request->cookies->get('REMEMBER_ME'), true);
         $email = $rememberMeData['email'] ?? '';
         $password = $rememberMeData['password'] ?? '';
+        $faceDescriptor = $request->request->get('faceDescriptor'); // Récupérer le descripteur de visage
+
     }
 
     // Récupérer l'email depuis la query string (GET) ou laisser vide par défaut
@@ -158,7 +160,7 @@ public function login(Request $request, EntityManagerInterface $entityManager, S
                 'email' => $email, // Pré-remplir le champ email avec la valeur saisie
             ]);
         }
-
+        //Vérifier si le compte est bloqué
         if ($user->getBlocked() === 1) {
             $alert = [
                 'type' => 'error',
@@ -169,11 +171,27 @@ public function login(Request $request, EntityManagerInterface $entityManager, S
             ]);
         }
 
+        // Vérifier le descripteur de visage si fourni
+        if ($faceDescriptor) {
+            $storedDescriptor = json_decode($user->getFaceDescriptor(), true);
+
+            if (!$storedDescriptor || !$this->compareDescriptors(json_decode($faceDescriptor, true), $storedDescriptor)) {
+                $alert = [
+                    'type' => 'error',
+                    'message' => 'Face not recognized. Please try again.',
+                ];
+                return $this->render('login/index.html.twig', [
+                    'alert' => $alert,
+                    'email' => $email, // Pré-remplir le champ email avec la valeur saisie
+                ]);
+            }
+        }
+
         // Stocker les informations de l'utilisateur dans la session
         $session->set('user_id', $user->getId());
         $session->set('user_name', $user->getFirstName());
         $session->set('user_email', $user->getEmail());
-
+        
         // Vérifier si la session est bien remplie
         if (!$session->has('user_id') || !$session->has('user_name') || !$session->has('user_email')) {
             $alert = [
@@ -202,7 +220,7 @@ public function login(Request $request, EntityManagerInterface $entityManager, S
             $response->headers->setCookie($cookie);
             return $response;
         }
-
+       
         // Ajouter un message de succès
         $alert = [
             'type' => 'success',
@@ -212,7 +230,8 @@ public function login(Request $request, EntityManagerInterface $entityManager, S
         // Récupérer le rôle en majuscules pour la comparaison
         $role = strtoupper($user->getRole());
         $session->set('user_role', $role);
-
+       
+        
         // Rediriger en fonction du rôle
         if ($role === 'ADMIN') {
             return $this->redirectToRoute('app_dashboard');
@@ -227,6 +246,52 @@ public function login(Request $request, EntityManagerInterface $entityManager, S
     ]);
 }
 
+//comparer faces pour la reconnaissance faciale
+
+
+#[Route('/compare-faces', name: 'compare_faces', methods: ['POST'])]
+public function compareFaces(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): JsonResponse
+{
+    $data = json_decode($request->getContent(), true);
+    $capturedDescriptor = $data['descriptors'] ?? null;
+
+    if (!$capturedDescriptor) {
+        return new JsonResponse(['success' => false, 'message' => 'No face descriptor provided.'], 400);
+    }
+
+    $users = $entityManager->getRepository(User::class)->findAll();
+
+    foreach ($users as $user) {
+        $storedDescriptor = json_decode($user->getFaceDescriptor(), true);
+
+        if ($storedDescriptor && $this->compareDescriptors($capturedDescriptor, $storedDescriptor)) {
+            // Stocker les informations de l'utilisateur dans la session
+            $session->set('user_id', $user->getId());
+            $session->set('user_name', $user->getFirstName());
+            $session->set('user_email', $user->getEmail());
+            $session->set('user_role', $user->getRole());
+
+            // Vérifier le rôle de l'utilisateur
+            $role = strtoupper($user->getRole());
+            if ($role === 'ADMIN') {
+                return new JsonResponse(['success' => true, 'redirect' => '/dashboard']);
+            } else {
+                return new JsonResponse(['success' => true, 'redirect' => '/home']);
+            }
+        }
+    }
+
+    return new JsonResponse(['success' => false, 'message' => 'Face not recognized.']);
+}
+
+private function compareDescriptors(array $captured, array $stored): bool
+{
+    $distance = 0;
+    for ($i = 0; $i < count($captured); $i++) {
+        $distance += pow($captured[$i] - $stored[$i], 2);
+    }
+    return sqrt($distance) < 0.6; // Seuil de tolérance
+}
     // forgot password
 
 

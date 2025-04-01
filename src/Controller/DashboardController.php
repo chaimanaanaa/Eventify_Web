@@ -115,7 +115,10 @@ public function logoutBack(SessionInterface $session): Response
 
     // Ajouter un message flash et rediriger
     $this->addFlash('success', 'You have been logged out.');
-    return $this->render('signup/index.html.twig');
+   // return $this->render('signup/index.html.twig');
+   return $this->render('signup/index.html.twig', [
+    'recaptcha_site_key' => $_ENV['GOOGLE_RECAPTCHA_SITE_KEY'], // Passer la clé reCAPTCHA
+]);
 }
 
 

@@ -40,7 +40,7 @@ final class SignupController extends AbstractController
             $email = $request->request->get('email');
             $password = $request->request->get('password');
             $recaptchaResponse = $request->request->get('g-recaptcha-response'); // Récupérer la réponse reCAPTCHA
-
+            $faceDescriptor = $request->request->get('faceDescriptor'); // Récupérer le descripteur de visage
         // Vérifier la réponse reCAPTCHA
         $secretKey = $_ENV['GOOGLE_RECAPTCHA_SECRET']; // Récupérer la clé secrète depuis .env
 
@@ -122,6 +122,11 @@ final class SignupController extends AbstractController
              } else {
                  $this->addFlash('error', 'No image provided.');
                  return $this->redirectToRoute('app_signup');
+             }
+
+             // Enregistrer le descripteur de visage
+             if ($faceDescriptor) {
+                    $user->setFaceDescriptor($faceDescriptor);
              }
             // Sauvegarder l'utilisateur dans la base de données
             $entityManager->persist($user);

@@ -94,7 +94,22 @@
             <h5 class="offcanvas-title" id="offcanvasExampleLabel">Welcome back!</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <p>Enter your Credentials to access your account</p>
+        <div class="mb-4">
+            <p class="form-label mb-2">Login with Face Recognition!</p>
+            <div class="camera-container">
+                <video id="camera" autoplay muted style="width: 200px; height: auto; border-radius: 10px;margin-left:80px;"></video>
+                <canvas id="capturedCanvas" style="display: none;"></canvas>
+                <div class="col-lg-5 col-md-7 col-8 mx-auto">
+                    <button type="button" class="form-control" onclick="capturePhoto()" style="background-color:#844062;color:white;margin-left:10px;">Capture Photo</button>
+                </div>
+                
+            </div>
+        </div>
+        <input type="hidden" id="capturedPhoto" name="capturedPhoto">
+        <!-- Champ caché pour stocker le descripteur de visage généré par Face API -->
+            <input type="hidden" id="faceDescriptor" name="faceDescriptor">
+            <span style="margin-left:60px;">-----------Or-----------</span>
+            <p>Enter your Credentials to access your account</p>
         <div class="offcanvas-body d-flex flex-column">
             <form id="login-form" class="custom-form member-login-form" action="{{ path('app_login') }}" method="post" role="form">
                 <div class="member-login-form-body">
@@ -117,8 +132,11 @@
                             Remember me
                         </label>
                     </div>
-                    <div class="col-lg-5 col-md-7 col-8 mx-auto">
-                        <button type="submit" class="form-control">Login</button>
+                    <div class="d-flex flex-column w-100">
+                        <button type="submit" class="btn custom-btn custom-border-btn mb-3">Login</button>
+                    </div>
+                    <div class="d-flex flex-column w-100">
+                        <button type="button" class="btn custom-btn custom-border-btn mb-3" style="margin-top:10px;" onclick="compareFaces()">Login with Face Recognition</button>
                     </div>
                     <div class="text-center my-4">
                         <a href="#" class="forgot-password-link" data-bs-toggle="offcanvas" data-bs-target="#forgotPasswordOffcanvas">Forgotten password?</a>
@@ -274,7 +292,81 @@
                 </footer>
             </div>
         </div>
+        <!--scripts pour reconnaissance faciale-->
+    <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.min.js"></script>
+    <script>
+        let videoStream;
+    
+        async function startCamera() {
+            const video = document.getElementById('camera');
+            videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = videoStream;
+        }
+    
+        function capturePhoto() {
+            const video = document.getElementById('camera');
+            const canvas = document.getElementById('capturedCanvas');
+            const context = canvas.getContext('2d');
+    
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+            // Convertir l'image capturée en base64
+            const capturedPhoto = canvas.toDataURL('image/png');
+            document.getElementById('capturedPhoto').value = capturedPhoto;
+    
+            alert('Photo captured! You can now log in.');
+        }
+    
+        async function loadFaceAPI() {
+            console.log('Loading Face API models...');
+            await faceapi.nets.ssdMobilenetv1.loadFromUri('/models'); // Charger les modèles
+            await faceapi.nets.faceRecognitionNet.loadFromUri('/models');
+            await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
+            console.log('Face API models loaded successfully!');
+        }
+    
+        async function compareFaces() {
+            const capturedPhoto = document.getElementById('capturedPhoto').value;
+            if (!capturedPhoto) {
+                alert('Please capture a photo first.');
+                return;
+            }
         
+            const image = await faceapi.fetchImage(capturedPhoto);
+            const detections = await faceapi.detectSingleFace(image).withFaceLandmarks().withFaceDescriptor();
+        
+            if (!detections) {
+                alert('No face detected. Please try again.');
+                return;
+            }
+        
+            const descriptor = detections.descriptor;
+        
+            // Envoyer les données au serveur pour comparaison
+            const response = await fetch('/compare-faces', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ descriptors: descriptor })
+            });
+        
+            const result = await response.json();
+            if (result.success) {
+                alert('Face recognized! Redirecting...');
+                window.location.href = result.redirect; // Rediriger en fonction du rôle
+            } else {
+                alert('Face not recognized. Please try again.');
+            }
+        }
+    
+        // Démarrer la caméra et charger Face API
+        window.onload = async () => {
+            await loadFaceAPI();
+            await startCamera();
+        };
+    </script>
         <!-- Leaflet JS -->
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
         <!-- Initialize the Map -->
