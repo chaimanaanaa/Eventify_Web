@@ -1,0 +1,102 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+<section class="hero-section hero-50 d-flex justify-content-center align-items-center" id="section_1">
+
+    <div class="section-overlay"></div>
+    
+    <svg viewBox="0 0 1962 178" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#ADC29B" d="M 0 114 C 118.5 114 118.5 167 237 167 L 237 167 L 237 0 L 0 0 Z" stroke-width="0"></path> <path fill="#ADC29B" d="M 236 167 C 373 167 373 128 510 128 L 510 128 L 510 0 L 236 0 Z" stroke-width="0"></path> <path fill="#ADC29B" d="M 509 128 C 607 128 607 153 705 153 L 705 153 L 705 0 L 509 0 Z" stroke-width="0"></path><path fill="#ADC29B" d="M 704 153 C 812 153 812 113 920 113 L 920 113 L 920 0 L 704 0 Z" stroke-width="0"></path><path fill="#ADC29B" d="M 919 113 C 1048.5 113 1048.5 148 1178 148 L 1178 148 L 1178 0 L 919 0 Z" stroke-width="0"></path><path fill="#ADC29B" d="M 1177 148 C 1359.5 148 1359.5 129 1542 129 L 1542 129 L 1542 0 L 1177 0 Z" stroke-width="0"></path><path fill="#ADC29B" d="M 1541 129 C 1751.5 129 1751.5 138 1962 138 L 1962 138 L 1962 0 L 1541 0 Z" stroke-width="0"></path></svg>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <h1 class="text-white mb-4 pb-2">Edit Forum</h1>
+                <a href="#" class="btn custom-btn smoothscroll me-3">Back to Forums</a>
+            </div>
+        </div>
+    </div>
+
+    <svg viewBox="0 0 1962 178" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#ffffff" d="M 0 114 C 118.5 114 118.5 167 237 167 L 237 167 L 237 0 L 0 0 Z" stroke-width="0"></path> <path fill="#ffffff" d="M 236 167 C 373 167 373 128 510 128 L 510 128 L 510 0 L 236 0 Z" stroke-width="0"></path> <path fill="#ffffff" d="M 509 128 C 607 128 607 153 705 153 L 705 153 L 705 0 L 509 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 704 153 C 812 153 812 113 920 113 L 920 113 L 920 0 L 704 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 919 113 C 1048.5 113 1048.5 148 1178 148 L 1178 148 L 1178 0 L 919 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 1177 148 C 1359.5 148 1359.5 129 1542 129 L 1542 129 L 1542 0 L 1177 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 1541 129 C 1751.5 129 1751.5 138 1962 138 L 1962 138 L 1962 0 L 1541 0 Z" stroke-width="0"></path></svg>
+</section>
+
+<div style="height: 100px;"></div>
+<div class="container mt-5">
+    <div class="row align-items-center">  {# Changement ici pour aligner verticalement #}
+        {# Colonne pour l'image à gauche #}
+        <div class="col-md-6 d-none d-md-block">  {# Caché sur mobile #}
+            <div class="text-center">
+                <img src="{{ asset('images/13.png') }}" alt="Forum Illustration" class="img-fluid rounded shadow" style="max-height: 500px;">
+            </div>
+        </div>
+        
+        {# Colonne pour le formulaire à droite #}
+        <div class="col-md-6">
+            <form action="{{ path('app_forum_edit', {'id': forum.id}) }}" method="post" class="custom-form membership-form shadow-lg p-4" role="form" enctype="multipart/form-data">
+                <h4 class="text-white mb-4">Edit Forum</h4>
+                
+                <input type="hidden" name="id" value="{{ forum.id }}">
+                
+                <div class="form-floating mb-3">
+                    {{ form_widget(form.categorie, {'attr': {'class': 'form-control', 'placeholder': 'Category'}}) }}
+                    <label for="floatingInput">Category</label>
+                </div>
+                
+                <div class="form-floating mb-3">
+                    {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Description', 'style': 'height: 150px'}}) }}
+                    <label for="floatingTextarea">Description</label>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label text-white">Image</label>
+                    <div class="position-relative">
+                        {{ form_widget(form.imageFile, {'attr': {'class': 'form-control d-none', 'onchange': 'previewImage(this)'}}) }}
+                        <label for="{{ form.imageFile.vars.id }}" class="btn btn-outline-light w-100">
+                            <i class="fas fa-image me-2"></i> Change Image
+                        </label>
+                        <div id="imagePreview" class="mt-3 text-center">
+                            {% if forum.img starts with 'img_' %}
+                                <img src="{{ path('app_forum_image', {'id': forum.img}) }}" 
+                                     class="img-fluid rounded" style="max-height: 200px;">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+                {{ form_row(form._token) }}
+                
+                <button type="submit" class="form-control btn btn-primary mt-3" style="background-color: #844062;">
+                    <i class="fas fa-save me-2"></i> Save Changes
+                </button>
+            </form>
+        </div>
+    </div>
+    <div style="height: 100px;"></div>
+</div>
+
+<script>
+    function previewImage(input) {
+        const previewContainer = document.getElementById('imagePreview');
+        const previewImg = previewContainer.querySelector('img');
+        
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                if (!previewImg) {
+                    const newImg = document.createElement('img');
+                    newImg.src = e.target.result;
+                    newImg.className = 'img-fluid rounded';
+                    newImg.style.maxHeight = '200px';
+                    previewContainer.innerHTML = '';
+                    previewContainer.appendChild(newImg);
+                } else {
+                    previewImg.src = e.target.result;
+                }
+                previewContainer.style.display = 'block';
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
+{% endblock %}
