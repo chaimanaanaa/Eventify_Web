@@ -1,0 +1,78 @@
+{%extends "base.html.twig" %}
+
+
+{%block content %}
+<section class="hero-section hero-50 d-flex justify-content-center align-items-center" id="section_1">
+
+    <div class="section-overlay"></div>
+
+    <svg viewBox="0 0 1962 178" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#ADC29B" d="M 0 114 C 118.5 114 118.5 167 237 167 L 237 167 L 237 0 L 0 0 Z" stroke-width="0"></path> <path fill="#ADC29B" d="M 236 167 C 373 167 373 128 510 128 L 510 128 L 510 0 L 236 0 Z" stroke-width="0"></path> <path fill="#ADC29B" d="M 509 128 C 607 128 607 153 705 153 L 705 153 L 705 0 L 509 0 Z" stroke-width="0"></path><path fill="#ADC29B" d="M 704 153 C 812 153 812 113 920 113 L 920 113 L 920 0 L 704 0 Z" stroke-width="0"></path><path fill="#ADC29B" d="M 919 113 C 1048.5 113 1048.5 148 1178 148 L 1178 148 L 1178 0 L 919 0 Z" stroke-width="0"></path><path fill="#ADC29B" d="M 1177 148 C 1359.5 148 1359.5 129 1542 129 L 1542 129 L 1542 0 L 1177 0 Z" stroke-width="0"></path><path fill="#ADC29B" d="M 1541 129 C 1751.5 129 1751.5 138 1962 138 L 1962 138 L 1962 0 L 1541 0 Z" stroke-width="0"></path></svg>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-6 col-12">
+
+                <h1 class="text-white mb-4 pb-2">Event Listing</h1>
+
+                <a href="#" class="btn custom-btn smoothscroll me-3">Explore Events</a>
+            </div>
+
+        </div>
+    </div>
+
+    <svg viewBox="0 0 1962 178" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#ffffff" d="M 0 114 C 118.5 114 118.5 167 237 167 L 237 167 L 237 0 L 0 0 Z" stroke-width="0"></path> <path fill="#ffffff" d="M 236 167 C 373 167 373 128 510 128 L 510 128 L 510 0 L 236 0 Z" stroke-width="0"></path> <path fill="#ffffff" d="M 509 128 C 607 128 607 153 705 153 L 705 153 L 705 0 L 509 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 704 153 C 812 153 812 113 920 113 L 920 113 L 920 0 L 704 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 919 113 C 1048.5 113 1048.5 148 1178 148 L 1178 148 L 1178 0 L 919 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 1177 148 C 1359.5 148 1359.5 129 1542 129 L 1542 129 L 1542 0 L 1177 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 1541 129 C 1751.5 129 1751.5 138 1962 138 L 1962 138 L 1962 0 L 1541 0 Z" stroke-width="0"></path></svg>
+</section>
+{# écrivez votre code ici#}
+
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0">Edit Reclamation</h2>
+        </div>
+        <div class="card-body">
+            {{ form_start(form, {
+                'action': path('app_reclamation_edit'),
+                'method': 'POST',
+                'attr': {'enctype': 'multipart/form-data'}
+            }) }}
+            
+            <input type="hidden" name="id" value="{{ reclamation.id }}">
+            
+            <div class="mb-3">
+                {{ form_row(form.date) }}
+            </div>
+            
+            <div class="mb-3">
+                {{ form_row(form.titre) }}
+            </div>
+            
+            <div class="mb-3">
+                {{ form_row(form.sujet) }}
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Current Image</label>
+                {% if reclamation.imgRec %}
+                    <img id="image-preview" src="{{ asset('uploads/' ~ reclamation.imgRec) }}" 
+                         class="img-thumbnail mb-2" 
+                         style="max-height: 200px">
+                {% else %}
+                    <img id="image-preview" src="#" 
+                         class="img-thumbnail mb-2" 
+                         style="max-height: 200px; display: none;">
+                    <p class="text-muted">No image</p>
+                {% endif %}
+                {{ form_row(form.imageFile) }}
+            </div>
+            
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Update</button>
+                <a href="{{ path('app_reclamation_lister') }}" class="btn btn-secondary">Cancel</a>
+            </div>
+            
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
