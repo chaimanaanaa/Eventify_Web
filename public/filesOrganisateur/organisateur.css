@@ -446,3 +446,52 @@ css affichage detaille organisateur ***
     transform: translate(-50%, -50%) scale(1);
     display: block;
 }
+
+
+
+
+/**** hedi a3maltha lil image detail ***/
+/* Définition de l'animation ma3ijbitnich ma7atithech*/
+.RotationDetailOrg {
+    width: 250px;
+    height: 250px;
+    border: 2px solid #844062;
+    transform-style: preserve-3d; /* Préserve les transformations 3D */
+    transform: perspective(600px) rotateY(30deg); /* État initial */
+}
+
+.RotationDetailOrg.animate-once {
+    animation: rotateDetailAutomatic 3s ease-in-out forwards; /* Applique l'animation une seule fois */
+}
+
+/* Animation pour la rotation automatique */
+@keyframes rotateDetailAutomatic {
+    0% {
+        transform: perspective(600px) rotateY(30deg); /* Rotation maximale */
+    }
+    50% {
+        transform: perspective(600px) rotateY(0deg); /* État intermédiaire (rotation horizontale) */
+    }
+    100% {
+        transform: perspective(600px) rotateY(30deg); /* Retour à la rotation maximale */
+    }
+}
+
+
+
+
+/**************************************************************
+************* affichage organisateur front *******************
+**************************************************************/
+/* Send button */
+.SendTeleBtn {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.SendTeleBtn:hover {
+    opacity: 0.9;
+    transform: scale(1.1);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 8px;
+}
+

@@ -323,3 +323,24 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 500); // Wait for the floating details' animation to finish
     });
 });
+
+/// hedhdi 
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Sélectionner toutes les images avec la classe .RotationDetailOrg
+    const images = document.querySelectorAll(".RotationDetailOrg");
+
+    // Ajouter la classe animate-once pour déclencher l'animation
+    images.forEach(image => {
+        image.classList.add("animate-once");
+
+        // Supprimer la classe animate-once après la fin de l'animation
+        image.addEventListener("animationend", function () {
+            image.classList.remove("animate-once");
+        });
+    });
+});
+
+

@@ -324,7 +324,8 @@ document.getElementById("AddOrganizer").addEventListener("click", async function
         salaire: parseFloat(document.getElementById("salaire").value),
         employment: employmentString, // Chaîne des emplois ajoutés dynamiquement
         skills: skillsString,         // Chaîne des compétences ajoutées dynamiquement
-        longuage: languagesString     // Chaîne des langues ajoutées dynamiquement
+        longuage: languagesString ,    // Chaîne des langues ajoutées dynamiquement
+        statut: document.getElementById("stateFilter").value // Ajouter le statut sélectionné
     };
 
     // Validation des champs obligatoires

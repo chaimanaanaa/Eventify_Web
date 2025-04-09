@@ -223,6 +223,17 @@
             <label for="dateEmbauche">Hiring Date</label>
             <input type="date" id="dateEmbauche" value="{{ organisateur.getDateEmbauche() }}">
             <span class="error-message" id="dateEmbaucheError"></span><br><br>
+
+            <label for="stateFilter">State:</label>
+            <select name="state" id="stateFilter">
+                <option value="Available" {% if organisateur.getStatut() == 'Available' %}selected{% endif %}>Available</option>
+                <option value="Not available" {% if organisateur.getStatut() == 'Not available' %}selected{% endif %}>Not available</option>
+            </select>
+
+
+
+
+
         </div>
 
         <!-- Boutons -->

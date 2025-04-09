@@ -232,6 +232,18 @@ public function afficherOrg(EntityManagerInterface $entityManager): Response
 
 
 
+#[Route('/organizers', name: 'app_organizers')]
+public function afficherOrgFront(EntityManagerInterface $entityManager): Response
+{
+    $organisateurs = $entityManager->getRepository(Organisateur::class)->findAll();
+    dump($organisateurs); // Vérifier les données récupérées
+    return $this->render('organizers/organizers.html.twig', [
+        'organizers' => $organisateurs,
+    ]);
+}
+
+
+
 
 /**************        CRUD  Delete       ***************************************
 *************************************************************************
@@ -260,7 +272,8 @@ public function deleteOrganisateur(int $id, EntityManagerInterface $entityManage
 
 /**************        CRUD  affichage detail d un organisateur       ***************************************
 *************************************************************************
-************************************************************************/#[Route('/organisateur/{id}', name: 'app_organisateur_details', methods: ["GET"])]
+************************************************************************/
+#[Route('/organisateur/{id}', name: 'app_organisateur_details', methods: ["GET"])]
 public function getOrganisateurDetails(int $id, EntityManagerInterface $entityManager): JsonResponse
 {
     // Récupérer l'organisateur depuis la base de données
@@ -290,10 +303,6 @@ public function getOrganisateurDetails(int $id, EntityManagerInterface $entityMa
         "image" => $organisateur->getImageOrg(),
     ], 200);
 }
-
-
-
-
 
 
 
@@ -381,6 +390,7 @@ public function editOrganisateur(int $id, Request $request, EntityManagerInterfa
     $organisateur->setEmployment($data['employment']);
     $organisateur->setSkills($data['skills']);
     $organisateur->setLonguage($data['longuage']);
+    $organisateur->setStatut($data['statut']); // Ajouter la mise à jour du statut
 
     try {
         $entityManager->flush();
@@ -388,6 +398,73 @@ public function editOrganisateur(int $id, Request $request, EntityManagerInterfa
     } catch (\Exception $e) {
         error_log($e->getMessage());
         return new JsonResponse(["message" => "Erreur lors de la modification de l'organisateur.", "error" => $e->getMessage()], 500);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/************************************************************
+ * Api Sent request Contacter Organisateur ******************
+ ************************************************************/
+private $botToken = '7887462539:AAHFn9BqYdNPGSzIvUoI77SvfCOW34dEwpA'; // Remplacez par votre token du bot
+private $chatId = '7847561506'; // Remplacez par l'ID du chat du destinataire
+
+
+#[Route('/send-message', name: 'send_message', methods: ['POST'])]
+public function sendMessage(Request $request): JsonResponse
+{
+    // Récupérez le texte du message depuis la requête JSON
+    $data = json_decode($request->getContent(), true);
+    $messageText = $data['message'] ?? '';
+
+    if (empty($messageText)) {
+        return new JsonResponse(['error' => 'Message is required'], 400);
+    }
+
+    // URL de l'API Telegram
+    $url = "https://api.telegram.org/bot{$this->botToken}/sendMessage";
+
+    // Paramètres de la requête
+    $postData = [
+        'chat_id' => $this->chatId,
+        'text' => $messageText,
+    ];
+
+    // Initialisation de cURL
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+    // Exécution de la requête
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    // Vérification de la réponse
+    if ($httpCode === 200) {
+        return new JsonResponse(['message' => 'Message sent successfully!'], 200);
+    } else {
+        return new JsonResponse(['error' => 'Failed to send message', 'details' => $response], 500);
     }
 }
 
