@@ -198,4 +198,56 @@ class ForumController extends AbstractController
             'forum' => $forum
         ]);
     }
+
+
+
+  
+
+public function list(Request $request, EntityManagerInterface $entityManager): Response
+{
+    // Récupérer les paramètres de requête
+    $sort = $request->query->get('sort', 'newest');
+    $category = $request->query->get('category');
+    $search = $request->query->get('search');
+
+    // Créer la requête de base
+    $query = $entityManager->createQueryBuilder()
+        ->select('f')
+        ->from('App\Entity\Forum', 'f');
+
+    // Appliquer les filtres
+    if ($category) {
+        $query->andWhere('f.categorie = :category')
+            ->setParameter('category', $category);
+    }
+
+    if ($search) {
+        $query->andWhere('f.description LIKE :search OR f.categorie LIKE :search')
+            ->setParameter('search', '%'.$search.'%');
+    }
+
+    // Appliquer le tri
+    switch ($sort) {
+        case 'oldest':
+            $query->orderBy('f.createdAt', 'ASC');
+            break;
+        case 'popular':
+            $query->orderBy('f.likes', 'DESC'); // Supposant que vous avez un champ 'likes'
+            break;
+        case 'newest':
+        default:
+            $query->orderBy('f.createdAt', 'DESC');
+            break;
+    }
+
+    // Exécuter la requête
+    $forums = $query->getQuery()->getResult();
+
+    return $this->render('forums/forums.html.twig', [
+        'forums' => $forums,
+    ]);
+}
+
+  
+    
 }

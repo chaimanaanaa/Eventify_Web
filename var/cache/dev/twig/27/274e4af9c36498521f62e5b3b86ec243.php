@@ -92,47 +92,48 @@ class __TwigTemplate_52e5363da230ec040ecc667a059b8077 extends Template
 </section>
 
 <div style=\"height: 100px;\"></div>
+
 <div class=\"container mt-5\">
     <div class=\"row align-items-center\">  ";
-        // line 25
-        yield "        ";
         // line 26
-        yield "        <div class=\"col-md-6 d-none d-md-block\">  ";
+        yield "        ";
         // line 27
+        yield "        <div class=\"col-md-6 d-none d-md-block\">  ";
+        // line 28
         yield "            <div class=\"text-center\">
                 <img src=\"";
-        // line 28
+        // line 29
         yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("images/13.png"), "html", null, true);
         yield "\" alt=\"Forum Illustration\" class=\"img-fluid rounded shadow\" style=\"max-height: 500px;\">
             </div>
         </div>
         
         ";
-        // line 33
+        // line 34
         yield "        <div class=\"col-md-6\">
             <form action=\"";
-        // line 34
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_forum_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["forum"]) || array_key_exists("forum", $context) ? $context["forum"] : (function () { throw new RuntimeError('Variable "forum" does not exist.', 34, $this->source); })()), "id", [], "any", false, false, false, 34)]), "html", null, true);
+        // line 35
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_forum_edit", ["id" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["forum"]) || array_key_exists("forum", $context) ? $context["forum"] : (function () { throw new RuntimeError('Variable "forum" does not exist.', 35, $this->source); })()), "id", [], "any", false, false, false, 35)]), "html", null, true);
         yield "\" method=\"post\" class=\"custom-form membership-form shadow-lg p-4\" role=\"form\" enctype=\"multipart/form-data\">
                 <h4 class=\"text-white mb-4\">Edit Forum</h4>
                 
                 <input type=\"hidden\" name=\"id\" value=\"";
-        // line 37
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["forum"]) || array_key_exists("forum", $context) ? $context["forum"] : (function () { throw new RuntimeError('Variable "forum" does not exist.', 37, $this->source); })()), "id", [], "any", false, false, false, 37), "html", null, true);
+        // line 38
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["forum"]) || array_key_exists("forum", $context) ? $context["forum"] : (function () { throw new RuntimeError('Variable "forum" does not exist.', 38, $this->source); })()), "id", [], "any", false, false, false, 38), "html", null, true);
         yield "\">
                 
                 <div class=\"form-floating mb-3\">
                     ";
-        // line 40
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 40, $this->source); })()), "categorie", [], "any", false, false, false, 40), 'widget', ["attr" => ["class" => "form-control", "placeholder" => "Category"]]);
+        // line 41
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 41, $this->source); })()), "categorie", [], "any", false, false, false, 41), 'widget', ["attr" => ["class" => "form-control", "placeholder" => "Category"]]);
         yield "
                     <label for=\"floatingInput\">Category</label>
                 </div>
                 
                 <div class=\"form-floating mb-3\">
                     ";
-        // line 45
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 45, $this->source); })()), "description", [], "any", false, false, false, 45), 'widget', ["attr" => ["class" => "form-control", "placeholder" => "Description", "style" => "height: 150px"]]);
+        // line 46
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 46, $this->source); })()), "description", [], "any", false, false, false, 46), 'widget', ["attr" => ["class" => "form-control", "placeholder" => "Description", "style" => "height: 150px"]]);
         yield "
                     <label for=\"floatingTextarea\">Description</label>
                 </div>
@@ -141,34 +142,34 @@ class __TwigTemplate_52e5363da230ec040ecc667a059b8077 extends Template
                     <label class=\"form-label text-white\">Image</label>
                     <div class=\"position-relative\">
                         ";
-        // line 52
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 52, $this->source); })()), "imageFile", [], "any", false, false, false, 52), 'widget', ["attr" => ["class" => "form-control d-none", "onchange" => "previewImage(this)"]]);
+        // line 53
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 53, $this->source); })()), "imageFile", [], "any", false, false, false, 53), 'widget', ["attr" => ["class" => "form-control d-none", "onchange" => "previewImage(this)"]]);
         yield "
                         <label for=\"";
-        // line 53
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 53, $this->source); })()), "imageFile", [], "any", false, false, false, 53), "vars", [], "any", false, false, false, 53), "id", [], "any", false, false, false, 53), "html", null, true);
+        // line 54
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 54, $this->source); })()), "imageFile", [], "any", false, false, false, 54), "vars", [], "any", false, false, false, 54), "id", [], "any", false, false, false, 54), "html", null, true);
         yield "\" class=\"btn btn-outline-light w-100\">
                             <i class=\"fas fa-image me-2\"></i> Change Image
                         </label>
                         <div id=\"imagePreview\" class=\"mt-3 text-center\">
                             ";
-        // line 57
-        if ((is_string($_v0 = CoreExtension::getAttribute($this->env, $this->source, (isset($context["forum"]) || array_key_exists("forum", $context) ? $context["forum"] : (function () { throw new RuntimeError('Variable "forum" does not exist.', 57, $this->source); })()), "img", [], "any", false, false, false, 57)) && is_string($_v1 = "img_") && str_starts_with($_v0, $_v1))) {
-            // line 58
+        // line 58
+        if ((is_string($_v0 = CoreExtension::getAttribute($this->env, $this->source, (isset($context["forum"]) || array_key_exists("forum", $context) ? $context["forum"] : (function () { throw new RuntimeError('Variable "forum" does not exist.', 58, $this->source); })()), "img", [], "any", false, false, false, 58)) && is_string($_v1 = "img_") && str_starts_with($_v0, $_v1))) {
+            // line 59
             yield "                                <img src=\"";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_forum_image", ["id" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["forum"]) || array_key_exists("forum", $context) ? $context["forum"] : (function () { throw new RuntimeError('Variable "forum" does not exist.', 58, $this->source); })()), "img", [], "any", false, false, false, 58)]), "html", null, true);
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_forum_image", ["id" => CoreExtension::getAttribute($this->env, $this->source, (isset($context["forum"]) || array_key_exists("forum", $context) ? $context["forum"] : (function () { throw new RuntimeError('Variable "forum" does not exist.', 59, $this->source); })()), "img", [], "any", false, false, false, 59)]), "html", null, true);
             yield "\" 
                                      class=\"img-fluid rounded\" style=\"max-height: 200px;\">
                             ";
         }
-        // line 61
+        // line 62
         yield "                        </div>
                     </div>
                 </div>
                 
                 ";
-        // line 65
-        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 65, $this->source); })()), "_token", [], "any", false, false, false, 65), 'row');
+        // line 66
+        yield $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->searchAndRenderBlock(CoreExtension::getAttribute($this->env, $this->source, (isset($context["form"]) || array_key_exists("form", $context) ? $context["form"] : (function () { throw new RuntimeError('Variable "form" does not exist.', 66, $this->source); })()), "_token", [], "any", false, false, false, 66), 'row');
         yield "
                 
                 <button type=\"submit\" class=\"form-control btn btn-primary mt-3\" style=\"background-color: #844062;\">
@@ -237,7 +238,7 @@ class __TwigTemplate_52e5363da230ec040ecc667a059b8077 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  171 => 65,  165 => 61,  158 => 58,  156 => 57,  149 => 53,  145 => 52,  135 => 45,  127 => 40,  121 => 37,  115 => 34,  112 => 33,  105 => 28,  102 => 27,  100 => 26,  98 => 25,  76 => 4,  63 => 3,  40 => 1,);
+        return array (  172 => 66,  166 => 62,  159 => 59,  157 => 58,  150 => 54,  146 => 53,  136 => 46,  128 => 41,  122 => 38,  116 => 35,  113 => 34,  106 => 29,  103 => 28,  101 => 27,  99 => 26,  76 => 4,  63 => 3,  40 => 1,);
     }
 
     public function getSourceContext(): Source
@@ -264,6 +265,7 @@ class __TwigTemplate_52e5363da230ec040ecc667a059b8077 extends Template
 </section>
 
 <div style=\"height: 100px;\"></div>
+
 <div class=\"container mt-5\">
     <div class=\"row align-items-center\">  {# Changement ici pour aligner verticalement #}
         {# Colonne pour l'image à gauche #}

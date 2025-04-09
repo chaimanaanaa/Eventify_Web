@@ -64,14 +64,19 @@ return [
                         .')'
                     .')'
                 .')'
-                .'|/forum/(?'
-                    .'|image/([^/]++)(*:226)'
+                .'|/comment/(?'
+                    .'|add/([^/]++)(*:226)'
                     .'|delete/([^/]++)(*:249)'
+                    .'|edit/([^/]++)(*:270)'
+                .')'
+                .'|/forum/(?'
+                    .'|image/([^/]++)(*:303)'
+                    .'|delete/([^/]++)(*:326)'
                 .')'
                 .'|/users/([^/]++)(?'
-                    .'|(*:276)'
-                    .'|/edit(*:289)'
-                    .'|(*:297)'
+                    .'|(*:353)'
+                    .'|/edit(*:366)'
+                    .'|(*:374)'
                 .')'
             .')/?$}sDu',
     ],
@@ -84,11 +89,14 @@ return [
         168 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         181 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
         191 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        226 => [[['_route' => 'app_forum_image', '_controller' => 'App\\Controller\\ForumController::getImage'], ['id'], null, null, false, true, null]],
-        249 => [[['_route' => 'app_forum_delete', '_controller' => 'App\\Controller\\ForumController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        276 => [[['_route' => 'app_user_show', '_controller' => 'App\\Controller\\SignupController::show'], ['id_user'], ['GET' => 0], null, false, true, null]],
-        289 => [[['_route' => 'app_user_edit', '_controller' => 'App\\Controller\\SignupController::edit'], ['id_user'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        297 => [
+        226 => [[['_route' => 'app_comment_add', '_controller' => 'App\\Controller\\CommentController::addComment'], ['forumId'], ['POST' => 0], null, false, true, null]],
+        249 => [[['_route' => 'comment_delete', '_controller' => 'App\\Controller\\CommentController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        270 => [[['_route' => 'comment_edit', '_controller' => 'App\\Controller\\CommentController::editComment'], ['id'], ['POST' => 0], null, false, true, null]],
+        303 => [[['_route' => 'app_forum_image', '_controller' => 'App\\Controller\\ForumController::getImage'], ['id'], null, null, false, true, null]],
+        326 => [[['_route' => 'app_forum_delete', '_controller' => 'App\\Controller\\ForumController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        353 => [[['_route' => 'app_user_show', '_controller' => 'App\\Controller\\SignupController::show'], ['id_user'], ['GET' => 0], null, false, true, null]],
+        366 => [[['_route' => 'app_user_edit', '_controller' => 'App\\Controller\\SignupController::edit'], ['id_user'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        374 => [
             [['_route' => 'app_user_delete', '_controller' => 'App\\Controller\\SignupController::delete'], ['id_user'], ['POST' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
