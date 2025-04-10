@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Event{% endblock %}
+
+{% block body %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/templatemo-tiya-golf-club.css" rel="stylesheet">
+    
+    <h1>Edit Event</h1>
+
+    {{ include('event/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_event_index') }}">back to list</a>
+
+    {{ include('event/_delete_form.html.twig') }}
+{% endblock %}
