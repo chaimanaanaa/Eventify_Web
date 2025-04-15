@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity]
 class Comment
 {
@@ -16,8 +16,14 @@ class Comment
     private \DateTimeInterface $date;
 
     #[ORM\Column(type: "string", length: 255)]
+    #[Assert\NotBlank(message: "Le sujet ne peut pas être vide")]
+    #[Assert\Length(
+        min: 5,
+        max: 255,
+        minMessage: "Le sujet doit contenir au moins {{ limit }} caractères",
+        maxMessage: "Le sujet ne peut pas dépasser {{ limit }} caractères"
+    )]
     private string $sujet;
-
     #[ORM\Column(name:"nbComment",type: "integer")]
     private int $nbComment;
 

@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity]
 class Forum
 {
@@ -20,11 +20,18 @@ class Forum
     #[ORM\Column(type: "string", length: 255)]
     private string $img;
 
-    #[ORM\Column(type: "string", length: 255)]
-    private string $description;
+    #[ORM\Column(length: 1000)]
+    #[Assert\NotBlank(message: "La description ne peut pas être vide")]
+    #[Assert\Length(
+        min: 10,
+        minMessage: "La description doit contenir au moins {{ limit }} caractères"
+    )]
+    private ?string $description = null;
 
-    #[ORM\Column(type: "string", length: 255)]
-    private string $categorie;
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Veuillez sélectionner une catégorie")]
+    private ?string $categorie = null;
+
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "forums")]
     #[ORM\JoinColumn(name: "id_user", referencedColumnName: "id_user", onDelete: "CASCADE")]

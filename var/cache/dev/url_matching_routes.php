@@ -19,7 +19,6 @@ return [
         '/eventsback' => [[['_route' => 'app_eventsBack', '_controller' => 'App\\Controller\\DashboardController::eventsBack'], null, null, null, false, false, null]],
         '/logisticsback' => [[['_route' => 'app_logisticsBack', '_controller' => 'App\\Controller\\DashboardController::logisticsBack'], null, null, null, false, false, null]],
         '/complaintsback' => [[['_route' => 'app_complaintsBack', '_controller' => 'App\\Controller\\DashboardController::complaintsBack'], null, null, null, false, false, null]],
-        '/forumsback' => [[['_route' => 'app_forumsBack', '_controller' => 'App\\Controller\\DashboardController::forumsBack'], null, null, null, false, false, null]],
         '/organizersback' => [[['_route' => 'app_organizersBack', '_controller' => 'App\\Controller\\DashboardController::organizersBack'], null, null, null, false, false, null]],
         '/offersback' => [[['_route' => 'app_offersBack', '_controller' => 'App\\Controller\\DashboardController::offersBack'], null, null, null, false, false, null]],
         '/profileBack' => [[['_route' => 'app_profileBack', '_controller' => 'App\\Controller\\DashboardController::profileBack'], null, null, null, false, false, null]],
@@ -27,9 +26,11 @@ return [
             [['_route' => 'app_logoutBack', '_controller' => 'App\\Controller\\DashboardController::logoutBack'], null, ['GET' => 0], null, false, false, null],
             [['_route' => 'app_logout', '_controller' => 'App\\Controller\\HomeController::logout'], null, ['GET' => 0], null, false, false, null],
         ],
-        '/forums' => [[['_route' => 'app_forums', '_controller' => 'App\\Controller\\ForumController::index'], null, null, null, false, false, null]],
+        '/forums' => [[['_route' => 'app_forums', '_controller' => 'App\\Controller\\ForumController::index'], null, ['GET' => 0], null, false, false, null]],
         '/add' => [[['_route' => 'app_forums_new', '_controller' => 'App\\Controller\\ForumController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/edit' => [[['_route' => 'app_forum_edit', '_controller' => 'App\\Controller\\ForumController::edit'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        '/forum/traduire' => [[['_route' => 'app_traduire_texte', '_controller' => 'App\\Controller\\ForumController::traduireTexte'], null, null, null, false, false, null]],
+        '/forumsback' => [[['_route' => 'app_forumsBack', '_controller' => 'App\\Controller\\ForumsBackController::index'], null, null, null, false, false, null]],
         '/home' => [[['_route' => 'app_home', '_controller' => 'App\\Controller\\HomeController::index'], null, null, null, false, false, null]],
         '/about' => [[['_route' => 'app_about', '_controller' => 'App\\Controller\\HomeController::about'], null, null, null, false, false, null]],
         '/events' => [[['_route' => 'app_events', '_controller' => 'App\\Controller\\HomeController::events'], null, null, null, false, false, null]],
@@ -72,11 +73,16 @@ return [
                 .'|/forum/(?'
                     .'|image/([^/]++)(*:303)'
                     .'|delete/([^/]++)(*:326)'
+                    .'|translate/([^/]++)(*:352)'
+                .')'
+                .'|/reaction/(?'
+                    .'|like/([^/]++)(*:387)'
+                    .'|dislike/([^/]++)(*:411)'
                 .')'
                 .'|/users/([^/]++)(?'
-                    .'|(*:353)'
-                    .'|/edit(*:366)'
-                    .'|(*:374)'
+                    .'|(*:438)'
+                    .'|/edit(*:451)'
+                    .'|(*:459)'
                 .')'
             .')/?$}sDu',
     ],
@@ -94,9 +100,12 @@ return [
         270 => [[['_route' => 'comment_edit', '_controller' => 'App\\Controller\\CommentController::editComment'], ['id'], ['POST' => 0], null, false, true, null]],
         303 => [[['_route' => 'app_forum_image', '_controller' => 'App\\Controller\\ForumController::getImage'], ['id'], null, null, false, true, null]],
         326 => [[['_route' => 'app_forum_delete', '_controller' => 'App\\Controller\\ForumController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        353 => [[['_route' => 'app_user_show', '_controller' => 'App\\Controller\\SignupController::show'], ['id_user'], ['GET' => 0], null, false, true, null]],
-        366 => [[['_route' => 'app_user_edit', '_controller' => 'App\\Controller\\SignupController::edit'], ['id_user'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        374 => [
+        352 => [[['_route' => 'forum_translate', '_controller' => 'App\\Controller\\ForumController::translateForum'], ['id'], ['POST' => 0], null, false, true, null]],
+        387 => [[['_route' => 'reaction_like', '_controller' => 'App\\Controller\\ReactionController::like'], ['id'], ['POST' => 0], null, false, true, null]],
+        411 => [[['_route' => 'reaction_dislike', '_controller' => 'App\\Controller\\ReactionController::dislike'], ['id'], ['POST' => 0], null, false, true, null]],
+        438 => [[['_route' => 'app_user_show', '_controller' => 'App\\Controller\\SignupController::show'], ['id_user'], ['GET' => 0], null, false, true, null]],
+        451 => [[['_route' => 'app_user_edit', '_controller' => 'App\\Controller\\SignupController::edit'], ['id_user'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        459 => [
             [['_route' => 'app_user_delete', '_controller' => 'App\\Controller\\SignupController::delete'], ['id_user'], ['POST' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],
