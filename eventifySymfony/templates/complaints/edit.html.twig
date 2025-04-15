@@ -34,23 +34,61 @@
             {{ form_start(form, {
                 'action': path('app_reclamation_edit'),
                 'method': 'POST',
-                'attr': {'enctype': 'multipart/form-data'}
+                'attr': {'enctype': 'multipart/form-data', 'novalidate': 'novalidate'}
             }) }}
             
             <input type="hidden" name="id" value="{{ reclamation.id }}">
-            
+
+            {# Global Form Errors #}
+            {% if not form.vars.valid %}
+                <div class="alert alert-danger">
+                    <strong>Please fix these errors:</strong>
+                    {{ form_errors(form) }}
+                    {% for child in form.children %}
+                        {% if child.vars.errors|length > 0 %}
+                            <div class="mt-2">
+                                <strong>{{ child.vars.label }}:</strong>
+                                {{ form_errors(child) }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {# Date Field #}
             <div class="mb-3">
-                {{ form_row(form.date) }}
+                {{ form_label(form.date) }}
+                {{ form_widget(form.date, {
+                    'attr': {
+                        'class': 'form-control' ~ (form.date.vars.errors|length ? ' is-invalid' : '')
+                    }
+                }) }}
+                {{ form_errors(form.date) }}
             </div>
             
+            {# Title Field #}
             <div class="mb-3">
-                {{ form_row(form.titre) }}
+                {{ form_label(form.titre) }}
+                {{ form_widget(form.titre, {
+                    'attr': {
+                        'class': 'form-control' ~ (form.titre.vars.errors|length ? ' is-invalid' : '')
+                    }
+                }) }}
+                {{ form_errors(form.titre) }}
             </div>
             
+            {# Subject Field #}
             <div class="mb-3">
-                {{ form_row(form.sujet) }}
+                {{ form_label(form.sujet) }}
+                {{ form_widget(form.sujet, {
+                    'attr': {
+                        'class': 'form-control' ~ (form.sujet.vars.errors|length ? ' is-invalid' : '')
+                    }
+                }) }}
+                {{ form_errors(form.sujet) }}
             </div>
             
+            {# Image Field #}
             <div class="mb-3">
                 <label class="form-label">Current Image</label>
                 {% if reclamation.imgRec %}
@@ -63,7 +101,12 @@
                          style="max-height: 200px; display: none;">
                     <p class="text-muted">No image</p>
                 {% endif %}
-                {{ form_row(form.imageFile) }}
+                {{ form_widget(form.imageFile, {
+                    'attr': {
+                        'class': 'form-control' ~ (form.imageFile.vars.errors|length ? ' is-invalid' : '')
+                    }
+                }) }}
+                {{ form_errors(form.imageFile) }}
             </div>
             
             <div class="d-flex gap-2">

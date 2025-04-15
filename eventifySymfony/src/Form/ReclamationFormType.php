@@ -26,7 +26,8 @@ class ReclamationFormType extends AbstractType
                 'label' => 'Date'
             ])
             ->add('titre', TextType::class, [
-                'attr' => ['class' => 'form-control']
+                'attr' => ['class' => 'form-control'],
+                'empty_data' => '',
             ])
             ->add('sujet', TextareaType::class, [ // Changed to TextareaType
                 'attr' => [
@@ -34,16 +35,19 @@ class ReclamationFormType extends AbstractType
                     'rows' => 5,
                     'placeholder' => 'Enter your detailed message here...'
                 ],
-                'label' => 'Subject Details'
+                'label' => 'Subject Details',
+                'empty_data' => '',
             ])
             ->add('imageFile', FileType::class, [
                 'label' => 'Upload Image',
-                'required' => false,
+                'required' => true,
                 'mapped' => false,
+                'empty_data' => '',
                 'attr' => [
                     'class' => 'form-control file-upload',
                     'onchange' => 'previewImage(this)'
                 ]
+                
             ])
             ->add('statu', HiddenType::class, [
                 'data' => 'Pending'

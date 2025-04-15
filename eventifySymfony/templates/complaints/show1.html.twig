@@ -62,6 +62,14 @@
    onclick="return confirm('Delete this reclamation?')">
     <i class="bi bi-trash"></i> Delete
 </a>
+<!-- hne bech nzid el reponse  -->
+<a href="{{ path('app_reclamation_delete', {id: reclamation.id}) }}" 
+   class="btn btn-sm btn-outline-danger delete-btn"
+   data-id="{{ reclamation.id }}"
+   onclick="return confirm('Delete this reclamation?')">
+    <i class="bi bi-trash"></i> Delete
+</a>
+
             </div>
                         </div>
                     </div>

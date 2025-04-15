@@ -164,5 +164,19 @@ document.addEventListener("DOMContentLoaded", function () {
             preview.style.display = 'none';
         }
     });
+    
+    document.getElementById('{{ form.imageFile.vars.id }}').addEventListener('change', function(e) {
+        const preview = document.getElementById('imagePreview');
+        const file = e.target.files[0];
+        
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.classList.remove('d-none');
+            }
+            reader.readAsDataURL(file);
+        }
+    });
 
 });

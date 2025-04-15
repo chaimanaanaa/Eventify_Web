@@ -30,35 +30,72 @@
             <h2 class="mb-0">Add New Reclamation</h2>
         </div>
         <div class="card-body">
-            {{ form_start(form, {'attr': {'enctype': 'multipart/form-data', 'class': 'needs-validation'}}) }}
+            {{ form_start(form, {'attr': {'enctype': 'multipart/form-data', 'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
             
-            <div class="form-group">
-                {{ form_label(form.date) }}
-                {{ form_widget(form.date) }}
+            {# 1. CSRF Token - MUST be right after form_start #}
+            {{ form_widget(form._token) }}
+            
+            {# 2. Flash Messages - shows success/error messages from controller #}
+            {% for type, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ type }} alert-dismissible fade show">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
+            {# 3. Global Form Errors #}
+            {% if not form.vars.valid %}
+                <div class="alert alert-danger">
+                    <strong>Please fix these errors:</strong>
+                    {{ form_errors(form) }}
+                    {% for child in form.children %}
+                        {% if child.vars.errors|length > 0 %}
+                            <div class="mt-2">
+                                <strong>{{ child.vars.label }}:</strong>
+                                {{ form_errors(child) }}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {# Date Field #}
+            <div class="mb-3">
+                {{ form_label(form.date, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.date, {'attr': {'class': 'form-control' ~ (form.date.vars.errors|length ? ' is-invalid' : '')}}) }}
+                {{ form_errors(form.date, {'attr': {'class': 'invalid-feedback'}}) }}
             </div>
-            
-            <div class="form-group">
-                {{ form_label(form.titre) }}
-                {{ form_widget(form.titre) }}
+
+            {# Title Field #}
+            <div class="mb-3">
+                {{ form_label(form.titre, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.titre, {'attr': {'class': 'form-control' ~ (form.titre.vars.errors|length ? ' is-invalid' : '')}}) }}
+                {{ form_errors(form.titre, {'attr': {'class': 'invalid-feedback'}}) }}
             </div>
-            
-            <div class="form-group">
-                {{ form_label(form.sujet) }}
-                {{ form_widget(form.sujet) }}
+
+            {# Subject Field #}
+            <div class="mb-3">
+                {{ form_label(form.sujet, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.sujet, {'attr': {'class': 'form-control' ~ (form.sujet.vars.errors|length ? ' is-invalid' : ''), 'rows': 4}}) }}
+                {{ form_errors(form.sujet, {'attr': {'class': 'invalid-feedback'}}) }}
             </div>
-            
-            <div class="form-group">
-                {{ form_label(form.imageFile) }}
-                {{ form_widget(form.imageFile) }}
-                <img id="imagePreview" class="image-preview img-thumbnail" alt="Preview">
+
+            {# Image Field #}
+            <div class="mb-3">
+                {{ form_label(form.imageFile, null, {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.imageFile, {'attr': {'class': 'form-control' ~ (form.imageFile.vars.errors|length ? ' is-invalid' : '')}}) }}
+                {{ form_errors(form.imageFile, {'attr': {'class': 'invalid-feedback'}}) }}
+                <small class="form-text text-muted">Allowed formats: JPG, PNG, GIF (Max 2MB)</small>
+                <img id="imagePreview" src="#" alt="Preview" class="img-thumbnail mt-2 d-none" style="max-height: 200px;">
             </div>
-            
+
             <button type="submit" class="btn btn-primary">Submit</button>
             {{ form_end(form) }}
         </div>
     </div>
 </div>
-
 <script>
     function previewImage(input) {
         const preview = document.getElementById('imagePreview');

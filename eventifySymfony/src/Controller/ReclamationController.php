@@ -40,49 +40,51 @@ public function listReclamations(ReclamationRepository $reclamationRepository): 
     ]);
 }
 
+
 #[Route('/add', name: 'app_reclamation_add')]
-    public function add(Request $request, EntityManagerInterface $em): Response
-    {
-        $reclamation = new Reclamation();
-        $form = $this->createForm(ReclamationFormType::class, $reclamation);
+public function add(Request $request, EntityManagerInterface $em): Response
+{
+    $reclamation = new Reclamation();
+    $form = $this->createForm(ReclamationFormType::class, $reclamation);
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            try {
-                // Handle file upload
-                $imageFile = $form->get('imageFile')->getData();
-                
-                if ($imageFile) {
-                    $newFilename = uniqid().'.'.$imageFile->guessExtension();
-                    $imageFile->move(
-                        $this->getParameter('uploads_directory'),
-                        $newFilename
-                    );
-                    $reclamation->setImgRec($newFilename);
-                }
-
-                // Set static user (ID = 1)
-                $user = $em->getReference(User::class, 1); // Now using the properly imported User class
-                if (!$user) {
-                    throw new \Exception("User with ID 1 not found - create one in your database");
-                }
-                $reclamation->setUser($user);
-                
-                $em->persist($reclamation);
-                $em->flush();
-
-                $this->addFlash('success', 'Reclamation added successfully!');
-                return $this->redirectToRoute('app_reclamation_lister');
-                
-            } catch (\Exception $e) {
-                $this->addFlash('error', 'Error saving reclamation: '.$e->getMessage());
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+        try {
+            // Handle file upload
+            $imageFile = $form->get('imageFile')->getData();
+            
+            if ($imageFile) {
+                $newFilename = uniqid().'.'.$imageFile->guessExtension();
+                $imageFile->move(
+                    $this->getParameter('uploads_directory'),
+                    $newFilename
+                );
+                $reclamation->setImgRec($newFilename);
+            } else {
+                // If no file is uploaded, add a validation error
+                $this->addFlash('error', 'Please upload an image.');
+                return $this->redirectToRoute('app_reclamation_add');
             }
-        }
 
-        return $this->render('complaints/add.html.twig', [
-            'form' => $form->createView(),
-        ]);
+            // Set static user (ID = 1)
+            $user = $em->getReference(User::class, 1);
+            $reclamation->setUser($user);
+            
+            $em->persist($reclamation);
+            $em->flush();
+
+            $this->addFlash('success', 'Reclamation added successfully!');
+            return $this->redirectToRoute('app_reclamation_lister');
+            
+        } catch (\Exception $e) {
+            $this->addFlash('error', 'Error saving reclamation: '.$e->getMessage());
+        }
     }
+
+    return $this->render('complaints/add.html.twig', [
+        'form' => $form->createView(),
+    ]);
+}
     #[Route('/edit', name: 'app_reclamation_edit', methods: ['GET', 'POST'])]
     public function edit(
         Request $request,
