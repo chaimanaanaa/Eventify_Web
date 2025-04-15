@@ -178,5 +178,35 @@ document.addEventListener("DOMContentLoaded", function () {
             reader.readAsDataURL(file);
         }
     });
+    document.addEventListener('DOMContentLoaded', function() {
+        // Card flip functionality
+        document.querySelectorAll('.card-container').forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Don't flip if clicking on the response button or inside responses
+                if (e.target.closest('.toggle-response, .responses-section')) {
+                    return;
+                }
+                this.querySelector('.card-inner').classList.toggle('flipped');
+            });
+        });
+    
+        // Response toggle functionality
+        document.querySelectorAll('.toggle-response').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent the card flip
+                const targetId = this.getAttribute('data-bs-target');
+                const responseDiv = document.querySelector(targetId);
+                responseDiv.classList.toggle('show');
+                
+                // Toggle icon state
+                const icon = this.querySelector('i');
+                if (responseDiv.classList.contains('show')) {
+                    icon.classList.replace('bi-chevron-down', 'bi-chevron-up');
+                } else {
+                    icon.classList.replace('bi-chevron-up', 'bi-chevron-down');
+                }
+            });
+        });
+    });
 
 });

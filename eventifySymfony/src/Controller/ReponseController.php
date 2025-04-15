@@ -33,4 +33,26 @@ class ReponseController extends AbstractController
     
         return $this->json(['success' => true]); // Only returns success status
     }
+    // src/Controller/ReclamationController.php
+
+#[Route('/showr', name: 'app_reclamation_show', methods: ['GET'])]
+public function show(Request $request): Response
+{
+    // Get the reclamation ID from query parameters
+    $id = $request->query->get('id');
+    
+    if (!$id) {
+        throw $this->createNotFoundException('No reclamation ID provided');
+    }
+
+    $reclamation = $this->getRepository(Reclamation::class)->find($id);
+
+    if (!$reclamation) {
+        throw $this->createNotFoundException('Reclamation not found');
+    }
+
+    return $this->render('complaints/show1.html.twig', [
+        'reclamation' => $reclamation,
+    ]);
+}
 }
