@@ -35,7 +35,7 @@ class ReponseController extends AbstractController
     }
     // src/Controller/ReclamationController.php
 
-#[Route('/showr', name: 'app_reclamation_show', methods: ['GET'])]
+#[Route('/showr', name: 'app_reponse_show', methods: ['GET'])]
 public function show(Request $request): Response
 {
     // Get the reclamation ID from query parameters
