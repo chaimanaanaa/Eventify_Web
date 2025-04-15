@@ -814,17 +814,35 @@ public function affecterOrganisateurParIA(Request $request, EntityManagerInterfa
         $prompt .= json_encode($organisateursArray, JSON_PRETTY_PRINT) . "\n\n";
         $prompt .= <<<INSTRUCTIONS
 ## Instructions ##
-Give me the best organizer for this offer.
-Choose based on the budget, skills, language, and years of experience and availability of the organizer.
-Compare the type_evenement of the offer with the specialite of the organizer.
-Ensure that the budget of the offer is greater than or equal to the organizer's salary.
-If multiple organizers meet the above criteria, choose the one with the lowest salary.
-The organizer must be available.
-Select the most suitable organizer accordingly.
-Provide the name, surname, and email of the chosen organizer, along with an explanation of why this organizer is the best fit for the offer.
-The last line of your response must contain the ID of the chosen organizer.
-If no organizer matches the criteria, the last line of your response must be: 'not exist'.
-Provide the reasoning clearly so that it can be understood by the user.
+You must select the best organizer for the given offer based on the following criteria:
+1. The organizer's `specialite` must exactly match the offer's `type_evenement` (case-sensitive).
+2. The organizer's `salaire` must be less than or equal to the offer's `budget`. If `salaire` exceeds `budget`, the organizer is ineligible.
+3. The organizer must have `statut` set to "Available".
+4. If multiple organizers meet all criteria, select the one with the lowest `salaire`.
+5. If no organizer meets all criteria, return "not exist" as the last line.
+
+Provide a clear explanation of your reasoning, structured as follows:
+- Start with "Offer details:" followed by all offer fields, each on a new line, formatted clearly as:
+  - id: [id]
+  - objet: [objet]
+  - description: [description]
+  - type_evenement: [type_evenement]
+  - budget: [budget]
+  - nombreInvite: [nombreInvite]
+  - dateDebutEvenement: [dateDebutEvenement]
+  - dateFinEvenement: [dateFinEvenement]
+  - lieuEvenement: [lieuEvenement]
+- For each organizer, evaluate:
+  - Whether their `specialite` matches `type_evenement`.
+  - Whether their `salaire` is less than or equal to `budget`.
+  - Whether their `statut` is "Available".
+- Explain why the selected organizer was chosen (or why none was chosen).
+- If multiple organizers qualify, justify choosing the one with the lowest `salaire`.
+
+Output format:
+- Explanation of the selection process (as described above).
+- For the selected organizer: "Best organizer: [prenom] [nom], Email: [email]...".
+- Last line: the organizer's `id` (integer) or "not exist" if no match is found.
 INSTRUCTIONS;
 
         // Call Gemini API
