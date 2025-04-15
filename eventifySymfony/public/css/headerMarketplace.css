@@ -1,0 +1,32 @@
+.eventify-title { 
+    color: #fff; 
+    font-size: 35px; 
+    font-family: 'Georgia', serif; 
+    font-weight: 400;  
+    letter-spacing: 0.5px; 
+    padding: 0px 0; 
+    transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), color 0.3s ease, text-shadow 0.3s ease; 
+    display: inline-block; 
+    position: relative; 
+    opacity: 0; 
+    animation: fadeIn 1s ease-out forwards; 
+    white-space: nowrap; 
+    left: -10px; /* Shift text 10px to the left */
+}
+
+.eventify-title:hover { color: #ff6b6b; transform: translateY(-10px) scale(1.1) rotate(0deg); text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 1px 8px rgba(255, 107, 107, 0.4); }
+
+@keyframes fadeIn { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+.cart-button {
+    color: #fff; /* White text color */
+    background-color: #ADC29B ;
+    font-size: 16px; /* Size of the text */
+    font-weight: 400;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+.cart-button:hover {
+    background-color: #844062; /* Color on hover */
+    color: #fff; /* Keep the text white */
+}

@@ -1,0 +1,61 @@
+<h2>Your Cart</h2>
+
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
+<div class="container">
+    <div class="row">
+        {% for item in cartItems %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{{ item.img }}" class="card-img-top" alt="{{ item.name }}" width="100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.name }}</h5>
+                    <p class="card-text">{{ item.prix }} DT</p>
+                    <!-- Remove Button -->
+                    <a href="{{ path('cart_remove', {'id': item.id}) }}" class="btn btn-danger" 
+                       onclick="return confirm('Are you sure you want to remove this item?');">
+                        Remove
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Total Price -->
+    <div class="total">
+        <p>Total: <strong>{{ totalSum }} DT</strong></p>
+    </div>
+
+    <!-- Pay Now Button -->
+    <div class="pay-now-button">
+        <a href="{{ path('cart_view') }}" class="btn btn-primary">Pay Now</a>
+    </div>
+
+    <!-- Thank You Section -->
+    <div class="thank-you">
+        <p>Thank you for choosing us. We hope to make your experience even more wonderful next time. 💖</p>
+    </div>
+
+    <!-- Signature -->
+    <div class="signature-section">
+        <p>With all our love and gratitude,</p>
+        <p><em>Your Eventify Team</em></p>
+    </div>
+
+    <!-- Eventify Logo -->
+    <img src="{{ asset('images/eventify-logo.png') }}" alt="Eventify Logo" class="eventify-logo">
+</div>
+
+<footer>
+    <p>&copy; {{ "now"|date("Y") }} Eventify. All Rights Reserved.</p>
+</footer>
+<head>
+    <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
+</head>
