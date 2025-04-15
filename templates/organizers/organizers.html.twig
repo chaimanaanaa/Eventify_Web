@@ -24,11 +24,12 @@
                 <div class="row">
 
                     <div class="col-lg-6 col-12">
+                         <h1 class="text-white mb-4 pb-2">Submit & Manage Your Requests</h1> 
 
-                        <h1 class="text-white mb-4 pb-2">Submit & Manage Your Requests</h1>
+                          <!--<h1 class="mb-4 pb-2" style="color: black;">Submit & Manage Your Requests</h1>-->
 
-                        <a href="#" class="btn custom-btn smoothscroll me-3">Send Your Request</a>
-                        <a href="#" class="btn custom-btn smoothscroll me-3">Consult Your Request</a>
+                        <a href="{{ path('app_AddYourRequest') }}" class="btn custom-btn smoothscroll me-3 SendRequest">Submit Your Requests</a>
+                        <a href="{{ path('app_ConsulterYourRequest') }}" class="btn custom-btn smoothscroll me-3 SendRequest">Manage Your Requests</a>
                     </div>
 
                 </div>

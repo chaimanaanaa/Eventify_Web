@@ -305,6 +305,7 @@ css affichage organisateur
     margin-left: 5px;
 }
 
+
 .edit-btn {
     background-color: #6c3452;
     color: white;
@@ -319,16 +320,17 @@ css affichage organisateur
     background-color: #8dc29b;
     color: white;
 }
-.action-btn
+/*.action-btn
 {
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Effet fluide */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;  Effet fluide 
 
-}
+}*/
 .action-btn:hover {
-    opacity: 0.9;
+    /*opacity: 0.9;
     transform: scale(1.1); 
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
-    padding: 8px;
+    padding: 8px;*/
+    transform: scale(1.1);
 }
 
 
@@ -418,7 +420,7 @@ css affichage detaille organisateur ***
 .card.hide {
     opacity: 0;
     transform: scale(0.9);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition: opacity 0.3s ease, transform 0.5s ease;
 }
 
 /* Initial state of the floating details container (hidden) */
@@ -443,7 +445,7 @@ css affichage detaille organisateur ***
 /* Animation for showing the floating details container */
 #floatingDetails.show {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1,5);
     display: block;
 }
 
@@ -494,4 +496,10 @@ css affichage detaille organisateur ***
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     padding: 8px;
 }
+
+
+.SendRequest:hover {
+    transform: scale(1.05);
+}
+
 
