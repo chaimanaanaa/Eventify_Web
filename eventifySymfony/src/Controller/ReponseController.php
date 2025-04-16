@@ -9,18 +9,24 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\{Request, JsonResponse};
 use Symfony\Component\Routing\Annotation\Route;
-
+use App\Form\ReponseTypeFormType;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 class ReponseController extends AbstractController
 {
+  
+
+
+
     #[Route('/reponse/add/{id}', name: 'reponse_add', methods: ['POST'])]
     public function addResponse(
         Request $request,
         Reclamation $reclamation,
         EntityManagerInterface $em,
-        UserRepository $userRepo
+        UserRepository $userRepo,
+        ValidatorInterface $validator // Add this
     ): JsonResponse {
         $reponse = new Reponse();
-        $user = $this->getUser() ?? $userRepo->find(1); // Still keeps the admin fallback
+        $user = $this->getUser() ?? $userRepo->find(1);
         
         $reponse
             ->setText($request->request->get('text'))
@@ -28,12 +34,23 @@ class ReponseController extends AbstractController
             ->setReclamation($reclamation)
             ->setDate(new \DateTime());
     
+        // Validate before saving
+        $errors = $validator->validate($reponse);
+        
+        if (count($errors) > 0) {
+            $errorMessages = [];
+            foreach ($errors as $error) {
+                $errorMessages[] = $error->getMessage();
+            }
+            return $this->json(['success' => false, 'errors' => $errorMessages], 400);
+        }
+    
         $em->persist($reponse);
         $em->flush();
-    
-        return $this->json(['success' => true]); // Only returns success status
+        
+        return $this->json(['success' => true]);
     }
-    // src/Controller/ReclamationController.php
+    
 
 #[Route('/showr', name: 'app_reponse_show', methods: ['GET'])]
 public function show(Request $request): Response
