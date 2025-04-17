@@ -1,54 +1,25 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
-{% block title %}Event{% endblock %}
-
-{% block body %}
-    <h1>Event</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id_event</th>
-                <td>{{ event.idEvent }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{{ event.date ? event.date|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Lieu</th>
-                <td>{{ event.lieu }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ event.description }}</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>{{ event.type }}</td>
-            </tr>
-            <tr>
-                <th>NbInvite</th>
-                <td>{{ event.nbInvite }}</td>
-            </tr>
-            <tr>
-                <th>Categorie</th>
-                <td>{{ event.categorie }}</td>
-            </tr>
-            <tr>
-                <th>PrixEstime</th>
-                <td>{{ event.prixEstime }}</td>
-            </tr>
-            <tr>
-                <th>Imageven</th>
-                <td>{{ event.imageven }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_event_index') }}">back to list</a>
-
-    <a href="{{ path('app_event_edit', {'id_event': event.id_event}) }}">edit</a>
-
-    {{ include('event/_delete_form.html.twig') }}
+{% block content %}
+<section class="event-details-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10 col-12">
+                <div class="card">
+                    <img src="{{ asset('uploads/images/' ~ event.imageven) }}" class="card-img-top" alt="{{ event.description }}" style="height: 300px; object-fit: cover;">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">{{ event.description }}</h3>
+                        <p class="card-text"><strong>Catégorie :</strong> {{ event.categorie }}</p>
+                        <p class="card-text"><strong>Lieu :</strong> {{ event.lieu }}</p>
+                        <p class="card-text"><strong>Prix estimé :</strong> {{ event.prixEstime }} €</p>
+                        <p class="card-text"><strong>Détails :</strong> {{ event.details }}</p>
+                        <div class="text-center mt-4">
+                            <a href="{{ path('app_eventsBack') }}" class="btn btn-secondary">Retour à la liste</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

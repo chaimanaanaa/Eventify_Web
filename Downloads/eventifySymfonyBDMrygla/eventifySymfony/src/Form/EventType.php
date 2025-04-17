@@ -30,12 +30,48 @@ class EventType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
             ])
-            ->add('lieu', TextType::class, [
-                'required' => false,
+            ->add('lieu', ChoiceType::class, [
+                'choices' => [
+                    'Tunisie' => [
+                        'Ariana' => 'Ariana',
+                        'Béja' => 'Béja',
+                        'Ben Arous' => 'Ben Arous',
+                        'Bizerte' => 'Bizerte',
+                        'Gabès' => 'Gabès',
+                        'Gafsa' => 'Gafsa',
+                        'Jendouba' => 'Jendouba',
+                        'Kairouan' => 'Kairouan',
+                        'Kasserine' => 'Kasserine',
+                        'Kébili' => 'Kébili',
+                        'Le Kef' => 'Le Kef',
+                        'Mahdia' => 'Mahdia',
+                        'La Manouba' => 'La Manouba',
+                        'Médenine' => 'Médenine',
+                        'Monastir' => 'Monastir',
+                        'Nabeul' => 'Nabeul',
+                        'Sfax' => 'Sfax',
+                        'Sidi Bouzid' => 'Sidi Bouzid',
+                        'Siliana' => 'Siliana',
+                        'Sousse' => 'Sousse',
+                        'Tataouine' => 'Tataouine',
+                        'Tozeur' => 'Tozeur',
+                        'Tunis' => 'Tunis',
+                        'Zaghouan' => 'Zaghouan',
+                    ],
+                    'International' => [
+                        'Paris' => 'Paris',
+                        'New York' => 'New York',
+                        'Tokyo' => 'Tokyo',
+                        'Berlin' => 'Berlin',
+                        'Londres' => 'Londres',
+                    ],
+                ],
+                'placeholder' => 'Sélectionnez un lieu',
+                'attr' => ['class' => 'form-control'],
             ])
             ->add('date', DateType::class, [
                 'widget' => 'single_text',
-                'required' => false,
+                'attr' => ['class' => 'form-control'],
             ])
             ->add('nbInvite', NumberType::class, [
                 'label' => 'Guests Number',

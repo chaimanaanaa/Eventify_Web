@@ -1,20 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Event{% endblock %}
+{% block title %}Modifier l'Événement{% endblock %}
 
 {% block body %}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-icons.css" rel="stylesheet">
-    <link href="css/templatemo-tiya-golf-club.css" rel="stylesheet">
-    
-    <h1>Edit Event</h1>
+<div class="container py-5">
+    <h4 class="fw-bold py-3 mb-4">Modifier l'Événement</h4>
 
-    {{ include('event/_form.html.twig', {'button_label': 'Update'}) }}
+    <div class="card p-4 shadow-sm">
+        {{ form_start(form) }}
+            <div class="mb-3">
+                {{ form_label(form.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.description) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.lieu, 'Lieu', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.lieu, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.lieu) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.categorie, 'Catégorie', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.categorie, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.categorie) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.prixEstime, 'Prix Estimé', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.prixEstime, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.prixEstime) }}
+            </div>
+            <div class="mb-3">
+                {{ form_label(form.imageven, 'Image', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.imageven, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.imageven) }}
+            </div>
+            <button class="btn btn-primary">Mettre à jour</button>
+        {{ form_end(form) }}
+    </div>
 
-    <a href="{{ path('app_event_index') }}">back to list</a>
-
-    {{ include('event/_delete_form.html.twig') }}
+    <a href="{{ path('app_event_index') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
+</div>
 {% endblock %}

@@ -2,26 +2,264 @@
 
 {% block content %}
 <section class="hero-section hero-50 d-flex justify-content-center align-items-center" id="section_1">
+    <!-- Contenu hero existant -->
+</section>
 
-    <div class="section-overlay"></div>
-
-    <svg viewBox="0 0 1962 178" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#ADC29B" d="M 0 114 C 118.5 114 118.5 167 237 167 L 237 167 L 237 0 L 0 0 Z" stroke-width="0"></path> <path fill="#ADC29B" d="M 236 167 C 373 167 373 128 510 128 L 510 128 L 510 0 L 236 0 Z" stroke-width="0"></path> <path fill="#ADC29B" d="M 509 128 C 607 128 607 153 705 153 L 705 153 L 705 0 L 509 0 Z" stroke-width="0"></path><path fill="#ADC29B" d="M 704 153 C 812 153 812 113 920 113 L 920 113 L 920 0 L 704 0 Z" stroke-width="0"></path><path fill="#ADC29B" d="M 919 113 C 1048.5 113 1048.5 148 1178 148 L 1178 148 L 1178 0 L 919 0 Z" stroke-width="0"></path><path fill="#ADC29B" d="M 1177 148 C 1359.5 148 1359.5 129 1542 129 L 1542 129 L 1542 0 L 1177 0 Z" stroke-width="0"></path><path fill="#ADC29B" d="M 1541 129 C 1751.5 129 1751.5 138 1962 138 L 1962 138 L 1962 0 L 1541 0 Z" stroke-width="0"></path></svg>
-
+<section class="events-section py-5">
     <div class="container">
-        <div class="row">
+        <h4 class="fw-bold py-3 mb-4 text-center">Liste des Événements</h4>
+        
+        <div class="mb-4 text-end">
+            <a href="{{ path('app_event_new') }}" class="btn btn-primary">
+                <i class="bx bx-plus"></i> Ajouter un événement
+            </a>
+            <a href="{{ path('app_events_personalise') }}" class="btn btn-secondary">
+                <i class="bx bx-filter"></i> Événements Personnalisés
+            </a>
+        <a href="{{ path('app_reservation_index') }}" class="btn btn-info">
+        <i class="bx bx-list-ul"></i> Consulter mes réservations
+    </a>
+        </div>
 
-            <div class="col-lg-6 col-12">
-
-                <h1 class="text-white mb-4 pb-2">Event Listing</h1>
-
-                <a href="{{ path('app_event_new') }}" class="btn custom-btn smoothscroll me-3">Ajouter Un évenement </a>
-
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for event in events %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="{{ asset('Uploads/images/' ~ event.imageven) }}" 
+                         class="card-img-top" 
+                         alt="{{ event.description }}"
+                         style="height: 200px; object-fit: cover;">
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">{{ event.description|slice(0, 25) }}</h5>
+                        <span class="badge bg-primary">{{ event.categorie }}</span>
+                        <span class="badge bg-secondary">{{ event.type }}</span>
+                        
+                        <div class="mt-3 d-flex justify-content-between">
+                            <button class="btn btn-sm btn-outline-primary details-btn" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#detailsModal"
+                                    data-event-id="{{ event.idEvent }}"
+                                    data-description="{{ event.description }}"
+                                    data-lieu="{{ event.lieu }}"
+                                    data-prix="{{ event.prixEstime }}"
+                                    data-categorie="{{ event.categorie }}">
+                                Détails
+                            </button>
+                            
+                            {% if event.type != 'offert' %}
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-warning edit-btn" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#editModal"
+                                        data-event-id="{{ event.idEvent }}"
+                                        data-description="{{ event.description }}"
+                                        data-lieu="{{ event.lieu }}"
+                                        data-prix="{{ event.prixEstime }}"
+                                        data-categorie="{{ event.categorie }}"
+                                        data-image="{{ event.imageven }}"
+                                        data-edit-url="{{ path('app_event_edit', {'id': event.idEvent}) }}">
+                                    Modifier
+                                </button>
+                                <form action="{{ path('app_event_delete', {'id': event.getIdEvent()}) }}" method="post" class="d-inline">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ event.getIdEvent()) }}">
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr ?')">
+                                        Supprimer
+                                    </button>
+                                </form>
+                            </div>
+                            {% endif %}
+                            <!-- Bouton Réserver -->
+                            <button class="btn btn-sm btn-success reserve-btn" 
+                                    data-event-id="{{ event.idEvent }}"
+                                    data-csrf-token="{{ csrf_token('reserve-event') }}"
+                                    data-reserve-url="{{ path('app_reservation_create', {'id': event.idEvent}) }}">
+                                Réserver
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
+            {% else %}
+            <div class="col-12">
+                <div class="alert alert-warning text-center">Aucun événement trouvé</div>
+            </div>
+            {% endfor %}
         </div>
     </div>
-
-    <svg viewBox="0 0 1962 178" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#ffffff" d="M 0 114 C 118.5 114 118.5 167 237 167 L 237 167 L 237 0 L 0 0 Z" stroke-width="0"></path> <path fill="#ffffff" d="M 236 167 C 373 167 373 128 510 128 L 510 128 L 510 0 L 236 0 Z" stroke-width="0"></path> <path fill="#ffffff" d="M 509 128 C 607 128 607 153 705 153 L 705 153 L 705 0 L 509 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 704 153 C 812 153 812 113 920 113 L 920 113 L 920 0 L 704 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 919 113 C 1048.5 113 1048.5 148 1178 148 L 1178 148 L 1178 0 L 919 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 1177 148 C 1359.5 148 1359.5 129 1542 129 L 1542 129 L 1542 0 L 1177 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 1541 129 C 1751.5 129 1751.5 138 1962 138 L 1962 138 L 1962 0 L 1541 0 Z" stroke-width="0"></path></svg>
 </section>
+
+<!-- Modale de modification -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Modifier l'événement</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="editForm" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="hidden" name="_token" value="{{ csrf_token('edit-event') }}">
+                    <input type="hidden" id="editEventId" name="id">
+                    
+                    <div class="mb-3">
+                        <label for="editDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="editDescription" name="description" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="editLieu" class="form-label">Lieu</label>
+                            <input type="text" class="form-control" id="editLieu" name="lieu" required>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label for="editCategorie" class="form-label">Catégorie</label>
+                            <select class="form-select" id="editCategorie" name="categorie" required>
+                                <option value="Wedding">Wedding</option>
+                                <option value="Birthday">Birthday</option>
+                                <option value="Baby Gender">Baby Gender</option>
+                                <option value="Soutenance">Soutenance</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label for="editPrix" class="form-label">Prix estimé (€)</label>
+                            <input type="number" class="form-control" id="editPrix" name="prix" step="0.01" required>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label for="editImage" class="form-label">Image</label>
+                            <input type="file" class="form-control" id="editImage" name="image">
+                            <small class="text-muted">Laisser vide pour garder l'image actuelle</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-primary">Sauvegarder</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modale de détails -->
+<div class="modal fade" id="detailsModal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailsModalLabel">Détails de l'événement</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Description:</strong> <span id="detailsDescription"></span></p>
+                <p><strong>Lieu:</strong> <span id="detailsLieu"></span></p>
+                <p><strong>Prix estimé:</strong> <span id="detailsPrix"></span> €</p>
+                <p><strong>Catégorie:</strong> <span id="detailsCategorie"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Gestion de l'ouverture de la modale de modification
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const eventId = this.dataset.eventId;
+            
+            // Remplir les champs du formulaire
+            document.getElementById('editEventId').value = eventId;
+            document.getElementById('editDescription').value = this.dataset.description;
+            document.getElementById('editLieu').value = this.dataset.lieu;
+            document.getElementById('editPrix').value = this.dataset.prix;
+            
+            // Sélectionner la catégorie correcte
+            const categorieSelect = document.getElementById('editCategorie');
+            Array.from(categorieSelect.options).forEach(option => {
+                option.selected = (option.value === this.dataset.categorie);
+            });
+        });
+    });
+
+    // Soumission du formulaire de modification
+    document.getElementById('editForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        const eventId = document.getElementById('editEventId').value;
+
+        fetch(`/eventedit/${eventId}`, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                alert('Une erreur est survenue lors de la modification');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Erreur de connexion au serveur');
+        });
+    });
+
+    // Gestion des détails
+    document.querySelectorAll('.details-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.getElementById('detailsDescription').textContent = this.dataset.description;
+            document.getElementById('detailsLieu').textContent = this.dataset.lieu;
+            document.getElementById('detailsPrix').textContent = this.dataset.prix;
+            document.getElementById('detailsCategorie').textContent = this.dataset.categorie;
+        });
+    });
+
+    // Gestion de la réservation
+    document.querySelectorAll('.reserve-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const eventId = this.dataset.eventId;
+            const csrfToken = this.dataset.csrfToken;
+            const reserveUrl = this.dataset.reserveUrl;
+
+            fetch(reserveUrl, {
+                method: 'POST',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `_token=${encodeURIComponent(csrfToken)}`
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Erreur lors de la réservation');
+                }
+            })
+            .then(data => {
+                if (data.status === 'success') {
+                    alert(data.message);
+                    window.location.reload();
+                } else {
+                    alert(data.message || 'Une erreur est survenue');
+                }
+            })
+            .catch(error => {
+                console.error('Erreur réseau :', error);
+                alert('Erreur de connexion au serveur.');
+            });
+        });
+    });
+});
+</script>
 
 {% endblock %}
