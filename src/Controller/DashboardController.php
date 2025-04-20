@@ -75,6 +75,11 @@ public function staff(EntityManagerInterface $entityManager): Response
         return $this->render('logistics/logisticsBack.html.twig');
     }
 
+    
+
+
+
+
     #[Route('/complaintsback', name: 'app_complaintsBack')]
     public function complaintsBack(): Response
     {
@@ -116,9 +121,8 @@ public function logoutBack(SessionInterface $session): Response
     // Ajouter un message flash et rediriger
     $this->addFlash('success', 'You have been logged out.');
    // return $this->render('signup/index.html.twig');
-   return $this->render('signup/index.html.twig', [
-    'recaptcha_site_key' => $_ENV['GOOGLE_RECAPTCHA_SITE_KEY'], // Passer la clé reCAPTCHA
-]);
+   //return $this->render('home/index.html.twig');
+    return $this->redirectToRoute('app_home');
 }
 
 

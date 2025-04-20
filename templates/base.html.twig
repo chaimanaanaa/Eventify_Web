@@ -66,13 +66,11 @@
                     <li >
                         <a class="nav-link click-scroll" href="{{path('app_organizers')}}">Organizers</a>
                     </li>
-                    <li class=" dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                        <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                            <li><a class="dropdown-item nav-link" href="{{path('app_logistics')}}">Logistics</a></li>
-                            <li><a class="dropdown-item nav-link" href="{{path('app_marketplace')}}">Marketplace</a></li>
-                        </ul>
+
+                    <li >
+                        <a class="nav-link click-scroll" href="{{path('app_shop')}}">Marketplace</a>
                     </li>
+
                     <li >
                         <a class="nav-link click-scroll" data-bs-toggle="offcanvas" href="#profileOffcanvas" role="button" aria-controls="profileOffcanvas">
                             <img src="images/profil3.png" style="width: 40px; height: 30px;" alt="Profile">
@@ -367,6 +365,8 @@
             await startCamera();
         };
     </script>
+    <!--script pour capturé la photo de celui qui essaie d'ouvrir un compte-->
+    
         <!-- Leaflet JS -->
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
         <!-- Initialize the Map -->

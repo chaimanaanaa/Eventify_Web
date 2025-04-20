@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 #[ORM\Entity]
 class Organisateur
 {
@@ -13,27 +15,41 @@ class Organisateur
     private int $id_organisateur;
 
     #[ORM\Column(name:"imageOrg",type: "string", length: 255)]
+    #[Assert\NotBlank(message: "The image cannot be empty.")]
     private string $imageOrg;
 
     #[ORM\Column(name:"nom_org",type: "string", length: 30)]
+    #[Assert\NotBlank(message: "The name cannot be empty.")]
+    #[Assert\Length(max: 30, maxMessage: "The name cannot exceed {{ limit }} characters.")]
     private string $nom_org;
 
     #[ORM\Column(name:"prenom_org",type: "string", length: 30)]
+    #[Assert\NotBlank(message: "The first name cannot be empty.")]
+    #[Assert\Length(max: 30, maxMessage: "The first name cannot exceed {{ limit }} characters.")]
     private string $prenom_org;
 
     #[ORM\Column(name:"email_org",type: "string", length: 50)]
+    #[Assert\NotBlank(message: "The email cannot be empty.")]
+    #[Assert\Email(message: "The email '{{ value }}' is not valid.")]
+    #[Assert\Length(max: 50, maxMessage: "The email cannot exceed {{ limit }} characters.")]
     private string $email_org;
 
     #[ORM\Column(name:"num_tel",type: "string", length: 20)]
+    #[Assert\NotBlank(message: "The phone number cannot be empty.")]
+    #[Assert\Regex( pattern: "/^\d{8}$/",message: "The phone number must contain exactly 8 digits." )]
     private string $num_tel;
 
     #[ORM\Column(type: "string", length: 50)]
+    #[Assert\NotBlank(message: "The specialty cannot be empty.")]
     private string $specialite;
 
     #[ORM\Column(name:"date_embauche",type: "string", length: 255)]
+    #[Assert\NotBlank(message: "The hiring date cannot be empty.")]
     private string $date_embauche;
 
     #[ORM\Column(name:"nbexp",type: "integer")]
+    #[Assert\NotNull(message: "The experience cannot be empty.")]
+    #[Assert\GreaterThan(value: 0, message: "The experience must be a positive number or zero.")]
     private int $nbexp;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "organisateurs")]
@@ -41,6 +57,7 @@ class Organisateur
     private ?User $user = null;
 
     #[ORM\Column(type: "string", length: 255, nullable: true)]
+    #[Assert\NotBlank(message: "The city cannot be empty.")]
     private ?string $city = null;
 
     #[ORM\Column(type: "string", length: 255, nullable: true)]
@@ -53,9 +70,12 @@ class Organisateur
     private ?string $longuage = null;
 
     #[ORM\Column(type: "string", length: 255, nullable: true)]
+    #[Assert\NotBlank(message: "The date of birth cannot be empty.")]
     private ?string $date_naissance = null;
 
     #[ORM\Column(type: "float")]
+    #[Assert\NotBlank(message: "The salary cannot be empty.")]
+    #[Assert\Positive(message: "The salary must be a positive number.")]
     private float $salaire;
 
     #[ORM\Column(type: "string", length: 255)]
@@ -121,6 +141,7 @@ class Organisateur
         return $this;
     }
 
+
     public function getSpecialite(): string
     {
         return $this->specialite;
@@ -164,6 +185,8 @@ class Organisateur
         $this->user = $user;
         return $this;
     }
+   
+
 
     // Alias pour compatibilité
     public function getIdUser(): ?User
@@ -235,6 +258,7 @@ class Organisateur
     {
         return $this->salaire;
     }
+
 
     public function setSalaire(float $salaire): self
     {

@@ -94,68 +94,116 @@
         <div class="center-section" style="margin-top: -230px;">
             <h1 class="main-title" style="font-size:45px">Get Started Now</h1>
             <p class="subtitle">You need an account to continue</p>
-
+        
             <form id="signup-form" class="signup-form" method="post" action="{{ path('app_signup') }}" enctype="multipart/form-data" autocomplete="off">
                 <!-- Ligne 1 : First Name & Last Name -->
                 <div class="form-row">
                     <div class="form-group">
                         <label for="firstName">First Name</label>
-                        <input type="text" id="firstName" name="firstName" placeholder="First Name" >
-                        <span class="error-message" id="firstNameError"></span>
+                        <input type="text" id="firstName" name="firstName" placeholder="First Name" value="{{ app.request.get('firstName') }}">
+                        <span class="error-message" id="firstNameError">
+                            {% for error in errors %}
+                                {% if error.propertyPath == 'firstName' %}
+                                    {{ error.message }}
+                                {% endif %}
+                            {% endfor %}
+                        </span>
                     </div>
                     <div class="form-group">
                         <label for="lastName">Last Name</label>
-                        <input type="text" id="lastName" name="lastName" placeholder="Last Name" >
-                        <span class="error-message" id="lastNameError"></span>
+                        <input type="text" id="lastName" name="lastName" placeholder="Last Name" value="{{ app.request.get('lastName') }}">
+                        <span class="error-message" id="lastNameError">
+                            {% for error in errors %}
+                                {% if error.propertyPath == 'lastName' %}
+                                    {{ error.message }}
+                                {% endif %}
+                            {% endfor %}
+                        </span>
                     </div>
                 </div>
-
+        
                 <!-- Ligne 2 : Date of Birth & CIN -->
                 <div class="form-row">
                     <div class="form-group">
                         <label for="dateOfBirth">Date of birth</label>
-                        <input type="date" id="dateOfBirth" name="dateOfBirth" onchange="calculateAge()">
-                        <span class="error-message" id="birthDateError"></span>
+                        <input type="date" id="dateOfBirth" name="dateOfBirth" value="{{ app.request.get('dateOfBirth') }}" onchange="calculateAge()">
+                        <span class="error-message" id="birthDateError">
+                            {% for error in errors %}
+                                {% if error.propertyPath == 'dateNaissance' %}
+                                    {{ error.message }}
+                                {% endif %}
+                            {% endfor %}
+                        </span>
                         <small id="ageMessage" style="color:  #844062;"></small>
                     </div>
                     <div class="form-group">
                         <label for="cin">CIN</label>
-                        <input type="text" id="cin" name="cin" placeholder="CIN" >
-                        <span class="error-message" id="cinError"></span>
+                        <input type="text" id="cin" name="cin" placeholder="CIN" value="{{ app.request.get('cin') }}">
+                        
+                        <span class="error-message" id="cinError">
+                            {% for error in errors %}
+                                {% if error.propertyPath == 'cin' %}
+                                    {{ error.message }}
+                                {% endif %}
+                            {% endfor %}
+                        </span>
                     </div>
                 </div>
-
+        
                 <!-- Ligne 3 : Phone Number & Gender -->
                 <div class="form-row">
                     <div class="form-group">
                         <label for="phoneNumber">Phone number</label>
-                        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" >
-                        <span class="error-message" id="phoneNumberError"></span>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" value="{{ app.request.get('phoneNumber') }}">
+                        
+                        <span class="error-message" id="phoneNumberError">
+                            {% for error in errors %}
+                                {% if error.propertyPath == 'numTlf' %}
+                                    {{ error.message }}
+                                {% endif %}
+                            {% endfor %}
+                        </span>
                     </div>
                     <div class="form-group">
                         <label for="gender">Gender</label>
-                        <select id="gender" name="gender" >
+                        <select id="gender" name="gender">
                             <option value="">Select Gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
+                            <option value="male" {% if app.request.get('gender') == 'male' %}selected{% endif %}>Male</option>
+                            <option value="female" {% if app.request.get('gender') == 'female' %}selected{% endif %}>Female</option>
                         </select>
-                        <span class="error-message" id="genreError"></span>
+                        
+
+                        <span class="error-message" id="genreError">
+                            {% for error in errors %}
+                                {% if error.propertyPath == 'genre' %}
+                                    {{ error.message }}
+                                {% endif %}
+                            {% endfor %}
+                        </span>
                     </div>
                 </div>
-
+        
                 <!-- Ligne 4 : Role -->
                 <div class="form-row">
                     <div class="form-group full-width">
                         <label for="role">Role</label>
-                        <select id="role" name="role" >
+                        <select id="role" name="role">
                             <option value="">Select Role</option>
-                            <option value="Client">CLIENT</option>
-                            <option value="Partner">PARTENAIRE</option>
+                            <option value="Client" {% if app.request.get('role') == 'Client' %}selected{% endif %}>CLIENT</option>
+                            <option value="Partenaire" {% if app.request.get('role') == 'Partner' %}selected{% endif %}>PARTENAIRE</option>
                         </select>
-                        <span class="error-message" id="roleError"></span>
+                        
+
+                        <span class="error-message" id="roleError">
+                            {% for error in errors %}
+                                {% if error.propertyPath == 'role' %}
+                                    {{ error.message }}
+                                {% endif %}
+                            {% endfor %}
+                        </span>
                     </div>
                 </div>
-
+        
                 <!-- Ligne 5 : Password & Email -->
                 <div class="form-row">
                     <div class="form-group password-group">
@@ -173,14 +221,30 @@
                             </div>
                             <small id="passwordStrengthText" style="font-size: 14px; color: #6c757d;">Weak</small>
                         </div>
-                        <span class="error-message" id="passwordError"></span>
+                      
+                        <span class="error-message" id="passwordError">
+                            {% for error in errors %}
+                                {% if error.propertyPath == 'mdp' %}
+                                    {{ error.message }}
+                                {% endif %}
+                            {% endfor %}
+                        </span>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="Email"  autocomplete="new-email">
-                        <span class="error-message" id="emailError"></span>
+                        <input type="email" id="email" name="email" placeholder="Email" value="{{ app.request.get('email') }}" autocomplete="new-email">
+                        
+
+                        <span class="error-message" id="emailError">
+                            {% for error in errors %}
+                                {% if error.propertyPath == 'email' %}
+                                    {{ error.message }}
+                                {% endif %}
+                            {% endfor %}
+                        </span>
                     </div>
                 </div>
+        
                 <!--recapcha-->
                 <div class="g-recaptcha" data-sitekey="{{ recaptcha_site_key }}" style="margin-left:30px;"></div>
                 <!-- Bouton Signup -->
@@ -201,7 +265,6 @@
                 <!-- Champ caché pour sélectionner un fichier -->
                 <input type="file" id="fileInput" name="fileInput" accept="image/*" style="display: none;" onchange="displaySelectedImage(event)">
             </form>
-            
         </div>
         <!--partie pour login-->
         <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
@@ -757,6 +820,8 @@
             passwordError.textContent = ''; // Effacer les erreurs
         });
     </script>
+    <!--script pour capturé la photo de celui qui essaie d'ouvrir un compte-->
+    
     <!--progress bar du mdp-->
     <script>
         function checkPasswordStrength() {

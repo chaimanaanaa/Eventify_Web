@@ -1,0 +1,25 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+<section class="event-details-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10 col-12">
+                <div class="card">
+                    <img src="{{ asset('uploads/images/' ~ event.imageven) }}" class="card-img-top" alt="{{ event.description }}" style="height: 300px; object-fit: cover;">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">{{ event.description }}</h3>
+                        <p class="card-text"><strong>Catégorie :</strong> {{ event.categorie }}</p>
+                        <p class="card-text"><strong>Lieu :</strong> {{ event.lieu }}</p>
+                        <p class="card-text"><strong>Prix estimé :</strong> {{ event.prixEstime }} €</p>
+                        <p class="card-text"><strong>Détails :</strong> {{ event.details }}</p>
+                        <div class="text-center mt-4">
+                            <a href="{{ path('app_eventsBack') }}" class="btn btn-secondary">Retour à la liste</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

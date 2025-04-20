@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,7 +15,13 @@ class Event
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
     private int $id_event;
-
+ /**
+     * @Assert\NotBlank(message="La date est obligatoire.")
+     * @Assert\GreaterThanOrEqual(
+     *     value="today",
+     *     message="La date doit être supérieure ou égale à aujourd'hui."
+     * )
+     */
     #[ORM\Column(type: "date")]
     private \DateTimeInterface $date;
 

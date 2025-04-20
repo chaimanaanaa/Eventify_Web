@@ -41,11 +41,11 @@ final class HomeController extends AbstractController
     }
 
     //forums
-    #[Route('/forums', name: 'app_forums')]
+    /*#[Route('/forums', name: 'app_forums')]
     public function forums(): Response
     {
         return $this->render('forums/forums.html.twig');
-    }
+    }*/
 
     //complaints
     #[Route('/complaints', name: 'app_complaints')]
@@ -53,6 +53,9 @@ final class HomeController extends AbstractController
     {
         return $this->render('complaints/complaints.html.twig');
     }
+
+
+    
     //organizers
     #[Route('/organizers', name: 'app_organizers')]
     public function organizers(): Response

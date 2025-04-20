@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Réservations{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h4 class="fw-bold py-3 mb-4">Mes Réservations</h4>
+
+    {% if events is empty %}
+        <div class="alert alert-warning text-center">Aucun événement réservé.</div>
+    {% else %}
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            {% for event in events %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="{{ asset('Uploads/images/' ~ event.imageven) }}" 
+                         class="card-img-top" 
+                         alt="{{ event.description }}"
+                         style="height: 200px; object-fit: cover;">
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">{{ event.description }}</h5>
+                        <p><strong>Lieu :</strong> {{ event.lieu }}</p>
+                        <p><strong>Prix estimé :</strong> {{ event.prixEstime }} €</p>
+                        <p><strong>Catégorie :</strong> {{ event.categorie }}</p>
+
+                        <!-- Bouton Annuler Réservation -->
+                        <form action="{{ path('app_reservation_delete', {'idRes': event.reservationId}) }}" method="post" class="d-inline">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ event.reservationId) }}">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Êtes-vous sûr de vouloir annuler cette réservation ?')">
+                                Annuler Réservation
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
