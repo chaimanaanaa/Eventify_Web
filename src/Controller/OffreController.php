@@ -22,6 +22,10 @@ use App\Repository\OfferRepository; // Notez le changement de "Offer" à "Offre"
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
+
+/// zidha lil ai agent
+use Symfony\Component\HttpClient\HttpClient;
+
 final class OffreController extends AbstractController{
      /*#[Route('/offre', name: 'app_offre')]
     public function index(): Response
@@ -887,6 +891,200 @@ INSTRUCTIONS;
         return $this->redirectToRoute('app_consulterOffreCoteAdmin');
     }
 }
+
+
+
+
+
+
+
+
+/************************ AI agent Controller********************
+ * ************************************************************
+ ********************************************************/
+/*
+    #[Route('/api/greet', name: 'api_greet', methods: ['POST'])]
+    public function greet(): JsonResponse
+    {
+        $apiKey = $_ENV['DEEPINFRA_API_KEY'] ?? 'pHrya1ylqY0NYjgu3THedMEg6mvS5xrH';
+        $client = HttpClient::create();
+        $prompt = "You are Eventify a friendly AI assistant. Provide a short, welcoming greeting to start a conversation, like 'Hello! I'm here to help you with any questions!'";
+
+        try {
+            $response = $client->request('POST', 'https://api.deepinfra.com/v1/inference/meta-llama/Meta-Llama-3-8B-Instruct', [
+                'headers' => [
+                    'Authorization' => "Bearer $apiKey",
+                    'Content-Type' => 'application/json',
+                ],
+                'json' => [
+                    'input' => "<|begin_of_text|><|start_header_id|>user<|end_header_id>\n\n$prompt<|eot_id|><|start_header_id|>assistant<|end_header_id>\n\n",
+                    'stop' => ['<|eot_id|>'],
+                    'stream' => false,
+                ],
+            ]);
+
+            $result = $response->toArray();
+            $greeting = $result['results'][0]['generated_text'] ?? 'Hello! How can I assist you today?';
+
+            return new JsonResponse(['greeting' => $greeting]);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => 'API error: ' . $e->getMessage()], 500);
+        }
+    }
+
+    #[Route('/api/ask', name: 'api_ask', methods: ['POST'])]
+    public function ask(Request $request): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $input = $data['question'] ?? '';
+
+        if (empty($input)) {
+            return new JsonResponse(['error' => 'Input is required'], 400);
+        }
+
+        $apiKey = $_ENV['DEEPINFRA_API_KEY'] ?? 'pHrya1ylqY0NYjgu3THedMEg6mvS5xrH';
+        $client = HttpClient::create();
+
+        $isQuestion = preg_match('/\?$|\b(what|where|when|why|how|who|is|are|can|does|do)\b/i', $input);
+        $prompt = $isQuestion
+            ? "You are a helpful AI assistant. Answer the following question concisely and naturally: $input"
+            : "You are a conversational AI. The user said: '$input'. If it's not a question, acknowledge it briefly (e.g., 'That's interesting!' or 'Got it!') and ask if they have a question. If it seems like a question, answer it.";
+
+        try {
+            $response = $client->request('POST', 'https://api.deepinfra.com/v1/inference/meta-llama/Meta-Llama-3-8B-Instruct', [
+                'headers' => [
+                    'Authorization' => "Bearer $apiKey",
+                    'Content-Type' => 'application/json',
+                ],
+                'json' => [
+                    'input' => "<|begin_of_text|><|start_header_id|>user<|end_header_id>\n\n$prompt<|eot_id|><|start_header_id|>assistant<|end_header_id>\n\n",
+                    'stop' => ['<|eot_id|>'],
+                    'stream' => false,
+                ],
+            ]);
+
+            $result = $response->toArray();
+            $answer = $result['results'][0]['generated_text'] ?? 'Sorry, I couldn’t understand that.';
+
+            return new JsonResponse(['answer' => $answer]);
+        } catch (\Exception $e) {
+            return new JsonResponse(['error' => 'API error: ' . $e->getMessage()], 500);
+        }
+    }
+*/
+
+
+
+#[Route('/api/greet', name: 'api_greet', methods: ['POST'])]
+public function greet( EntityManagerInterface $entityManager): JsonResponse
+{
+    $apiKey = $_ENV['DEEPINFRA_API_KEY'] ?? 'pHrya1ylqY0NYjgu3THedMEg6mvS5xrH';
+    $client = HttpClient::create();
+
+    // Fetch all organizers and manually format details
+    $organisateurs = $entityManager->getRepository(Organisateur::class)->findAll();
+    $organisateurDetails = "Here are the available organizers in our company with their full details:\n";
+    foreach ($organisateurs as $organisateur) {
+        $organisateurDetails .= "Organizer:\n";
+        $organisateurDetails .= "- Given Name: {$organisateur->getNomOrg()}\n";
+        $organisateurDetails .= "- Family Name: {$organisateur->getPrenomOrg()}\n";
+        $organisateurDetails .= "- Email: {$organisateur->getEmailOrg()}\n";
+        $organisateurDetails .= "- Phone Number: {$organisateur->getNumTel()}\n";
+        $organisateurDetails .= "- Speciality: {$organisateur->getSpecialite()}\n";
+        $organisateurDetails .= "- Years Of Experience: {$organisateur->getNbexp()}\n";
+        $organisateurDetails .= "- City: " . ($organisateur->getCity() ?? 'N/A') . "\n";
+        $organisateurDetails .= "- Employment: " . ($organisateur->getEmployment() ?? 'N/A') . "\n";
+        $organisateurDetails .= "- Skills: " . ($organisateur->getSkills() ?? 'N/A') . "\n";
+        $organisateurDetails .= "- Langues: " . ($organisateur->getLonguage() ?? 'N/A') . "\n";
+        $organisateurDetails .= "- Salary: {$organisateur->getSalaire()}\n";
+        $organisateurDetails .= "- State: " . ($organisateur->getStatut() === 'Available' ? 'Yes' : 'No') . "\n";
+    }
+
+    $prompt = "You are Eventify, a friendly AI assistant for event planning. You have access to a list of organizers from our company with their complete details to assist with event-related queries. $organisateurDetails Provide a short, welcoming greeting to start a conversation, like 'Hello! I'm Eventify, here to help you plan events with our talented organizers!'";
+
+    try {
+        $response = $client->request('POST', 'https://api.deepinfra.com/v1/inference/meta-llama/Meta-Llama-3-8B-Instruct', [
+            'headers' => [
+                'Authorization' => "Bearer $apiKey",
+                'Content-Type' => 'application/json',
+            ],
+            'json' => [
+                'input' => "<|begin_of_text|><|start_header_id|>user<|end_header_id>\n\n$prompt<|eot_id|><|start_header_id|>assistant<|end_header_id>\n\n",
+                'stop' => ['<|eot_id|>'],
+                'stream' => false,
+            ],
+        ]);
+
+        $result = $response->toArray();
+        $greeting = $result['results'][0]['generated_text'] ?? 'Hello! I’m Eventify, here to help you plan events with our talented organizers!';
+
+        return new JsonResponse(['greeting' => $greeting]);
+    } catch (\Exception $e) {
+        return new JsonResponse(['error' => 'API error: ' . $e->getMessage()], 500);
+    }
+}
+
+#[Route('/api/ask', name: 'api_ask', methods: ['POST'])]
+public function ask(Request $request , EntityManagerInterface $entityManager): JsonResponse
+{
+    $data = json_decode($request->getContent(), true);
+    $input = $data['question'] ?? '';
+
+    if (empty($input)) {
+        return new JsonResponse(['error' => 'Input is required'], 400);
+    }
+
+    $apiKey = $_ENV['DEEPINFRA_API_KEY'] ?? 'pHrya1ylqY0NYjgu3THedMEg6mvS5xrH';
+    $client = HttpClient::create();
+
+    // Fetch all organizers and manually format details
+    $organisateurs = $entityManager->getRepository(Organisateur::class)->findAll();
+    $organisateurDetails = "You have access to the following organizers in our company with their complete details:\n";
+    foreach ($organisateurs as $organisateur) {
+        $organisateurDetails .= "Organizer:\n";
+        $organisateurDetails .= "- Given Name: {$organisateur->getNomOrg()}\n";
+        $organisateurDetails .= "- Family Name: {$organisateur->getPrenomOrg()}\n";
+        $organisateurDetails .= "- Email: {$organisateur->getEmailOrg()}\n";
+        $organisateurDetails .= "- Phone Number: {$organisateur->getNumTel()}\n";
+        $organisateurDetails .= "- Speciality: {$organisateur->getSpecialite()}\n";
+        $organisateurDetails .= "- Years Of Experience: {$organisateur->getNbexp()}\n";
+        $organisateurDetails .= "- City: " . ($organisateur->getCity() ?? 'N/A') . "\n";
+        $organisateurDetails .= "- Employment: " . ($organisateur->getEmployment() ?? 'N/A') . "\n";
+        $organisateurDetails .= "- Skills: " . ($organisateur->getSkills() ?? 'N/A') . "\n";
+        $organisateurDetails .= "- Langues: " . ($organisateur->getLonguage() ?? 'N/A') . "\n";
+        $organisateurDetails .= "- Salary: {$organisateur->getSalaire()}\n";
+        $organisateurDetails .= "- State: " . ($organisateur->getStatut() === 'Available' ? 'Yes' : 'No') . "\n";
+    }
+
+    $isQuestion = preg_match('/\?$|\b(what|where|when|why|how|who|is|are|can|does|do)\b/i', $input);
+    $prompt = $isQuestion
+        ? "You are Eventify, a helpful AI assistant for event planning. $organisateurDetails Answer the following question concisely and naturally, using the organizer information if relevant: $input"
+        : "You are Eventify, a conversational AI for event planning. $organisateurDetails The user said: '$input'. If it's not a question, acknowledge it briefly (e.g., 'That's interesting!' or 'Got it!') and ask if they have a question. If it seems like a question or is related to organizers or events, answer it using the organizer information if relevant.";
+
+    try {
+        $response = $client->request('POST', 'https://api.deepinfra.com/v1/inference/meta-llama/Meta-Llama-3-8B-Instruct', [
+            'headers' => [
+                'Authorization' => "Bearer $apiKey",
+                'Content-Type' => 'application/json',
+            ],
+            'json' => [
+                'input' => "<|begin_of_text|><|start_header_id|>user<|end_header_id>\n\n$prompt<|eot_id|><|start_header_id|>assistant<|end_header_id>\n\n",
+                'stop' => ['<|eot_id|>'],
+                'stream' => false,
+            ],
+        ]);
+
+        $result = $response->toArray();
+        $answer = $result['results'][0]['generated_text'] ?? 'Sorry, I couldn’t understand that.';
+
+        return new JsonResponse(['answer' => $answer]);
+    } catch (\Exception $e) {
+        return new JsonResponse(['error' => 'API error: ' . $e->getMessage()], 500);
+    }
+}
+
+
+
 
 
 }

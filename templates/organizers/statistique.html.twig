@@ -39,6 +39,60 @@
         img:hover {
             transform: scale(1.2);
         }
+
+
+/******* zidtou fil statistique *********/
+/* Ajustements du conteneur principal */
+.container.mt-5 {
+    max-width: 90%;
+    margin: 30px auto !important;
+    padding: 0 15px;
+}
+
+/* Redimensionnement des cartes */
+.stat-card {
+    padding: 10px !important;
+}
+
+/* Ajustements des graphiques */
+.card-body canvas {
+    max-height: 280px;
+    width: auto !important;
+    margin: 0 auto;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container.mt-5 {
+        max-width: 95%;
+        margin: 20px auto !important;
+    }
+    
+    .stat-card {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+/* Ajustement hauteur des cartes */
+.card.shadow {
+    height: calc(100% - 20px);
+    display: flex;
+    flex-direction: column;
+}
+
+.card-body {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+/*******************************************/
+        
+             
     </style>
 </head>
 
