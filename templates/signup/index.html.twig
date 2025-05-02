@@ -189,8 +189,8 @@
                         <label for="role">Role</label>
                         <select id="role" name="role">
                             <option value="">Select Role</option>
-                            <option value="Client" {% if app.request.get('role') == 'Client' %}selected{% endif %}>CLIENT</option>
-                            <option value="Partenaire" {% if app.request.get('role') == 'Partner' %}selected{% endif %}>PARTENAIRE</option>
+                            <option value="CLIENT" {% if app.request.get('role') == 'CLIENT' %}selected{% endif %}>CLIENT</option>
+                            <option value="PARTENAIRE" {% if app.request.get('role') == 'PARTENAIRE' %}selected{% endif %}>PARTENAIRE</option>
                         </select>
                         
 
