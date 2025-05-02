@@ -18,6 +18,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
+
 final class OrganisateurController extends AbstractController{
    /* #[Route('/organizersBack', name: 'app_organisateur')]
     public function index(): Response
@@ -286,7 +290,7 @@ public function addOrganisateur(Request $request, EntityManagerInterface $entity
 */
 
 #[Route('/organisateur/add', name: 'add_organisateur', methods: ["POST"])]
-    public function addOrganisateur(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator): JsonResponse
+    public function addOrganisateur(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator, SessionInterface $session): JsonResponse
     {
         try {
             $data = json_decode($request->getContent(), true);
@@ -324,10 +328,21 @@ public function addOrganisateur(Request $request, EntityManagerInterface $entity
             }
 
             $organisateur = new Organisateur();
-            $user = $this->rechercheUser(9, $entityManager);
-            if (!$user) {
-                return new JsonResponse(['message' => 'Utilisateur non trouvé'], 404);
+
+
+
+            // Récupérer l'ID de l'utilisateur connecté depuis la session
+            $userId = $session->get('user_id');
+            if (!$userId) {
+                return new JsonResponse(["message" => "Utilisateur non connecté"], 401);
             }
+
+            $user = $this->rechercheUser($userId, $entityManager);
+            if (!$user) {
+                return new JsonResponse(["message" => "Utilisateur non trouvé"], 404);
+            }
+
+
 
             // Remplir l'entité
             $organisateur->setUser($user);
@@ -495,7 +510,7 @@ public function modifierOrgPage(Request $request, EntityManagerInterface $entity
 
 /// fonction ili itmodifilik fil base de donneees 
 #[Route('/organisateur/edit/{id}', name: 'edit_organisateur', methods: ["PUT"])]
-    public function editOrganisateur(int $id, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator): JsonResponse
+    public function editOrganisateur(int $id, Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator, SessionInterface $session): JsonResponse
     {
         try {
             $data = json_decode($request->getContent(), true);
@@ -508,9 +523,15 @@ public function modifierOrgPage(Request $request, EntityManagerInterface $entity
                 return new JsonResponse(["message" => "Organisateur non trouvé."], 404);
             }
 
-            $user = $this->rechercheUser(9, $entityManager);
+            // Récupérer l'ID de l'utilisateur connecté depuis la session
+            $userId = $session->get('user_id');
+            if (!$userId) {
+                return new JsonResponse(["message" => "Utilisateur non connecté"], 401);
+            }
+
+            $user = $this->rechercheUser($userId, $entityManager);
             if (!$user) {
-                return new JsonResponse(["message" => "Utilisateur non trouvé."], 404);
+                return new JsonResponse(["message" => "Utilisateur non trouvé"], 404);
             }
 
             $imagePath = $organisateur->getImageOrg();
@@ -545,7 +566,8 @@ public function modifierOrgPage(Request $request, EntityManagerInterface $entity
             $organisateur->setDateNaissance($data['date_naissance'] ?? '');
             $organisateur->setSpecialite($data['specialite'] ?? '');
             $organisateur->setDateEmbauche($data['date_embauche'] ?? '');
-            $organisateur->setNbexp(isset($data['nbexp']) ? (int)$data['nbexp'] : null);            $organisateur->setSalaire(isset($data['salaire']) ? (float)$data['salaire'] : null);
+            $organisateur->setNbexp(isset($data['nbexp']) ? (int)$data['nbexp'] : null);          
+            $organisateur->setSalaire(isset($data['salaire']) ? (float)$data['salaire'] : null);
             $organisateur->setEmployment($data['employment'] ?? null);
             $organisateur->setSkills($data['skills'] ?? null);
             $organisateur->setLonguage($data['longuage'] ?? null);

@@ -16,11 +16,13 @@ use Symfony\Contracts\HttpClient\HttpClientInterface; // Correction de l'import
 
 
 
+
 use App\Entity\Organisateur;
 use App\Repository\OfferRepository; // Notez le changement de "Offer" à "Offre"
 
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 /// zidha lil ai agent
@@ -87,7 +89,7 @@ public function addOffre(Request $request, EntityManagerInterface $entityManager
 }*/
 
 #[Route('/offre/add', name: 'add_offre', methods: ["POST"])]
-public function addOffre(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator): JsonResponse
+public function addOffre(Request $request, EntityManagerInterface $entityManager, ValidatorInterface $validator  , SessionInterface $session): JsonResponse
 {
     try {
         $data = json_decode($request->getContent(), true);
@@ -96,11 +98,21 @@ public function addOffre(Request $request, EntityManagerInterface $entityManager
         }
 
         $offre = new Offre();
-        $user = $this->rechercheUser(9, $entityManager); // TODO: Use authenticated user
-        if (!$user) {
-            return new JsonResponse(["message" => "Utilisateur non trouvé"], 404);
-        }
 
+
+        // Récupérer l'ID de l'utilisateur connecté depuis la session
+       $userId = $session->get('user_id');
+       if (!$userId) {
+           return new JsonResponse(["message" => "Utilisateur non connecté"], 401);
+       }
+
+       $user = $this->rechercheUser($userId, $entityManager);
+       if (!$user) {
+           return new JsonResponse(["message" => "Utilisateur non trouvé"], 404);
+       }
+
+
+    
         $offre->setUser($user);
         $offre->setDescription($data['description'] ?? '');
         $offre->setStatu("pending");
@@ -363,14 +375,19 @@ private function interpretWeatherCode(int $code): string
 * *********Afficher Offre Feont where id ure houwa il session ***************
 ****************************************/
 #[Route('/consulterYourRequest', name: 'app_offers')]
-public function indexs(EntityManagerInterface $entityManager): Response
+public function indexs(EntityManagerInterface $entityManager, SessionInterface $session): Response
 {
 
-$user = $this->rechercheUser(9, $entityManager); // Vous devriez utiliser l'utilisateur connecté
+   // Récupérer l'ID de l'utilisateur connecté depuis la session
+   $userId = $session->get('user_id');
+   if (!$userId) {
+       return new JsonResponse(["message" => "Utilisateur non connecté"], 401);
+   }
 
-if (!$user) {
-    throw $this->createAccessDeniedException('User not authenticated.');
-}
+   $user = $this->rechercheUser($userId, $entityManager);
+   if (!$user) {
+       return new JsonResponse(["message" => "Utilisateur non trouvé"], 404);
+   }
 
 $offreRepository = $entityManager->getRepository(Offre::class);
 
@@ -666,7 +683,7 @@ if (!$offer) {
 
 
 
-$organisateurs = $entityManager->getRepository(Organisateur::class)->findAll();
+$organisateurs = $entityManager->getRepository(className: Organisateur::class)->findAll();
 dump($organisateurs); // Vérifier les données récupérées
 
 
@@ -895,10 +912,6 @@ INSTRUCTIONS;
 
 
 
-
-
-
-
 /************************ AI agent Controller********************
  * ************************************************************
  ********************************************************/
@@ -1000,7 +1013,7 @@ public function greet( EntityManagerInterface $entityManager): JsonResponse
         $organisateurDetails .= "- State: " . ($organisateur->getStatut() === 'Available' ? 'Yes' : 'No') . "\n";
     }
 
-    $prompt = "You are Eventify, a friendly AI assistant for event planning. You have access to a list of organizers from our company with their complete details to assist with event-related queries. $organisateurDetails Provide a short, welcoming greeting to start a conversation, like 'Hello! I'm Eventify, here to help you plan events with our talented organizers!'";
+    $prompt = "You are Venty, a friendly AI assistant for event planning. You have access to a list of organizers from our company with their complete details to assist with event-related queries. $organisateurDetails Provide a short, welcoming greeting to start a conversation, like 'Hello! I'm Eventify, here to help you plan events with our talented organizers!'";
 
     try {
         $response = $client->request('POST', 'https://api.deepinfra.com/v1/inference/meta-llama/Meta-Llama-3-8B-Instruct', [
@@ -1082,8 +1095,6 @@ public function ask(Request $request , EntityManagerInterface $entityManager): J
         return new JsonResponse(['error' => 'API error: ' . $e->getMessage()], 500);
     }
 }
-
-
 
 
 

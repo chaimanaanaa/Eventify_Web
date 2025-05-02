@@ -41,6 +41,13 @@ class Logistique
     #[ORM\OneToMany(mappedBy: "logistique", targetEntity: Panier::class, orphanRemoval: true)]
     private Collection $paniers;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "logistiques")]
+    #[ORM\JoinColumn(name: "user_id", referencedColumnName: "id_user", nullable: true, onDelete: "CASCADE")]
+    private ?User $user = null;
+
+    #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'logistiques')]
+    #[ORM\JoinColumn(name: 'category_id', referencedColumnName: 'id', nullable: true, onDelete: 'CASCADE')]    private ?Category $category = null;
+
     public function __construct()
     {
         $this->paniers = new ArrayCollection();
@@ -163,6 +170,30 @@ class Logistique
                 $panier->setLogistique(null);
             }
         }
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
+
         return $this;
     }
 }

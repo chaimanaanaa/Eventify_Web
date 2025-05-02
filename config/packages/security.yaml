@@ -12,7 +12,14 @@ security:
         main:
             lazy: true
             provider: users_in_memory
-
+            remember_me:
+                secret: '%env(APP_SECRET)%' # Utilisez la clé secrète de mon application (définit dans .env)
+                lifetime: 604800         # Durée de vie du cookie (en secondes) : 7 jours
+                path: /                  # Chemin où le cookie est valide
+                always_remember_me: false # L'utilisateur doit cocher la case pour activer "Remember Me"
+                secure: auto               # Le cookie sera sécurisé si HTTPS est activé
+                httponly: true             # Le cookie ne sera pas accessible via JavaScript
+                samesite: lax              # Politique SameSite pour le cookie
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 

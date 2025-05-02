@@ -4,6 +4,52 @@
 <head>
     <link rel="stylesheet" href="{{ asset('filesOrganisateur/offre.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<!---------------------- prediction------------->
+    <style>
+        .prediction-circle-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto;
+        }
+
+        .prediction-circle {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .prediction-percentage {
+            position: absolute;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #844062;
+            z-index: 2;
+        }
+
+        .progress-ring__circle {
+            transition: stroke-dashoffset 0.35s;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            stroke-dasharray: 440;
+            stroke-dashoffset: 440;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .prediction-message {
+            animation: pulse 2s infinite;
+        }
+    </style>
+<!---------------------------------------------->
 </head>
 
 <body>
@@ -91,6 +137,36 @@
     </div>
 </div>
 <div id="errorModalBackdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9998;"></div>
+<!---------------------- prediction-------------------------->
+<!-- Prediction Modal with Enhanced UI -->
+<div id="predictionModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); border-radius: 15px; z-index: 9999; min-width: 300px;">
+    <div style="text-align: center;">
+        <div class="prediction-circle-container">
+            <div class="prediction-circle">
+                <div class="prediction-percentage">0%</div>
+                <svg class="progress-ring" width="160" height="160">
+                    <circle class="progress-ring__circle" stroke="#844062" stroke-width="8" fill="transparent" r="70" cx="80" cy="80"/>
+                </svg>
+            </div>
+        </div>
+        <p class="prediction-message" style="font-size: 18px; margin-top: 20px; color: #666;">Analyzing offer...</p>
+    </div>
+</div>
+<div id="predictionModalBackdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9998;"></div>
+
+<!-- Custom Alert Modal -->
+<div id="customAlert" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); z-index: 10000; min-width: 300px; max-width: 400px;">
+    <div style="text-align: center;">
+        <i class="fas fa-exclamation-circle" style="font-size: 48px; color: #844062; margin-bottom: 20px;"></i>
+        <h3 style="margin: 10px 0; color: #2c3e50; font-size: 18px;">Required Fields</h3>
+        <p id="alertMessage" style="margin: 15px 0; color: #7f8c8d; font-size: 16px;"></p>
+        <button onclick="closeCustomAlert()" style="background: #844062; color: white; border: none; padding: 10px 25px; border-radius: 5px; cursor: pointer; font-size: 14px; transition: all 0.3s ease;">OK</button>
+    </div>
+</div>
+<div id="customAlertBackdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999;"></div>
+
+
+<!------------------------------------------------------------------------->
 
 <div class="custom-container">
     <form method="POST" class="custom-form">
@@ -161,6 +237,9 @@
                 <div id="weatherInfo" class="custom-weather-info" 
                     style="margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 5px;"></div>
             </div>
+
+            <button type="button" id="predictButton" class="submitRequest" style="background-color: #EBEFEE;height:500px;">Predict Acceptance</button>
+        
         </div><br><br>
 
         <!-- Submit Buttons -->
@@ -174,6 +253,213 @@
 </div>
 
 <script src="{{ asset('filesOrganisateur/ajouterOffre2.js') }}"></script>
+
+
+<!---------------------- prediction------------->
+<script>
+document.getElementById('predictButton').addEventListener('click', async function(e) {
+    e.preventDefault();
+    
+    // Get form data
+    const formData = {
+        objet: document.getElementById('objet').value.trim(),
+        description: document.getElementById('description').value.trim(),
+        type_evenement: document.getElementById('type_evenement').value.trim(),
+        lieu_event: document.getElementById('lieu_event').value.trim(),
+        date_debut_event: document.getElementById('date_debut_event').value.trim(),
+        date_fin_event: document.getElementById('date_fin_event').value.trim(),
+        budget: document.getElementById('budget').value.trim(),
+        nombre_invite: document.getElementById('nombre_invite').value.trim()
+    };
+
+    // Validate all fields
+    const allFields = {
+        'objet': 'Request Subject',
+        'description': 'Description',
+        'type_evenement': 'Event Type',
+        'lieu_event': 'Location',
+        'date_debut_event': 'Start Date',
+        'date_fin_event': 'End Date',
+        'budget': 'Budget',
+        'nombre_invite': 'Number of Guests'
+    };
+
+    const missingFields = [];
+    for (const [field, label] of Object.entries(allFields)) {
+        if (!formData[field]) {
+            missingFields.push(label);
+        }
+    }
+
+    if (missingFields.length > 0) {
+        showCustomAlert(`Please fill in all fields before prediction: ${missingFields.join(', ')}`);
+        return;
+    }
+
+    // Additional validations
+    // Validate dates
+    const startDate = new Date(formData.date_debut_event);
+    const endDate = new Date(formData.date_fin_event);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (startDate < today) {
+        showCustomAlert('Start date cannot be in the past');
+        return;
+    }
+
+    if (endDate < startDate) {
+        showCustomAlert('End date cannot be before start date');
+        return;
+    }
+
+    // Validate budget
+    const budget = parseFloat(formData.budget);
+    if (isNaN(budget) || budget <= 0) {
+        showCustomAlert('Please enter a valid budget amount (must be greater than 0)');
+        return;
+    }
+
+    // Validate number of guests
+    const guests = parseInt(formData.nombre_invite);
+    if (isNaN(guests) || guests <= 0) {
+        showCustomAlert('Please enter a valid number of guests (must be greater than 0)');
+        return;
+    }
+
+    // Validate description length
+    if (formData.description.length < 10) {
+        showCustomAlert('Description must be at least 10 characters long');
+        return;
+    }
+
+    // Validate subject length
+    if (formData.objet.length < 3) {
+        showCustomAlert('Subject must be at least 3 characters long');
+        return;
+    }
+
+    // Validate location
+    if (formData.lieu_event.length < 3) {
+        showCustomAlert('Location must be at least 3 characters long');
+        return;
+    }
+
+    // Continue with prediction if all validations pass
+    const modal = document.getElementById('predictionModal');
+    const backdrop = document.getElementById('predictionModalBackdrop');
+    const messageElement = document.querySelector('.prediction-message');
+    const percentageElement = document.querySelector('.prediction-percentage');
+    const circle = document.querySelector('.progress-ring__circle');
+    
+    try {
+        modal.style.display = 'block';
+        backdrop.style.display = 'block';
+        messageElement.textContent = 'Analyzing offer...';
+        messageElement.style.color = '#666';
+        percentageElement.textContent = '0%';
+        circle.style.stroke = "#844062";
+
+        // For the prediction API, we only send the required fields
+        const predictionData = {
+            type_evenement: formData.type_evenement,
+            budget: formData.budget
+        };
+
+        const response = await fetch('/api/predict-offer', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(predictionData)
+        });
+
+        const data = await response.json();
+
+        if (!data.success) {
+            throw new Error(data.error || 'An error occurred while making the prediction');
+        }
+
+        // Rest of the existing prediction animation code...
+        const radius = circle.r.baseVal.value;
+        const circumference = radius * 2 * Math.PI;
+        const targetPercentage = data.probability;
+        let currentPercentage = 0;
+        
+        circle.style.strokeDasharray = `${circumference} ${circumference}`;
+        circle.style.strokeDashoffset = circumference;
+        
+        const duration = 2000;
+        const interval = 20;
+        const steps = duration / interval;
+        const increment = targetPercentage / steps;
+
+        const animation = setInterval(() => {
+            currentPercentage += increment;
+            if (currentPercentage >= targetPercentage) {
+                currentPercentage = targetPercentage;
+                clearInterval(animation);
+                
+                if (targetPercentage >= 70) {
+                    messageElement.textContent = "High chance of acceptance!";
+                    messageElement.style.color = "#28a745";
+                    circle.style.stroke = "#28a745";
+                } else if (targetPercentage >= 40) {
+                    messageElement.textContent = "Moderate chance of acceptance";
+                    messageElement.style.color = "#ffc107";
+                    circle.style.stroke = "#ffc107";
+                } else {
+                    messageElement.textContent = "Low chance of acceptance";
+                    messageElement.style.color = "#dc3545";
+                    circle.style.stroke = "#dc3545";
+                }
+                
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    backdrop.style.display = 'none';
+                }, 3000);
+            }
+            
+            const offset = circumference - (currentPercentage / 100) * circumference;
+            circle.style.strokeDashoffset = offset;
+            percentageElement.textContent = Math.round(currentPercentage) + '%';
+        }, interval);
+
+    } catch (error) {
+        console.error('Error:', error);
+        messageElement.textContent = error.message;
+        messageElement.style.color = "#dc3545";
+        percentageElement.textContent = '0%';
+        circle.style.stroke = "#dc3545";
+        
+        setTimeout(() => {
+            modal.style.display = 'none';
+            backdrop.style.display = 'none';
+        }, 3000);
+    }
+});
+
+// Custom Alert Functions
+function showCustomAlert(message) {
+    const alert = document.getElementById('customAlert');
+    const backdrop = document.getElementById('customAlertBackdrop');
+    const messageElement = document.getElementById('alertMessage');
+    
+    messageElement.textContent = message;
+    alert.style.display = 'block';
+    backdrop.style.display = 'block';
+}
+
+function closeCustomAlert() {
+    const alert = document.getElementById('customAlert');
+    const backdrop = document.getElementById('customAlertBackdrop');
+    
+    alert.style.display = 'none';
+    backdrop.style.display = 'none';
+}
+</script>
+<!----------------------------------->
 </body>
 <div style="height: 100px;background-color:white;"></div>
 {% endblock %}

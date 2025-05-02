@@ -9,6 +9,13 @@
     
         <!-- Lien vers le fichier CSS externe -->
         <link rel="stylesheet" href="{{ asset('filesOrganisateur/organisateur.css') }}">
+
+        <style>
+
+          .state {
+               width: 190px;
+            }
+        </style>
     </head>
 
   <body>
@@ -140,7 +147,7 @@
 
         <!-- Conteneur pour afficher les détails -->
 <!--------------------------- Conteneur flottant pour afficher les détails ------------------>
-<div id="floatingDetails" style="margin-left:400px;margin-top:145px; position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background-color: white; border: 1px solid #ddd; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); display: none; z-index: 9999; width: 700px; max-width: 90%;">
+<div id="floatingDetails" style="margin-left:350px;margin-top:70px; position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background-color: white; border: 1px solid #ddd; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); display: none; z-index: 9999; width: 700px; max-width: 90%;">
     <button id="closeFloatingDetails" style="background-color: #844062 ;border-radius:5px; color: white; border: none; padding: 5px 10px; cursor: pointer; float: right;">Fermer</button><br><br>
     <div class="floating-content" style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px;">
         <img class="imageOrg" id="floatingImage" src="" alt="Profile" style="background-color:white; position: absolute;  top: 100px; left: -450px; width: 350px; height: 350px; border: 2px solid #844062; flex-shrink: 0;border-radius:20px;" />

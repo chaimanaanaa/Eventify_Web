@@ -1,8 +1,8 @@
-  /* Styles CSS */
-  body {
-    background-color: #f5f5f9;
-    margin: 0;
-    font-family: Arial, sans-serif;
+/* Styles CSS */
+body {
+  background-color: #f5f5f9;
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
 
 /************************
@@ -10,315 +10,302 @@ css ajout organisateur
 **************************/
 
 .form-container {
-    width: 670px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
-    border: 2px solid #844062;
-    margin-bottom: 20px;
-
+  width: 670px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+  border: 2px solid #844062;
+  margin-bottom: 20px;
 }
 .form-container label {
-    font-weight: bold;
-    color: black;
+  font-weight: bold;
+  color: black;
 }
-.form-container input, 
-.form-container select, 
+.form-container input,
+.form-container select,
 .form-container textarea {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 .submit-button {
-    padding: 10px 20px;
-    background-color: #844062;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  padding: 10px 20px;
+  background-color: #844062;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 .submit-button:hover {
-    background-color: #6c3452;
+  background-color: #6c3452;
 }
 .custom-button {
-    padding: 5px 15px;
-    background-color: #844062;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  padding: 5px 15px;
+  background-color: #844062;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 .custom-button:hover {
-    background-color: #6c3452;
+  background-color: #6c3452;
 }
-.upload-button, .linkedin-button {
-    padding: 10px 20px;
-    margin-right: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.upload-button,
+.linkedin-button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 .upload-button {
-    background-color: #007bff;
-    color: white;
+  background-color: #007bff;
+  color: white;
 }
 .linkedin-button {
-    background-color: #0e76a8;
-    color: white;
+  background-color: #0e76a8;
+  color: white;
 }
 .upload-button:hover {
-    background-color: #0056b3;
+  background-color: #0056b3;
 }
 .linkedin-button:hover {
-    background-color: #0b5c85;
+  background-color: #0b5c85;
 }
 .titled-pane {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 .titled-pane h3 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 .error-message {
-    color: red;
-    font-size: 14px;
+  color: red;
+  font-size: 14px;
 }
 .add-button {
-    background-color: #844062;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background-color: #844062;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .add-button:hover {
-    background-color: #6c3452;
+  background-color: #6c3452;
 }
 .dynamic-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 .dynamic-item input {
-    flex-grow: 1;
-    padding: 5px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  flex-grow: 1;
+  padding: 5px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 .dynamic-item button {
-    background-color: #844062;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    margin-left:20px;
+  background-color: #844062;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-left: 20px;
 }
 .dynamic-item button:hover {
-    background-color: #6c3452;
+  background-color: #6c3452;
 }
 .input-container {
-    display: none;
-    margin-top: 10px;
+  display: none;
+  margin-top: 10px;
 }
 .input-container input {
-    width: 70%;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  width: 70%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 .input-container button {
-    margin-left: 10px;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 .input-container .add-button {
-    background-color: #28a745;
-    width : 80px ; 
-    height: 30px; 
+  background-color: #28a745;
+  width: 80px;
+  height: 30px;
 }
 .input-container .cancel-button {
-    background-color: #dc3545;
-      width : 80px ; 
-      height: 30px; 
-
+  background-color: #dc3545;
+  width: 80px;
+  height: 30px;
 }
-.specialiteBTN
-{
-    background-color: #844062;
-    border : none;
-    color : white ; 
-    padding: 5px;
-    border-radius: 5px ;
-
-}  
-
-
+.specialiteBTN {
+  background-color: #844062;
+  border: none;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
 
 /********** hedhi lil rotation imta3 il image 3d fil ajouterOrganisateurBack *******/
 .profile-image {
-    width: 200px;
-    height: 200px;
-    border: 2px solid #844062;
-    border-radius: 10px;
-    transition: transform 0.5s ease; /* Transition fluide */
-    transform-style: preserve-3d; /* Préserve les transformations 3D */
+  width: 200px;
+  height: 200px;
+  border: 2px solid #844062;
+  border-radius: 10px;
+  transition: transform 0.5s ease; /* Transition fluide */
+  transform-style: preserve-3d; /* Préserve les transformations 3D */
 }
 
 /* Effet de rotation 3D au survol */
 .profile-image:hover {
-    transform: perspective(600px) rotateY(30deg); /* Rotation 3D */
+  transform: perspective(600px) rotateY(30deg); /* Rotation 3D */
 }
 
 /************* hedhi pourla date *************************/
 /* Style général pour les champs de date */
 input[type="date"] {
-    border: 1px solid #844062; /* Bordure par défaut */
-    background-color: #e0d6cf;
+  border: 1px solid #844062; /* Bordure par défaut */
+  background-color: #e0d6cf;
 }
 
 /* Style lorsque le champ est en focus (clic dessus) */
 input[type="date"]:focus {
-    border-color: #e0d6cf; /* Couleur de la bordure lorsqu'il est actif */
-    outline: none; 
-    box-shadow: 0 0 5px #e0d6cf; /* Ombre légère pour attirer l'attention */
+  border-color: #e0d6cf; /* Couleur de la bordure lorsqu'il est actif */
+  outline: none;
+  box-shadow: 0 0 5px #e0d6cf; /* Ombre légère pour attirer l'attention */
 }
-
-
 
 /************************
 css affichage organisateur
 **************************/
 /********** hedhi 7arikt il div :Pour ajouter des organisateurs, cliquer ici : + *******/
 .divAjoutBack {
-    all: unset; /* Réinitialise tous les styles hérités */
-    
-    position: absolute; /* Permet de le déplacer librement */
-    transform: translate(100000px, 10000px); /* Déplacement en X et Y */
-    
-    margin-right: 10000px; /* Ne sert à rien ici, car position absolute l’ignore */
-    z-index: 9999; /* S'assure qu'il est au-dessus des autres éléments */
+  all: unset; /* Réinitialise tous les styles hérités */
 
-    background-color: white; /* Ajoute un fond pour s'assurer qu'il est visible */
-    padding: 10px; /* Ajoute un peu d'espace intérieur */
-    border: 1px solid black; /* Juste pour voir son contour */
+  position: absolute; /* Permet de le déplacer librement */
+  transform: translate(100000px, 10000px); /* Déplacement en X et Y */
+
+  margin-right: 10000px; /* Ne sert à rien ici, car position absolute l’ignore */
+  z-index: 9999; /* S'assure qu'il est au-dessus des autres éléments */
+
+  background-color: white; /* Ajoute un fond pour s'assurer qu'il est visible */
+  padding: 10px; /* Ajoute un peu d'espace intérieur */
+  border: 1px solid black; /* Juste pour voir son contour */
 }
-
 
 /**/
 /* Conteneur principal */
 .organizers-container {
-    padding: 20px;
-    font-family: Arial, sans-serif;
+  padding: 20px;
+  font-family: Arial, sans-serif;
 }
 
 /* Barre de recherche et filtres */
 .filters {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
 .filters input[type="text"] {
-    padding: 8px;
-    width: 300px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  padding: 8px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .filters select {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .filters button {
-    padding: 8px 15px;
-    background-color: #844062;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  padding: 8px 15px;
+  background-color: #844062;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .filters button:hover {
-    background-color: #6c3452;
+  background-color: #6c3452;
 }
 
 /* Grille des cartes */
 .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 }
 
 .card {
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    display: flex;
-    justify-content: center; /* Centre horizontalement */
-    align-items: center; /* Centre verticalement */
-    transition: transform 0.5s ease; /* Transition fluide pour la carte */
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  justify-content: center; /* Centre horizontalement */
+  align-items: center; /* Centre verticalement */
+  transition: transform 0.5s ease; /* Transition fluide pour la carte */
 }
 .card:hover {
-    transform: perspective(600px) translateY(-20px) scale(1.05); /* Monte en 3D */
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3); /* Effet d'ombre pour donner de la profondeur */
+  transform: perspective(600px) translateY(-20px) scale(1.05); /* Monte en 3D */
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3); /* Effet d'ombre pour donner de la profondeur */
 }
 
-
-.card-info
-{
-    margin-bottom: 15px;;
-    margin-left: 5px;
-
+.card-info {
+  margin-bottom: 15px;
+  margin-left: 5px;
 }
 .card-info p {
-    margin: 5px 0;
-    font-size: 14px;
-
+  margin: 5px 0;
+  font-size: 14px;
 }
 
 .action-btn {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    margin-left: 5px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-left: 5px;
 }
 
-
 .edit-btn {
-    background-color: #6c3452;
-    color: white;
+  background-color: #6c3452;
+  color: white;
 }
 
 .delete-btn {
-    background-color: #f98892;
-    color: white;
+  background-color: #f98892;
+  color: white;
 }
 
 .details-btn {
-    background-color: #8dc29b;
-    color: white;
+  background-color: #8dc29b;
+  color: white;
 }
 /*.action-btn
 {
@@ -326,90 +313,79 @@ css affichage organisateur
 
 }*/
 .action-btn:hover {
-    /*opacity: 0.9;
+  /*opacity: 0.9;
     transform: scale(1.1); 
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
     padding: 8px;*/
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
-
 
 /********** hedhi lil rotation imta3 il image 3d fil ajouterOrganisateurBack *******/
 .imageOrg {
-    width: 250px;
-    height: 250px;
-    border: 2px solid #844062;
-    transition: transform 0.5s ease; /* Transition fluide */
-    transform-style: preserve-3d; /* Préserve les transformations 3D */
-    
+  width: 250px;
+  height: 250px;
+  border: 2px solid #844062;
+  transition: transform 0.5s ease; /* Transition fluide */
+  transform-style: preserve-3d; /* Préserve les transformations 3D */
 }
 
 /* Effet de rotation 3D au survol */
 .imageOrg:hover {
-    transform: perspective(600px) rotateY(30deg); /* Rotation 3D */
+  transform: perspective(600px) rotateY(30deg); /* Rotation 3D */
 }
-
-
 
 /*lawent il satu organisateur*/
 
-.state { 
-    background-color: #f98892;  /*couleur par defaut */
-    color: white;
-    padding: 5px;
-    border-radius: 5px;
-    width: 300px;  /* wa nimchi inbadal fi  .card-info margin left  bich ki na3mil recherche wala trie to93od nafha*/
-    
+.state {
+  background-color: #f98892; /*couleur par defaut */
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  width: 300px; /* wa nimchi inbadal fi  .card-info margin left  bich ki na3mil recherche wala trie to93od nafha*/
 }
-
 
 /* Classe pour l'animation imta3 image org une seule fois wa9t il chargement de la page affichage  */
 .RotationChargementPageImoRG {
-    width: 250px;
-    height: 250px;
-    border: 2px solid #844062;
-    transform-style: preserve-3d; /* Préserve les transformations 3D */
-    transform: perspective(600px) rotateY(0deg); /* État initial */
+  width: 250px;
+  height: 250px;
+  border: 2px solid #844062;
+  transform-style: preserve-3d; /* Préserve les transformations 3D */
+  transform: perspective(600px) rotateY(0deg); /* État initial */
 }
 
 .RotationChargementPageImoRG.animate-once {
-    animation: rotateAndReturn 3s ease-in-out forwards; /* Applique l'animation une seule fois */
+  animation: rotateAndReturn 3s ease-in-out forwards; /* Applique l'animation une seule fois */
 }
 
 @keyframes rotateAndReturn {
-    0% {
-        transform: perspective(600px) rotateY(0deg); /* État initial */
-    }
-    50% {
-        transform: perspective(600px) rotateY(30deg); /* Rotation maximale */
-    }
-    100% {
-        transform: perspective(600px) rotateY(0deg); /* Retour à l'état initial */
-    }
+  0% {
+    transform: perspective(600px) rotateY(0deg); /* État initial */
+  }
+  50% {
+    transform: perspective(600px) rotateY(30deg); /* Rotation maximale */
+  }
+  100% {
+    transform: perspective(600px) rotateY(0deg); /* Retour à l'état initial */
+  }
 }
 
 /* Rotation 3D de l'image organisateur lorsque la wa9tili na3mil hover 3al card  */
 .card:hover .imageOrg {
-    animation: rotateAndReturn 2s ease-in-out; /* Applique l'animation */
+  animation: rotateAndReturn 2s ease-in-out; /* Applique l'animation */
 }
 
 /* Définition de l'animation */
 @keyframes rotateAndReturn {
-    0% {
-        transform: perspective(600px) rotateY(0deg); /* État initial */
-    }
-    50% {
-        transform: perspective(600px) rotateY(30deg); /* Rotation maximale */
-    }
-    100% {
-        transform: perspective(600px) rotateY(0deg); /* Retour à l'état initial */
-    }
+  0% {
+    transform: perspective(600px) rotateY(0deg); /* État initial */
+  }
+  50% {
+    transform: perspective(600px) rotateY(30deg); /* Rotation maximale */
+  }
+  100% {
+    transform: perspective(600px) rotateY(0deg); /* Retour à l'état initial */
+  }
 }
-
-
-
-
-
 
 /**************************************
 css affichage detaille organisateur ***
@@ -418,88 +394,79 @@ css affichage detaille organisateur ***
 
 /* Animation for hiding the card */
 .card.hide {
-    opacity: 0;
-    transform: scale(0.9);
-    transition: opacity 0.3s ease, transform 0.5s ease;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.3s ease, transform 0.5s ease;
 }
 
 /* Initial state of the floating details container (hidden) */
 #floatingDetails {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 9999;
-    width: 700px;
-    max-width: 90%;
-    display: none;
-    opacity: 0;
-    transition: opacity 0.5s ease, transform 0.5s ease;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  width: 700px;
+  max-width: 90%;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 /* Animation for showing the floating details container */
 #floatingDetails.show {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1,5);
-    display: block;
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1, 5);
+  display: block;
 }
-
-
-
 
 /**** hedi a3maltha lil image detail ***/
 /* Définition de l'animation ma3ijbitnich ma7atithech*/
 .RotationDetailOrg {
-    width: 250px;
-    height: 250px;
-    border: 2px solid #844062;
-    transform-style: preserve-3d; /* Préserve les transformations 3D */
-    transform: perspective(600px) rotateY(30deg); /* État initial */
+  width: 250px;
+  height: 250px;
+  border: 2px solid #844062;
+  transform-style: preserve-3d; /* Préserve les transformations 3D */
+  transform: perspective(600px) rotateY(30deg); /* État initial */
 }
 
 .RotationDetailOrg.animate-once {
-    animation: rotateDetailAutomatic 3s ease-in-out forwards; /* Applique l'animation une seule fois */
+  animation: rotateDetailAutomatic 3s ease-in-out forwards; /* Applique l'animation une seule fois */
 }
 
 /* Animation pour la rotation automatique */
 @keyframes rotateDetailAutomatic {
-    0% {
-        transform: perspective(600px) rotateY(30deg); /* Rotation maximale */
-    }
-    50% {
-        transform: perspective(600px) rotateY(0deg); /* État intermédiaire (rotation horizontale) */
-    }
-    100% {
-        transform: perspective(600px) rotateY(30deg); /* Retour à la rotation maximale */
-    }
+  0% {
+    transform: perspective(600px) rotateY(30deg); /* Rotation maximale */
+  }
+  50% {
+    transform: perspective(600px) rotateY(0deg); /* État intermédiaire (rotation horizontale) */
+  }
+  100% {
+    transform: perspective(600px) rotateY(30deg); /* Retour à la rotation maximale */
+  }
 }
-
-
-
 
 /**************************************************************
 ************* affichage organisateur front *******************
 **************************************************************/
 /* Send button */
 .SendTeleBtn {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .SendTeleBtn:hover {
-    opacity: 0.9;
-    transform: scale(1.1);
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    padding: 8px;
+  opacity: 0.9;
+  transform: scale(1.1);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 8px;
 }
-
 
 .SendRequest:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
-
-

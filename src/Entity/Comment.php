@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity]
 class Comment
 {
@@ -16,8 +16,13 @@ class Comment
     private \DateTimeInterface $date;
 
     #[ORM\Column(type: "string", length: 255)]
+    #[Assert\NotBlank(
+        message: "The comment cannot be empty.",
+        normalizer: 'trim',
+        allowNull: false
+    )]
+    
     private string $sujet;
-
     #[ORM\Column(name:"nbComment",type: "integer")]
     private int $nbComment;
 
