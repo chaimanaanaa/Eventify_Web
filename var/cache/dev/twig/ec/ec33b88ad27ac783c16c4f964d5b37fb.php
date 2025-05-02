@@ -1,0 +1,1167 @@
+<?php
+
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Extension\CoreExtension;
+use Twig\Extension\SandboxExtension;
+use Twig\Markup;
+use Twig\Sandbox\SecurityError;
+use Twig\Sandbox\SecurityNotAllowedTagError;
+use Twig\Sandbox\SecurityNotAllowedFilterError;
+use Twig\Sandbox\SecurityNotAllowedFunctionError;
+use Twig\Source;
+use Twig\Template;
+use Twig\TemplateWrapper;
+
+/* base.html.twig */
+class __TwigTemplate_21bd743daac2899ad932b15710c47955 extends Template
+{
+    private Source $source;
+    /**
+     * @var array<string, Template>
+     */
+    private array $macros = [];
+
+    public function __construct(Environment $env)
+    {
+        parent::__construct($env);
+
+        $this->source = $this->getSourceContext();
+
+        $this->parent = false;
+
+        $this->blocks = [
+            'header' => [$this, 'block_header'],
+            'content' => [$this, 'block_content'],
+            'footer' => [$this, 'block_footer'],
+        ];
+    }
+
+    protected function doDisplay(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "base.html.twig"));
+
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "base.html.twig"));
+
+        // line 1
+        yield "<!doctype html>
+<html lang=\"en\">
+<head>
+    <meta charset=\"utf-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+    <meta name=\"description\" content=\"\">
+    <meta name=\"author\" content=\"\">
+    <title>Eventify</title>
+    <!-- CSS FILES -->                
+    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">
+    <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>
+    <link href=\"https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap\" rel=\"stylesheet\">
+    <link href=\"css/bootstrap.min.css\" rel=\"stylesheet\">
+    <link href=\"css/bootstrap-icons.css\" rel=\"stylesheet\">
+    <link href=\"css/templatemo-tiya-golf-club.css\" rel=\"stylesheet\">
+    
+    <!-- Leaflet CSS -->
+    <link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet/dist/leaflet.css\" />
+    <!-- Stripe JavaScript -->
+    <script src=\"https://js.stripe.com/v3/\"></script>
+    <!-- Custom CSS -->
+    <style>
+        /* Style pour le lien actif */
+        .nav-link.active {
+            color: #007bff; /* Bleu */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    ";
+        // line 31
+        yield from $this->unwrap()->yieldBlock('header', $context, $blocks);
+        // line 239
+        yield "    
+
+
+    ";
+        // line 242
+        yield from $this->unwrap()->yieldBlock('content', $context, $blocks);
+        // line 244
+        yield "
+
+
+    ";
+        // line 247
+        yield from $this->unwrap()->yieldBlock('footer', $context, $blocks);
+        // line 447
+        yield "
+    <!-- JavaScript Files -->
+    <script src=\"js/jquery.min.js\"></script>
+    <script src=\"js/bootstrap.min.js\"></script>
+    <script src=\"js/jquery.sticky.js\"></script>
+    <script src=\"js/click-scroll.js\"></script>
+    <script src=\"js/custom.js\"></script>
+    <script src=\"";
+        // line 454
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("js/stripe.js"), "html", null, true);
+        yield "\"></script>
+</body>
+</html>";
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        yield from [];
+    }
+
+    // line 31
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
+    public function block_header(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "header"));
+
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "header"));
+
+        // line 32
+        yield "    <nav class=\"navbar navbar-expand-lg\">                
+        <div class=\"container\">
+            <a href=\"";
+        // line 34
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_home");
+        yield "\">
+                <img src=\"images/WhatsApp_Image_2025-02-21_at_20.44.51-removebg-preview.png\" class=\"img-fluid navbar-logo\" alt=\"Tiya Golf Club\">
+            </a>
+            <div class=\"d-lg-none ms-auto me-3\">
+                <a class=\"btn custom-btn custom-border-btn\" data-bs-toggle=\"offcanvas\" href=\"#offcanvasExample\" role=\"button\" aria-controls=\"offcanvasExample\">Login</a>
+            </div>
+            <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
+                <span class=\"navbar-toggler-icon\"></span>
+            </button>
+            <div class=\"collapse navbar-collapse\" id=\"navbarNav\">
+                <ul class=\"navbar-nav ms-lg-auto\">
+                    <li >
+                        <a class=\"nav-link click-scroll\" style=\"background-color: transparent; color: #ADC29B;\" href=\"#\">.</a>
+                    </li>
+
+                    <li >
+                        <a class=\"nav-link click-scroll\" href=\"";
+        // line 50
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_home");
+        yield "\">Home</a>
+
+                    </li>
+                    <li >
+                        <a class=\"nav-link click-scroll\" href=\"";
+        // line 54
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_about");
+        yield "\">About</a>
+                    </li>
+                    <li >
+                        <a class=\"nav-link click-scroll\" href=\"";
+        // line 57
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_events");
+        yield "\">Events</a>
+                    </li>
+                    <li >
+                        <a class=\"nav-link click-scroll\" href=\"";
+        // line 60
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_reservations");
+        yield "\">Reservations</a>
+                    </li>
+                    <li >
+                        <a class=\"nav-link click-scroll\" href=\"";
+        // line 63
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_forums");
+        yield "\">Forums</a>
+                    </li>
+                    <li >
+                        <a class=\"nav-link click-scroll\" href=\"";
+        // line 66
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_complaints");
+        yield "\">Complaints</a>
+                    </li>
+                    <li >
+                        <a class=\"nav-link click-scroll\" href=\"";
+        // line 69
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_organizers");
+        yield "\">Organizers</a>
+                    </li>
+
+                    <li >
+                        <a class=\"nav-link click-scroll\" href=\"";
+        // line 73
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_shop");
+        yield "\">Marketplace</a>
+                    </li>
+
+                    <li >
+                        <a class=\"nav-link click-scroll\" data-bs-toggle=\"offcanvas\" href=\"#profileOffcanvas\" role=\"button\" aria-controls=\"profileOffcanvas\">
+                            <img src=\"images/profil3.png\" style=\"width: 40px; height: 30px;\" alt=\"Profile\">
+                        </a>
+                    </li>
+                    <li >
+                        <a class=\"nav-link click-scroll\" href=\"";
+        // line 82
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_logout");
+        yield "\"><img src=\"images/eteindre1.png\" style=\"width: 35px;height:30px\"></a>
+                    </li>
+                </ul>
+                <div class=\"d-none d-lg-block ms-lg-3\">
+                    <a class=\"btn custom-btn custom-border-btn\" data-bs-toggle=\"offcanvas\" href=\"#offcanvasExample\" role=\"button\" aria-controls=\"offcanvasExample\">LogIn</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- partie pour login-->
+    <div class=\"offcanvas offcanvas-end\" data-bs-scroll=\"true\" tabindex=\"-1\" id=\"offcanvasExample\" aria-labelledby=\"offcanvasExampleLabel\">                
+        <div class=\"offcanvas-header\">
+            <h5 class=\"offcanvas-title\" id=\"offcanvasExampleLabel\">Welcome back!</h5>
+            <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"offcanvas\" aria-label=\"Close\"></button>
+        </div>
+        <div class=\"mb-4\">
+            <p class=\"form-label mb-2\">Login with Face Recognition!</p>
+            <div class=\"camera-container\">
+                <video id=\"camera\" autoplay muted style=\"width: 200px; height: auto; border-radius: 10px;margin-left:80px;\"></video>
+                <canvas id=\"capturedCanvas\" style=\"display: none;\"></canvas>
+                <div class=\"col-lg-5 col-md-7 col-8 mx-auto\">
+                    <button type=\"button\" class=\"form-control\" onclick=\"capturePhoto()\" style=\"background-color:#844062;color:white;margin-left:10px;\">Capture Photo</button>
+                </div>
+                
+            </div>
+        </div>
+        <input type=\"hidden\" id=\"capturedPhoto\" name=\"capturedPhoto\">
+        <!-- Champ caché pour stocker le descripteur de visage généré par Face API -->
+            <input type=\"hidden\" id=\"faceDescriptor\" name=\"faceDescriptor\">
+            <span style=\"margin-left:60px;\">-----------Or-----------</span>
+            <p>Enter your Credentials to access your account</p>
+        <div class=\"offcanvas-body d-flex flex-column\">
+            <form id=\"login-form\" class=\"custom-form member-login-form\" action=\"";
+        // line 114
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
+        yield "\" method=\"post\" role=\"form\">
+                <div class=\"member-login-form-body\">
+                    <div class=\"mb-4\">
+                        <label class=\"form-label mb-2\" for=\"member-login-number\">email</label>
+                        <input type=\"text\" name=\"member-login-number\" id=\"member-login-number\" class=\"form-control\" placeholder=\"name@gmail.com\" required autocomplete=\"new-email\">
+                    </div>
+                    <div class=\"mb-4\">
+                        <label class=\"form-label mb-2\" for=\"member-login-password\">Password</label>
+                        <div class=\"input-wrapper\">
+                            <input type=\"password\" name=\"member-login-password\" id=\"member-login-password\"  class=\"form-control\" placeholder=\"Password\" required autocomplete=\"new-password\">
+                            <button type=\"button\" class=\"toggle-password\" onclick=\"togglePasswordVisibilityLogIn()\">
+                                <img id=\"eye-icon2\" src=\"images/oeil (1).png\" alt=\"Toggle Password Visibility login\">
+                            </button>
+                        </div>
+                    </div>
+                    <div class=\"form-check mb-4\">
+                        <input class=\"form-check-input\" type=\"checkbox\" name=\"_remember_me\" id=\"flexCheckDefault\">
+                        <label class=\"form-check-label\" for=\"flexCheckDefault\">
+                            Remember me
+                        </label>
+                    </div>
+                    <div class=\"d-flex flex-column w-100\">
+                        <button type=\"submit\" class=\"btn custom-btn custom-border-btn mb-3\">Login</button>
+                    </div>
+                    <div class=\"d-flex flex-column w-100\">
+                        <button type=\"button\" class=\"btn custom-btn custom-border-btn mb-3\" style=\"margin-top:10px;\" onclick=\"compareFaces()\">Login with Face Recognition</button>
+                    </div>
+                    <div class=\"text-center my-4\">
+                        <a href=\"#\" class=\"forgot-password-link\" data-bs-toggle=\"offcanvas\" data-bs-target=\"#forgotPasswordOffcanvas\">Forgotten password?</a>
+                    </div>
+                </div>
+            </form>
+           
+            <div class=\"mt-auto mb-5\">
+                <p class=\"offcanvas-header p-login\">
+                    <strong class=\"text-black me-3\">don't have an account?</strong>
+                    <a href=\"";
+        // line 150
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_signup");
+        yield "\" class=\"contact-link\">
+                        Create Account
+                    </a>
+                </p>
+            </div>
+        </div>
+        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1440 320\"><path fill=\"#ADC29B\" fill-opacity=\"1\" d=\"M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z\"></path></svg>
+    </div>
+    <!-- partie pour forgot password-->
+
+    <div class=\"offcanvas offcanvas-end\" data-bs-scroll=\"true\" tabindex=\"-1\" id=\"forgotPasswordOffcanvas\" aria-labelledby=\"forgotPasswordOffcanvasLabel\">
+        <div class=\"offcanvas-header\">
+            <!-- Flèche de retour -->
+            <button type=\"button\" class=\"btn btn-link text-decoration-none\" onclick=\"switchToLoginOffcanvas()\" aria-label=\"Back\">
+                <img src=\"images/fleche.png\" alt=\"Back\" style=\"width: 24px; height: 24px;\">
+            </button>
+            <h5 class=\"offcanvas-title ms-2\" id=\"forgotPasswordOffcanvasLabel\">Forgot Password!</h5>
+            <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"offcanvas\" aria-label=\"Close\"></button>
+        </div>
+        <p style=\"margin-top: 30px;\">Enter your email to reset your password</p>
+        <div class=\"offcanvas-body d-flex flex-column\" style=\"margin-top: 60px;\">
+            <form id=\"forgot-password-form\" class=\"custom-form\" action=\"";
+        // line 171
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_forgot_password");
+        yield "\" method=\"post\" role=\"form\">
+                <div class=\"mb-4\">
+                    <label class=\"form-label mb-2\" for=\"forgot-password-email\">Email</label>
+                    <input type=\"email\" name=\"forgot-password-email\" id=\"forgot-password-email\" class=\"form-control\" placeholder=\"name@gmail.com\" required>
+                </div>
+                <div class=\"col-lg-5 col-md-7 col-8 mx-auto\">
+                    <button type=\"submit\" class=\"form-control\">Send</button>
+                </div>
+            </form>
+        </div>
+        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1440 320\"><path fill=\"#ADC29B\" fill-opacity=\"1\" d=\"M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z\"></path></svg>
+    </div>
+    <!-- partie pour profile-->
+   
+    <div class=\"offcanvas offcanvas-end\" id=\"profileOffcanvas\" tabindex=\"-1\" aria-labelledby=\"profileOffcanvasLabel\">
+        ";
+        // line 186
+        if (array_key_exists("user", $context)) {
+            // line 187
+            yield "            <div class=\"offcanvas-header d-flex flex-column align-items-start\">
+                <h5>Welcome To your profile,</h5>
+                <h2 class=\"offcanvas-title\" id=\"profileOffcanvasLabel\">";
+            // line 189
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new RuntimeError('Variable "user" does not exist.', 189, $this->source); })()), "firstName", [], "any", false, false, false, 189), "html", null, true);
+            yield " ";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new RuntimeError('Variable "user" does not exist.', 189, $this->source); })()), "lastName", [], "any", false, false, false, 189), "html", null, true);
+            yield "</h2>
+                <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"offcanvas\" aria-label=\"Close\"></button>
+            </div>
+            <div class=\"offcanvas-body d-flex flex-column align-items-center\">
+                <!-- Image circulaire -->
+                <div class=\"profile-image mb-3\">
+                    <img src=\"";
+            // line 195
+            yield ((CoreExtension::getAttribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new RuntimeError('Variable "user" does not exist.', 195, $this->source); })()), "img", [], "any", false, false, false, 195)) ? ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new RuntimeError('Variable "user" does not exist.', 195, $this->source); })()), "img", [], "any", false, false, false, 195), "html", null, true)) : ("images/profill.png"));
+            yield "\" alt=\"User Profile Picture\" class=\"rounded-circle\" style=\"width: 120px; height: 120px; object-fit: cover;\">
+                </div>
+                <!-- Informations utilisateur -->
+                <p><strong>Email:</strong> ";
+            // line 198
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new RuntimeError('Variable "user" does not exist.', 198, $this->source); })()), "email", [], "any", false, false, false, 198), "html", null, true);
+            yield "</p>
+                <p><strong>Date Of Birth:</strong> ";
+            // line 199
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new RuntimeError('Variable "user" does not exist.', 199, $this->source); })()), "dateNaissance", [], "any", false, false, false, 199), "Y-m-d"), "html", null, true);
+            yield "</p>
+                <p><strong>Phone:</strong> ";
+            // line 200
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new RuntimeError('Variable "user" does not exist.', 200, $this->source); })()), "numTlf", [], "any", false, false, false, 200), "html", null, true);
+            yield "</p>
+                <p><strong>Cin:</strong> ";
+            // line 201
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, (isset($context["user"]) || array_key_exists("user", $context) ? $context["user"] : (function () { throw new RuntimeError('Variable "user" does not exist.', 201, $this->source); })()), "cin", [], "any", false, false, false, 201), "html", null, true);
+            yield "</p>
+                <div class=\"d-flex flex-column w-100\">
+                    <a href=\"";
+            // line 203
+            yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_update_profile");
+            yield "\" class=\"btn custom-btn custom-border-btn mb-3\" style=\"margin-top:30px;\">Update Profile</a>
+                    <!-- Bouton pour ouvrir le modal -->
+                    <a href=\"#\" class=\"btn custom-btn custom-border-btn btn-danger\" data-bs-toggle=\"modal\" data-bs-target=\"#deleteAccountModal\">Delete Account</a>
+                </div>
+            </div>
+        ";
+        } else {
+            // line 209
+            yield "            <div class=\"offcanvas-header\">
+                <h5 class=\"offcanvas-title\" id=\"profileOffcanvasLabel\">Profile</h5>
+                <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"offcanvas\" aria-label=\"Close\"></button>
+            </div>
+            <div class=\"offcanvas-body\">
+                <p>You are not logged in. Please <a href=\"";
+            // line 214
+            yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
+            yield "\">log in</a>.</p>
+            </div>
+        ";
+        }
+        // line 217
+        yield "    </div>
+    <!-- Modal de confirmation -->
+                <div class=\"modal \" id=\"deleteAccountModal\" tabindex=\"-1\" aria-labelledby=\"deleteAccountModalLabel\" aria-hidden=\"true\">
+                    <div class=\"modal-dialog\">
+                        <div class=\"modal-content\">
+                            <div class=\"modal-header\">
+                                <h5 class=\"modal-title\" id=\"deleteAccountModalLabel\">Confirm Account Deletion</h5>
+                                <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>
+                            </div>
+                            <div class=\"modal-body\">
+                                <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+                            </div>
+                            <div class=\"modal-footer\">
+                                <form method=\"post\" action=\"";
+        // line 230
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_delete_account");
+        yield "\">
+                                    <button type=\"submit\" class=\"btn custom-btn custom-border-btn btn-danger\">Yes, Delete My Account</button>
+                                </form>
+                                <button type=\"button\" class=\"btn custom-btn custom-border-btn\" data-bs-dismiss=\"modal\">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    ";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+        yield from [];
+    }
+
+    // line 242
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
+    public function block_content(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "content"));
+
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "content"));
+
+        // line 243
+        yield "    ";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+        yield from [];
+    }
+
+    // line 247
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
+    public function block_footer(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "footer"));
+
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "footer"));
+
+        // line 248
+        yield "    <footer class=\"site-footer\">
+        <div class=\"container\">
+            <div class=\"row\">
+                <footer>
+                    <div class=\"footer-container\">
+                        <div class=\"footer-logo\">
+                            <h2>Eventify</h2>
+                            <p>For all your events: Weddings, Anniversaries, Graduations, Baby Showers, and more!</p>
+                        </div>
+                        <div class=\"footer-links\">
+                            <h2>Quick Links</h2>
+                            <ul>
+                                <li><a href=\"";
+        // line 260
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_about");
+        yield "\">About Us</a></li>
+                                <li><a href=\"";
+        // line 261
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_events");
+        yield "\">Events</a></li>
+                                <li><a href=\"";
+        // line 262
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_complaints");
+        yield "\">Complaints</a></li>
+                                <li><a href=\"";
+        // line 263
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_organizers");
+        yield "\">Organizers</a></li>
+                            </ul>
+                        </div>
+                        <div class=\"footer-contact\">
+                            <h2>Contact Us</h2>
+                            <p>Email: eventify@gmail.com</p>
+                            <p>Phone: +216 20308557</p>
+                            <p>Address: Pôle Technologique El Ghazala,
+                                2088 Ariana,
+                                Tunisie</p>
+                        </div>
+                        <div class=\"footer-social\">
+                            <h2>Follow Us</h2>
+                            <a href=\"https://www.facebook.com/profile.php?id=100091914981214&locale=fr_FR\"><i class=\"social-icon-link bi-facebook\"></i></a>
+                            <a href=\"#\"><i class=\"social-icon-link bi-instagram\"></i></a>
+                            <a href=\"#\"><i class=\"social-icon-link bi-whatsapp\"></i></a>
+                        </div>
+                    </div>
+                    <!-- Map Section -->
+                    <div class=\"footer-map\" style=\"height: 300px; margin-top: 20px;\">
+                        <div id=\"map\" style=\"width: 100%; height: 100%;\"></div>
+                    </div>
+                    <div class=\"footer-bottom\">
+                        <div class=\"footer-bottom-content\">
+                           
+                            <p>&copy; 2025 Eventify. All Rights Reserved.</p>
+                        </div>
+                    </div>
+                    <a class=\"flechePos\" href=\"#\"><img src=\"images/top.png\" alt=\"top\" style=\"width:100px;height:100px\"></a>
+                </footer>
+            </div>
+        </div>
+        <!--scripts pour reconnaissance faciale-->
+    <script defer src=\"https://cdn.jsdelivr.net/npm/@tensorflow/tfjs\"></script>
+    <script defer src=\"https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.min.js\"></script>
+    <script>
+        let videoStream;
+    
+        async function startCamera() {
+            const video = document.getElementById('camera');
+            videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = videoStream;
+        }
+    
+        function capturePhoto() {
+            const video = document.getElementById('camera');
+            const canvas = document.getElementById('capturedCanvas');
+            const context = canvas.getContext('2d');
+    
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+            // Convertir l'image capturée en base64
+            const capturedPhoto = canvas.toDataURL('image/png');
+            document.getElementById('capturedPhoto').value = capturedPhoto;
+    
+            alert('Photo captured! You can now log in.');
+        }
+    
+        async function loadFaceAPI() {
+            console.log('Loading Face API models...');
+            await faceapi.nets.ssdMobilenetv1.loadFromUri('/models'); // Charger les modèles
+            await faceapi.nets.faceRecognitionNet.loadFromUri('/models');
+            await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
+            console.log('Face API models loaded successfully!');
+        }
+    
+        async function compareFaces() {
+            const capturedPhoto = document.getElementById('capturedPhoto').value;
+            if (!capturedPhoto) {
+                alert('Please capture a photo first.');
+                return;
+            }
+        
+            const image = await faceapi.fetchImage(capturedPhoto);
+            const detections = await faceapi.detectSingleFace(image).withFaceLandmarks().withFaceDescriptor();
+        
+            if (!detections) {
+                alert('No face detected. Please try again.');
+                return;
+            }
+        
+            const descriptor = detections.descriptor;
+        
+            // Envoyer les données au serveur pour comparaison
+            const response = await fetch('/compare-faces', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ descriptors: descriptor })
+            });
+        
+            const result = await response.json();
+            if (result.success) {
+                alert('Face recognized! Redirecting...');
+                window.location.href = result.redirect; // Rediriger en fonction du rôle
+            } else {
+                alert('Face not recognized. Please try again.');
+            }
+        }
+    
+        // Démarrer la caméra et charger Face API
+        window.onload = async () => {
+            await loadFaceAPI();
+            await startCamera();
+        };
+    </script>
+        <!-- Leaflet JS -->
+        <script src=\"https://unpkg.com/leaflet/dist/leaflet.js\"></script>
+        <!-- Initialize the Map -->
+        <script>
+            // Coordinates for the static location (latitude, longitude)
+            var latitude = 36.8801; // Replace with your desired latitude
+            var longitude = 10.2134; // Replace with your desired longitude
+            // Initialize the map
+            var map = L.map('map').setView([latitude, longitude], 15); // Zoom level: 15
+            // Add a tile layer from OpenStreetMap
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            // Custom red marker icon
+            var redIcon = L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+                iconSize: [25, 41], // Size of the icon
+                iconAnchor: [12, 41], // Point of the icon which corresponds to marker's location
+                popupAnchor: [1, -34], // Point from which the popup should open relative to the iconAnchor
+                shadowSize: [41, 41] // Size of the shadow
+            });
+            // Add a marker with the custom red icon
+            L.marker([latitude, longitude], { icon: redIcon }).addTo(map)
+                .bindPopup('Eventify Headquarters') // Popup text
+                .openPopup();
+
+                function togglePasswordVisibilityLogIn() {
+                    const passwordField = document.getElementById('member-login-password');
+                    const eyeIcon = document.getElementById('eye-icon2');
+            
+                    if (passwordField.type === 'password') {
+                        passwordField.type = 'text'; // Affiche le mot de passe
+                        eyeIcon.src = 'images/oeil.png'; // Change l'image pour l'œil ouvert
+                    } else {
+                        passwordField.type = 'password'; // Masque le mot de passe
+                        eyeIcon.src = 'images/oeil (1).png'; // Change l'image pour l'œil fermé
+                    }
+                }
+        </script>
+
+        <!-- JAVASCRIPT FILES -->
+        <script src=\"js/jquery.min.js\"></script>
+        <script src=\"js/bootstrap.bundle.min.js\"></script>
+        <script src=\"js/jquery.sticky.js\"></script>
+        <script src=\"js/click-scroll.js\"></script>
+        <script src=\"js/animated-headline.js\"></script>
+        <script src=\"js/modernizr.js\"></script>
+        <script src=\"js/custom.js\"></script>
+        <script src=\"js/user.js\"></script>
+        <!-- Highlight Active Link -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const navLinks = document.querySelectorAll('.nav-link');
+
+                // Add click event listeners to all links
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function () {
+                        // Remove 'active' class from all links
+                        navLinks.forEach(item => item.classList.remove('active'));
+
+                        // Add 'active' class to the clicked link
+                        this.classList.add('active');
+                    });
+                });
+
+                // Optional: Highlight the link based on the current URL
+                const currentPath = window.location.pathname;
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        </script>
+    </footer>
+    ";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        
+        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+        yield from [];
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getTemplateName(): string
+    {
+        return "base.html.twig";
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function isTraitable(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getDebugInfo(): array
+    {
+        return array (  490 => 263,  486 => 262,  482 => 261,  478 => 260,  464 => 248,  451 => 247,  440 => 243,  427 => 242,  407 => 230,  392 => 217,  386 => 214,  379 => 209,  370 => 203,  365 => 201,  361 => 200,  357 => 199,  353 => 198,  347 => 195,  336 => 189,  332 => 187,  330 => 186,  312 => 171,  288 => 150,  249 => 114,  214 => 82,  202 => 73,  195 => 69,  189 => 66,  183 => 63,  177 => 60,  171 => 57,  165 => 54,  158 => 50,  139 => 34,  135 => 32,  122 => 31,  108 => 454,  99 => 447,  97 => 247,  92 => 244,  90 => 242,  85 => 239,  83 => 31,  51 => 1,);
+    }
+
+    public function getSourceContext(): Source
+    {
+        return new Source("<!doctype html>
+<html lang=\"en\">
+<head>
+    <meta charset=\"utf-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+    <meta name=\"description\" content=\"\">
+    <meta name=\"author\" content=\"\">
+    <title>Eventify</title>
+    <!-- CSS FILES -->                
+    <link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">
+    <link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>
+    <link href=\"https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap\" rel=\"stylesheet\">
+    <link href=\"css/bootstrap.min.css\" rel=\"stylesheet\">
+    <link href=\"css/bootstrap-icons.css\" rel=\"stylesheet\">
+    <link href=\"css/templatemo-tiya-golf-club.css\" rel=\"stylesheet\">
+    
+    <!-- Leaflet CSS -->
+    <link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet/dist/leaflet.css\" />
+    <!-- Stripe JavaScript -->
+    <script src=\"https://js.stripe.com/v3/\"></script>
+    <!-- Custom CSS -->
+    <style>
+        /* Style pour le lien actif */
+        .nav-link.active {
+            color: #007bff; /* Bleu */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    {% block header %}
+    <nav class=\"navbar navbar-expand-lg\">                
+        <div class=\"container\">
+            <a href=\"{{path('app_home')}}\">
+                <img src=\"images/WhatsApp_Image_2025-02-21_at_20.44.51-removebg-preview.png\" class=\"img-fluid navbar-logo\" alt=\"Tiya Golf Club\">
+            </a>
+            <div class=\"d-lg-none ms-auto me-3\">
+                <a class=\"btn custom-btn custom-border-btn\" data-bs-toggle=\"offcanvas\" href=\"#offcanvasExample\" role=\"button\" aria-controls=\"offcanvasExample\">Login</a>
+            </div>
+            <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\" data-bs-target=\"#navbarNav\" aria-controls=\"navbarNav\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">
+                <span class=\"navbar-toggler-icon\"></span>
+            </button>
+            <div class=\"collapse navbar-collapse\" id=\"navbarNav\">
+                <ul class=\"navbar-nav ms-lg-auto\">
+                    <li >
+                        <a class=\"nav-link click-scroll\" style=\"background-color: transparent; color: #ADC29B;\" href=\"#\">.</a>
+                    </li>
+
+                    <li >
+                        <a class=\"nav-link click-scroll\" href=\"{{path('app_home')}}\">Home</a>
+
+                    </li>
+                    <li >
+                        <a class=\"nav-link click-scroll\" href=\"{{path('app_about')}}\">About</a>
+                    </li>
+                    <li >
+                        <a class=\"nav-link click-scroll\" href=\"{{path('app_events')}}\">Events</a>
+                    </li>
+                    <li >
+                        <a class=\"nav-link click-scroll\" href=\"{{path('app_reservations')}}\">Reservations</a>
+                    </li>
+                    <li >
+                        <a class=\"nav-link click-scroll\" href=\"{{path('app_forums')}}\">Forums</a>
+                    </li>
+                    <li >
+                        <a class=\"nav-link click-scroll\" href=\"{{path('app_complaints')}}\">Complaints</a>
+                    </li>
+                    <li >
+                        <a class=\"nav-link click-scroll\" href=\"{{path('app_organizers')}}\">Organizers</a>
+                    </li>
+
+                    <li >
+                        <a class=\"nav-link click-scroll\" href=\"{{path('app_shop')}}\">Marketplace</a>
+                    </li>
+
+                    <li >
+                        <a class=\"nav-link click-scroll\" data-bs-toggle=\"offcanvas\" href=\"#profileOffcanvas\" role=\"button\" aria-controls=\"profileOffcanvas\">
+                            <img src=\"images/profil3.png\" style=\"width: 40px; height: 30px;\" alt=\"Profile\">
+                        </a>
+                    </li>
+                    <li >
+                        <a class=\"nav-link click-scroll\" href=\"{{path('app_logout')}}\"><img src=\"images/eteindre1.png\" style=\"width: 35px;height:30px\"></a>
+                    </li>
+                </ul>
+                <div class=\"d-none d-lg-block ms-lg-3\">
+                    <a class=\"btn custom-btn custom-border-btn\" data-bs-toggle=\"offcanvas\" href=\"#offcanvasExample\" role=\"button\" aria-controls=\"offcanvasExample\">LogIn</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- partie pour login-->
+    <div class=\"offcanvas offcanvas-end\" data-bs-scroll=\"true\" tabindex=\"-1\" id=\"offcanvasExample\" aria-labelledby=\"offcanvasExampleLabel\">                
+        <div class=\"offcanvas-header\">
+            <h5 class=\"offcanvas-title\" id=\"offcanvasExampleLabel\">Welcome back!</h5>
+            <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"offcanvas\" aria-label=\"Close\"></button>
+        </div>
+        <div class=\"mb-4\">
+            <p class=\"form-label mb-2\">Login with Face Recognition!</p>
+            <div class=\"camera-container\">
+                <video id=\"camera\" autoplay muted style=\"width: 200px; height: auto; border-radius: 10px;margin-left:80px;\"></video>
+                <canvas id=\"capturedCanvas\" style=\"display: none;\"></canvas>
+                <div class=\"col-lg-5 col-md-7 col-8 mx-auto\">
+                    <button type=\"button\" class=\"form-control\" onclick=\"capturePhoto()\" style=\"background-color:#844062;color:white;margin-left:10px;\">Capture Photo</button>
+                </div>
+                
+            </div>
+        </div>
+        <input type=\"hidden\" id=\"capturedPhoto\" name=\"capturedPhoto\">
+        <!-- Champ caché pour stocker le descripteur de visage généré par Face API -->
+            <input type=\"hidden\" id=\"faceDescriptor\" name=\"faceDescriptor\">
+            <span style=\"margin-left:60px;\">-----------Or-----------</span>
+            <p>Enter your Credentials to access your account</p>
+        <div class=\"offcanvas-body d-flex flex-column\">
+            <form id=\"login-form\" class=\"custom-form member-login-form\" action=\"{{ path('app_login') }}\" method=\"post\" role=\"form\">
+                <div class=\"member-login-form-body\">
+                    <div class=\"mb-4\">
+                        <label class=\"form-label mb-2\" for=\"member-login-number\">email</label>
+                        <input type=\"text\" name=\"member-login-number\" id=\"member-login-number\" class=\"form-control\" placeholder=\"name@gmail.com\" required autocomplete=\"new-email\">
+                    </div>
+                    <div class=\"mb-4\">
+                        <label class=\"form-label mb-2\" for=\"member-login-password\">Password</label>
+                        <div class=\"input-wrapper\">
+                            <input type=\"password\" name=\"member-login-password\" id=\"member-login-password\"  class=\"form-control\" placeholder=\"Password\" required autocomplete=\"new-password\">
+                            <button type=\"button\" class=\"toggle-password\" onclick=\"togglePasswordVisibilityLogIn()\">
+                                <img id=\"eye-icon2\" src=\"images/oeil (1).png\" alt=\"Toggle Password Visibility login\">
+                            </button>
+                        </div>
+                    </div>
+                    <div class=\"form-check mb-4\">
+                        <input class=\"form-check-input\" type=\"checkbox\" name=\"_remember_me\" id=\"flexCheckDefault\">
+                        <label class=\"form-check-label\" for=\"flexCheckDefault\">
+                            Remember me
+                        </label>
+                    </div>
+                    <div class=\"d-flex flex-column w-100\">
+                        <button type=\"submit\" class=\"btn custom-btn custom-border-btn mb-3\">Login</button>
+                    </div>
+                    <div class=\"d-flex flex-column w-100\">
+                        <button type=\"button\" class=\"btn custom-btn custom-border-btn mb-3\" style=\"margin-top:10px;\" onclick=\"compareFaces()\">Login with Face Recognition</button>
+                    </div>
+                    <div class=\"text-center my-4\">
+                        <a href=\"#\" class=\"forgot-password-link\" data-bs-toggle=\"offcanvas\" data-bs-target=\"#forgotPasswordOffcanvas\">Forgotten password?</a>
+                    </div>
+                </div>
+            </form>
+           
+            <div class=\"mt-auto mb-5\">
+                <p class=\"offcanvas-header p-login\">
+                    <strong class=\"text-black me-3\">don't have an account?</strong>
+                    <a href=\"{{path('app_signup')}}\" class=\"contact-link\">
+                        Create Account
+                    </a>
+                </p>
+            </div>
+        </div>
+        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1440 320\"><path fill=\"#ADC29B\" fill-opacity=\"1\" d=\"M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z\"></path></svg>
+    </div>
+    <!-- partie pour forgot password-->
+
+    <div class=\"offcanvas offcanvas-end\" data-bs-scroll=\"true\" tabindex=\"-1\" id=\"forgotPasswordOffcanvas\" aria-labelledby=\"forgotPasswordOffcanvasLabel\">
+        <div class=\"offcanvas-header\">
+            <!-- Flèche de retour -->
+            <button type=\"button\" class=\"btn btn-link text-decoration-none\" onclick=\"switchToLoginOffcanvas()\" aria-label=\"Back\">
+                <img src=\"images/fleche.png\" alt=\"Back\" style=\"width: 24px; height: 24px;\">
+            </button>
+            <h5 class=\"offcanvas-title ms-2\" id=\"forgotPasswordOffcanvasLabel\">Forgot Password!</h5>
+            <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"offcanvas\" aria-label=\"Close\"></button>
+        </div>
+        <p style=\"margin-top: 30px;\">Enter your email to reset your password</p>
+        <div class=\"offcanvas-body d-flex flex-column\" style=\"margin-top: 60px;\">
+            <form id=\"forgot-password-form\" class=\"custom-form\" action=\"{{ path('app_forgot_password') }}\" method=\"post\" role=\"form\">
+                <div class=\"mb-4\">
+                    <label class=\"form-label mb-2\" for=\"forgot-password-email\">Email</label>
+                    <input type=\"email\" name=\"forgot-password-email\" id=\"forgot-password-email\" class=\"form-control\" placeholder=\"name@gmail.com\" required>
+                </div>
+                <div class=\"col-lg-5 col-md-7 col-8 mx-auto\">
+                    <button type=\"submit\" class=\"form-control\">Send</button>
+                </div>
+            </form>
+        </div>
+        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1440 320\"><path fill=\"#ADC29B\" fill-opacity=\"1\" d=\"M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z\"></path></svg>
+    </div>
+    <!-- partie pour profile-->
+   
+    <div class=\"offcanvas offcanvas-end\" id=\"profileOffcanvas\" tabindex=\"-1\" aria-labelledby=\"profileOffcanvasLabel\">
+        {% if user is defined %}
+            <div class=\"offcanvas-header d-flex flex-column align-items-start\">
+                <h5>Welcome To your profile,</h5>
+                <h2 class=\"offcanvas-title\" id=\"profileOffcanvasLabel\">{{ user.firstName }} {{ user.lastName }}</h2>
+                <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"offcanvas\" aria-label=\"Close\"></button>
+            </div>
+            <div class=\"offcanvas-body d-flex flex-column align-items-center\">
+                <!-- Image circulaire -->
+                <div class=\"profile-image mb-3\">
+                    <img src=\"{{ user.img ?: 'images/profill.png' }}\" alt=\"User Profile Picture\" class=\"rounded-circle\" style=\"width: 120px; height: 120px; object-fit: cover;\">
+                </div>
+                <!-- Informations utilisateur -->
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Date Of Birth:</strong> {{ user.dateNaissance|date('Y-m-d') }}</p>
+                <p><strong>Phone:</strong> {{ user.numTlf }}</p>
+                <p><strong>Cin:</strong> {{ user.cin }}</p>
+                <div class=\"d-flex flex-column w-100\">
+                    <a href=\"{{ path('app_update_profile') }}\" class=\"btn custom-btn custom-border-btn mb-3\" style=\"margin-top:30px;\">Update Profile</a>
+                    <!-- Bouton pour ouvrir le modal -->
+                    <a href=\"#\" class=\"btn custom-btn custom-border-btn btn-danger\" data-bs-toggle=\"modal\" data-bs-target=\"#deleteAccountModal\">Delete Account</a>
+                </div>
+            </div>
+        {% else %}
+            <div class=\"offcanvas-header\">
+                <h5 class=\"offcanvas-title\" id=\"profileOffcanvasLabel\">Profile</h5>
+                <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"offcanvas\" aria-label=\"Close\"></button>
+            </div>
+            <div class=\"offcanvas-body\">
+                <p>You are not logged in. Please <a href=\"{{ path('app_login') }}\">log in</a>.</p>
+            </div>
+        {% endif %}
+    </div>
+    <!-- Modal de confirmation -->
+                <div class=\"modal \" id=\"deleteAccountModal\" tabindex=\"-1\" aria-labelledby=\"deleteAccountModalLabel\" aria-hidden=\"true\">
+                    <div class=\"modal-dialog\">
+                        <div class=\"modal-content\">
+                            <div class=\"modal-header\">
+                                <h5 class=\"modal-title\" id=\"deleteAccountModalLabel\">Confirm Account Deletion</h5>
+                                <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>
+                            </div>
+                            <div class=\"modal-body\">
+                                <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+                            </div>
+                            <div class=\"modal-footer\">
+                                <form method=\"post\" action=\"{{ path('app_delete_account') }}\">
+                                    <button type=\"submit\" class=\"btn custom-btn custom-border-btn btn-danger\">Yes, Delete My Account</button>
+                                </form>
+                                <button type=\"button\" class=\"btn custom-btn custom-border-btn\" data-bs-dismiss=\"modal\">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    {% endblock %}
+    
+
+
+    {% block content %}
+    {% endblock %}
+
+
+
+    {% block footer %}
+    <footer class=\"site-footer\">
+        <div class=\"container\">
+            <div class=\"row\">
+                <footer>
+                    <div class=\"footer-container\">
+                        <div class=\"footer-logo\">
+                            <h2>Eventify</h2>
+                            <p>For all your events: Weddings, Anniversaries, Graduations, Baby Showers, and more!</p>
+                        </div>
+                        <div class=\"footer-links\">
+                            <h2>Quick Links</h2>
+                            <ul>
+                                <li><a href=\"{{path('app_about')}}\">About Us</a></li>
+                                <li><a href=\"{{path('app_events')}}\">Events</a></li>
+                                <li><a href=\"{{path('app_complaints')}}\">Complaints</a></li>
+                                <li><a href=\"{{path('app_organizers')}}\">Organizers</a></li>
+                            </ul>
+                        </div>
+                        <div class=\"footer-contact\">
+                            <h2>Contact Us</h2>
+                            <p>Email: eventify@gmail.com</p>
+                            <p>Phone: +216 20308557</p>
+                            <p>Address: Pôle Technologique El Ghazala,
+                                2088 Ariana,
+                                Tunisie</p>
+                        </div>
+                        <div class=\"footer-social\">
+                            <h2>Follow Us</h2>
+                            <a href=\"https://www.facebook.com/profile.php?id=100091914981214&locale=fr_FR\"><i class=\"social-icon-link bi-facebook\"></i></a>
+                            <a href=\"#\"><i class=\"social-icon-link bi-instagram\"></i></a>
+                            <a href=\"#\"><i class=\"social-icon-link bi-whatsapp\"></i></a>
+                        </div>
+                    </div>
+                    <!-- Map Section -->
+                    <div class=\"footer-map\" style=\"height: 300px; margin-top: 20px;\">
+                        <div id=\"map\" style=\"width: 100%; height: 100%;\"></div>
+                    </div>
+                    <div class=\"footer-bottom\">
+                        <div class=\"footer-bottom-content\">
+                           
+                            <p>&copy; 2025 Eventify. All Rights Reserved.</p>
+                        </div>
+                    </div>
+                    <a class=\"flechePos\" href=\"#\"><img src=\"images/top.png\" alt=\"top\" style=\"width:100px;height:100px\"></a>
+                </footer>
+            </div>
+        </div>
+        <!--scripts pour reconnaissance faciale-->
+    <script defer src=\"https://cdn.jsdelivr.net/npm/@tensorflow/tfjs\"></script>
+    <script defer src=\"https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.min.js\"></script>
+    <script>
+        let videoStream;
+    
+        async function startCamera() {
+            const video = document.getElementById('camera');
+            videoStream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = videoStream;
+        }
+    
+        function capturePhoto() {
+            const video = document.getElementById('camera');
+            const canvas = document.getElementById('capturedCanvas');
+            const context = canvas.getContext('2d');
+    
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+            // Convertir l'image capturée en base64
+            const capturedPhoto = canvas.toDataURL('image/png');
+            document.getElementById('capturedPhoto').value = capturedPhoto;
+    
+            alert('Photo captured! You can now log in.');
+        }
+    
+        async function loadFaceAPI() {
+            console.log('Loading Face API models...');
+            await faceapi.nets.ssdMobilenetv1.loadFromUri('/models'); // Charger les modèles
+            await faceapi.nets.faceRecognitionNet.loadFromUri('/models');
+            await faceapi.nets.faceLandmark68Net.loadFromUri('/models');
+            console.log('Face API models loaded successfully!');
+        }
+    
+        async function compareFaces() {
+            const capturedPhoto = document.getElementById('capturedPhoto').value;
+            if (!capturedPhoto) {
+                alert('Please capture a photo first.');
+                return;
+            }
+        
+            const image = await faceapi.fetchImage(capturedPhoto);
+            const detections = await faceapi.detectSingleFace(image).withFaceLandmarks().withFaceDescriptor();
+        
+            if (!detections) {
+                alert('No face detected. Please try again.');
+                return;
+            }
+        
+            const descriptor = detections.descriptor;
+        
+            // Envoyer les données au serveur pour comparaison
+            const response = await fetch('/compare-faces', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ descriptors: descriptor })
+            });
+        
+            const result = await response.json();
+            if (result.success) {
+                alert('Face recognized! Redirecting...');
+                window.location.href = result.redirect; // Rediriger en fonction du rôle
+            } else {
+                alert('Face not recognized. Please try again.');
+            }
+        }
+    
+        // Démarrer la caméra et charger Face API
+        window.onload = async () => {
+            await loadFaceAPI();
+            await startCamera();
+        };
+    </script>
+        <!-- Leaflet JS -->
+        <script src=\"https://unpkg.com/leaflet/dist/leaflet.js\"></script>
+        <!-- Initialize the Map -->
+        <script>
+            // Coordinates for the static location (latitude, longitude)
+            var latitude = 36.8801; // Replace with your desired latitude
+            var longitude = 10.2134; // Replace with your desired longitude
+            // Initialize the map
+            var map = L.map('map').setView([latitude, longitude], 15); // Zoom level: 15
+            // Add a tile layer from OpenStreetMap
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            // Custom red marker icon
+            var redIcon = L.icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+                iconSize: [25, 41], // Size of the icon
+                iconAnchor: [12, 41], // Point of the icon which corresponds to marker's location
+                popupAnchor: [1, -34], // Point from which the popup should open relative to the iconAnchor
+                shadowSize: [41, 41] // Size of the shadow
+            });
+            // Add a marker with the custom red icon
+            L.marker([latitude, longitude], { icon: redIcon }).addTo(map)
+                .bindPopup('Eventify Headquarters') // Popup text
+                .openPopup();
+
+                function togglePasswordVisibilityLogIn() {
+                    const passwordField = document.getElementById('member-login-password');
+                    const eyeIcon = document.getElementById('eye-icon2');
+            
+                    if (passwordField.type === 'password') {
+                        passwordField.type = 'text'; // Affiche le mot de passe
+                        eyeIcon.src = 'images/oeil.png'; // Change l'image pour l'œil ouvert
+                    } else {
+                        passwordField.type = 'password'; // Masque le mot de passe
+                        eyeIcon.src = 'images/oeil (1).png'; // Change l'image pour l'œil fermé
+                    }
+                }
+        </script>
+
+        <!-- JAVASCRIPT FILES -->
+        <script src=\"js/jquery.min.js\"></script>
+        <script src=\"js/bootstrap.bundle.min.js\"></script>
+        <script src=\"js/jquery.sticky.js\"></script>
+        <script src=\"js/click-scroll.js\"></script>
+        <script src=\"js/animated-headline.js\"></script>
+        <script src=\"js/modernizr.js\"></script>
+        <script src=\"js/custom.js\"></script>
+        <script src=\"js/user.js\"></script>
+        <!-- Highlight Active Link -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const navLinks = document.querySelectorAll('.nav-link');
+
+                // Add click event listeners to all links
+                navLinks.forEach(link => {
+                    link.addEventListener('click', function () {
+                        // Remove 'active' class from all links
+                        navLinks.forEach(item => item.classList.remove('active'));
+
+                        // Add 'active' class to the clicked link
+                        this.classList.add('active');
+                    });
+                });
+
+                // Optional: Highlight the link based on the current URL
+                const currentPath = window.location.pathname;
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === currentPath) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        </script>
+    </footer>
+    {% endblock %}
+
+    <!-- JavaScript Files -->
+    <script src=\"js/jquery.min.js\"></script>
+    <script src=\"js/bootstrap.min.js\"></script>
+    <script src=\"js/jquery.sticky.js\"></script>
+    <script src=\"js/click-scroll.js\"></script>
+    <script src=\"js/custom.js\"></script>
+    <script src=\"{{ asset('js/stripe.js') }}\"></script>
+</body>
+</html>", "base.html.twig", "C:\\Users\\user\\Desktop\\metier+bundles qr code+pdf+fv+cmr+excel\\templates\\base.html.twig");
+    }
+}
