@@ -73,6 +73,12 @@ class User
     #[ORM\OneToMany(mappedBy: "user", targetEntity: Reservation::class)]
     private Collection $reservations;
 
+    /**
+     * @var Collection<int, Logistique>
+     */
+    #[ORM\OneToMany(targetEntity: Logistique::class, mappedBy: 'user')]
+    private Collection $logistiques;
+
     public function __construct()
     {
         $this->forums = new ArrayCollection();
@@ -84,6 +90,7 @@ class User
         $this->reactions = new ArrayCollection();
         $this->reponses = new ArrayCollection();
         $this->reservations = new ArrayCollection();
+        $this->logistiques = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -287,4 +294,34 @@ class User
 
     // Ajoutez les autres méthodes de relation de la même manière...
     // (getReclamations(), addReclamation(), removeReclamation(), etc.)
+
+    /**
+     * @return Collection<int, Logistique>
+     */
+    public function getLogistiques(): Collection
+    {
+        return $this->logistiques;
+    }
+
+    public function addLogistique(Logistique $logistique): static
+    {
+        if (!$this->logistiques->contains($logistique)) {
+            $this->logistiques->add($logistique);
+            $logistique->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLogistique(Logistique $logistique): static
+    {
+        if ($this->logistiques->removeElement($logistique)) {
+            // set the owning side to null (unless already changed)
+            if ($logistique->getUser() === $this) {
+                $logistique->setUser(null);
+            }
+        }
+
+        return $this;
+    }
 }

@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 class Reponse
@@ -17,13 +16,6 @@ class Reponse
     private \DateTimeInterface $date;
 
     #[ORM\Column(type: "string", length: 255)]
-    #[Assert\NotBlank(message: "The response text cannot be blank.")]
-    #[Assert\Length(
-        min: 10,
-        max: 255,
-        minMessage: "The response text must be at least {{ limit }} characters long.",
-        maxMessage: "The response text cannot exceed {{ limit }} characters."
-    )]
     private string $text;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "reponses")]

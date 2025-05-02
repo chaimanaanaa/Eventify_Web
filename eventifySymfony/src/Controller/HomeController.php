@@ -46,13 +46,13 @@ final class HomeController extends AbstractController
     {
         return $this->render('forums/forums.html.twig');
     }
-/*
-    ///complaints
+
+    //complaints
     #[Route('/complaints', name: 'app_complaints')]
     public function complaints(): Response
     {
         return $this->render('complaints/complaints.html.twig');
-    }*/
+    }
     //organizers
     #[Route('/organizers', name: 'app_organizers')]
     public function organizers(): Response

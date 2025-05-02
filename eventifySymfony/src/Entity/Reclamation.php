@@ -5,7 +5,6 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity]
 class Reclamation
@@ -19,32 +18,16 @@ class Reclamation
     private \DateTimeInterface $date;
 
     #[ORM\Column(type: "string", length: 50)]
-    #[Assert\NotBlank(message: "Title cannot be blank")]
-    #[Assert\Length(
-        max: 50,
-        maxMessage: "Title cannot be longer than {{ limit }} characters"
-    )]
     private string $titre;
 
     #[ORM\Column(type: "string", length: 255)]
-    #[Assert\NotBlank(message: "Description cannot be blank")]
-    #[Assert\Length(
-        min: 10,
-        minMessage: "Description must be at least {{ limit }} characters",
-        max: 255,
-        maxMessage: "Description cannot exceed {{ limit }} characters"
-    )]
     private string $sujet;
 
-    #[ORM\Column(name: "img_rec", type: "string", length: 255)]
+    #[ORM\Column(name:"img_rec",type: "string", length: 255)]
     private string $img_rec;
 
     #[ORM\Column(type: "string", length: 50)]
-    #[Assert\Choice(
-        choices: ["Pending", "In Progress", "Resolved"],
-        message: "Invalid status. Must be: Pending, In Progress, or Resolved"
-    )]
-    private string $statu = "Pending"; // Default value
+    private string $statu;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "reclamations")]
     #[ORM\JoinColumn(name: "id_user", referencedColumnName: "id_user", onDelete: "CASCADE")]
