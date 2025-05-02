@@ -1,0 +1,607 @@
+{%extends "base.html.twig" %}
+
+
+{%block content %}
+ <head>
+    
+        <!-- Lien vers le fichier CSS externe -->
+        <link rel="stylesheet" href="{{ asset('filesOrganisateur/organisateur.css') }}">
+
+
+
+
+<!--------------------- hedha il metier 2 ili zidtha ai agent ------------->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
+
+<style>
+
+        #aiIconButton {
+            font-size: 28px; /* Slightly larger for better wave visibility */
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            bottom: 500px;
+            right: 200px;
+            animation: bounce 2s infinite ease-in-out;
+        }
+        #aiIconButton:hover {
+            background-color: #218838;
+            animation-play-state: paused;
+        }
+        #aiIconButton.wave {
+            animation: waveIcon 1.5s ease-in-out;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes waveIcon {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-15deg); }
+            75% { transform: rotate(15deg); }
+            100% { transform: rotate(0deg); }
+        }
+        #aiModal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            z-index: 99999;
+        }
+        #aiModal.show {
+            display: block;
+        }
+        #aiImage {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+        #voiceBar {
+            margin: 20px 0;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            visibility: hidden;
+        }
+        #voiceBar.active {
+            visibility: visible;
+        }
+        .bar {
+            width: 4px;
+            height: 10px;
+            background-color: #007bff;
+            margin: 0 2px;
+            animation: wave 0.5s infinite alternate;
+        }
+        .bar:nth-child(2) { animation-delay: 0.1s; }
+        .bar:nth-child(3) { animation-delay: 0.2s; }
+        .bar:nth-child(4) { animation-delay: 0.3s; }
+        .bar:nth-child(5) { animation-delay: 0.4s; }
+        @keyframes wave {
+            0% { transform: scaleY(1); }
+            100% { transform: scaleY(3); }
+        }
+        #status {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        #closeModal {
+            padding: 10px 20px;
+            font-size: 14px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #closeModal:hover {
+            background-color: rgb(36, 147, 61);
+        }
+
+</style>
+<!------------------------------------------------------------->
+</head>
+
+<body>
+        <section class="hero-section hero-50 d-flex justify-content-center align-items-center" id="section_1">
+<!------------------------------------- banner --------------------------------------------------------->
+        <div class="section-overlay" style="background: url('filesOrganisateur/imageOrganisateur/banner.png') center/cover no-repeat;">
+        </div>
+<!----------------------------------------------------------------->
+
+            <svg viewBox="0 0 1962 178" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#ADC29B" d="M 0 114 C 118.5 114 118.5 167 237 167 L 237 167 L 237 0 L 0 0 Z" stroke-width="0"></path> <path fill="#ADC29B" d="M 236 167 C 373 167 373 128 510 128 L 510 128 L 510 0 L 236 0 Z" stroke-width="0"></path> <path fill="#ADC29B" d="M 509 128 C 607 128 607 153 705 153 L 705 153 L 705 0 L 509 0 Z" stroke-width="0"></path><path fill="#ADC29B" d="M 704 153 C 812 153 812 113 920 113 L 920 113 L 920 0 L 704 0 Z" stroke-width="0"></path><path fill="#ADC29B" d="M 919 113 C 1048.5 113 1048.5 148 1178 148 L 1178 148 L 1178 0 L 919 0 Z" stroke-width="0"></path><path fill="#ADC29B" d="M 1177 148 C 1359.5 148 1359.5 129 1542 129 L 1542 129 L 1542 0 L 1177 0 Z" stroke-width="0"></path><path fill="#ADC29B" d="M 1541 129 C 1751.5 129 1751.5 138 1962 138 L 1962 138 L 1962 0 L 1541 0 Z" stroke-width="0"></path></svg>
+
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-6 col-12">
+                         <h1 class="text-white mb-4 pb-2">Submit & Manage Your Requests</h1> 
+
+                          <!--<h1 class="mb-4 pb-2" style="color: black;">Submit & Manage Your Requests</h1>-->
+
+                        <a href="{{ path('app_AddYourRequest') }}" class="btn custom-btn smoothscroll me-3 SendRequest">Submit Your Requests</a>
+                        <a href="{{ path('app_ConsulterYourRequest') }}" class="btn custom-btn smoothscroll me-3 SendRequest">Manage Your Requests</a>
+                    </div>
+
+                </div>
+            </div>
+
+            <svg viewBox="0 0 1962 178" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#ffffff" d="M 0 114 C 118.5 114 118.5 167 237 167 L 237 167 L 237 0 L 0 0 Z" stroke-width="0"></path> <path fill="#ffffff" d="M 236 167 C 373 167 373 128 510 128 L 510 128 L 510 0 L 236 0 Z" stroke-width="0"></path> <path fill="#ffffff" d="M 509 128 C 607 128 607 153 705 153 L 705 153 L 705 0 L 509 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 704 153 C 812 153 812 113 920 113 L 920 113 L 920 0 L 704 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 919 113 C 1048.5 113 1048.5 148 1178 148 L 1178 148 L 1178 0 L 919 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 1177 148 C 1359.5 148 1359.5 129 1542 129 L 1542 129 L 1542 0 L 1177 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 1541 129 C 1751.5 129 1751.5 138 1962 138 L 1962 138 L 1962 0 L 1541 0 Z" stroke-width="0"></path></svg>
+        </section>
+
+
+<div style="height: 100px;background-color:white;">.</div>
+<!----------------------------------------------------- 5idmti tibda min hne ---------------------------------------------->
+
+<!-------------------------------------------------les alertes ------------------------------------------------------------------------------>
+<!------------------------- Alerte --------------------------->
+
+<!-- Modale de confirmation -->
+<div id="confirmationModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 10px; z-index: 9999;">
+    <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center;">
+        <p style="font-size: 16px; margin-bottom: 15px;">Are you sure you want to send this message?</p>
+        <button id="confirmYes" style="background-color: #844062; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin-right: 10px;">Yes</button>
+        <button id="confirmCancel" style="background-color: #e0d6cf; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">Cancel</button>
+    </div>
+</div>
+<div id="modalBackdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9998;"></div>
+
+<!-- Modale de succès -->
+<div id="successModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 10px; z-index: 9999;">
+    <div style="background-color: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center;">
+        <p style="font-size: 16px; margin-bottom: 15px;">Message sent successfully!</p>
+        <button id="closeSuccessModal" style="background-color: #844062; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">OK</button>
+    </div>
+</div>
+<div id="successModalBackdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9998;"></div>
+
+<!-- Modale d'erreur générique -->
+<div id="genericErrorModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 10px; z-index: 9999;">
+    <div style="background-color: #f8d7da; padding: 15px; border-radius: 8px; text-align: center;">
+        <p style="font-size: 16px; margin-bottom: 15px; color: #721c24;">An error occurred while sending this message.</p>
+        <button id="closeGenericErrorModal" style="background-color: #844062; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">OK</button>
+    </div>
+</div>
+<div id="genericErrorModalBackdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9998;"></div>
+
+<!-- Modale d'erreur spécifique (message vide) -->
+<div id="emptyMessageErrorModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 10px; z-index: 9999;">
+    <div style="background-color: #f8d7da; padding: 15px; border-radius: 8px; text-align: center;">
+        <p style="font-size: 16px; margin-bottom: 15px; color: #721c24;">The message cannot be empty.</p>
+        <button id="closeEmptyMessageErrorModal" style="background-color: #844062; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">OK</button>
+    </div>
+</div>
+<div id="emptyMessageErrorModalBackdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9998;"></div>
+<!------------------------- ------------------------------------------- --------------------------->
+<div class="organizers-container" style="background-color:white;">
+  
+        
+<!-- Barre de recherche et filtre -->
+<div class="filters" style="  position: absolute;  top: 500px; left: 200px; ">
+        <div>
+            <div class="class="filters"">
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    aria-label="Search..." 
+                    id="searchInput"
+                    
+                    />
+            </div>
+        </div>
+
+        <!-- Nouveau combo box pour le tri par salaire -->
+        <select id="salarySort">
+            <option value="none">Sort by salary</option>
+            <option value="asc">Increasing salary</option>
+            <option value="desc">Decreasing salary</option>
+        </select>
+
+        <select id="stateFilter">
+            <option value="all">All</option>
+            <option value="Available">Available</option>
+            <option value="Not available">Not available</option>
+        </select>
+        
+</div>
+
+
+<!-------------------------------- Conteneur flottant pour afficher les détails ------------------------------------------------->
+<div id="floatingDetails" style="margin-left:200px;margin-top:25px; position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background-color: white; border: 1px solid #ddd; border-radius: 10px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); display: none; z-index: 9996; width: 700px; max-width: 90%;">
+    <button id="closeFloatingDetails" style="background-color: #844062 ;border-radius:5px; color: white; border: none; padding: 5px 10px; cursor: pointer; float: right;">Fermer</button><br><br>
+    <div class="floating-content" style="display: flex; flex-wrap: wrap; align-items: center; gap: 20px;">
+<div style="position: absolute; top: 100px; left: -450px; display: flex; flex-direction: column; align-items: center;">
+    <img class="imageOrg" id="floatingImage" src="" alt="Profile" style="background-color:white; width: 350px; height: 350px; border: 2px solid #844062; flex-shrink: 0; border-radius: 20px; margin-bottom: 10px;" />
+    <textarea id="descriptionInput" placeholder="Your message will be sent anonymously. Share your experience or thoughts about this organizer..." style="width: 350px; height: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; resize: none; margin-bottom: 10px;"></textarea>
+    <button id="sendButton" class ="SendTeleBtn" style="background-color: transparent; border: none; padding: 10px; border-radius: 5px; cursor: pointer; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+        <img src="filesOrganisateur/imageOrganisateur/contacOrg.png" alt="Send" style="width: 70px; height: 70px;">
+    </button>
+</div>
+
+            <div id="floatingInfo" style="flex: 1; min-width: 250px; word-wrap: break-word; overflow-wrap: break-word;">
+                <p><strong>Full Name :</strong> <span id="floatingNomPrenom"></span></p>
+                <p><strong>Email :</strong> <span id="floatingEmail"></span></p>
+                <p><strong>Phone Number :</strong> <span id="floatingNum"></span></p>
+                <p><strong>City :</strong> <span id="floatingCity"></span></p>
+                <p><strong>Date of Birth :</strong> <span id="floatingDateNaissance"></span></p>
+                <p><strong>Specialty :</strong> <span id="floatingSpecialite"></span></p>
+                <p><strong>Experience :</strong> <span id="floatingExperience"></span> ans</p>
+                <p><strong>Salary :</strong> <span id="floatingSalaire"></span> DT</p>
+                <p><strong>State :</strong> <span id="floatingEtat"></span></p>
+                <p><strong>Job :</strong> <span id="floatingEmployment"></span></p>
+                <p><strong>Languages :</strong> <span id="floatingLangues"></span></p>
+                <p><strong>Skills :</strong> <span id="floatingCompetences"></span></p>
+                <p><strong>Hiring Date :</strong> <span id="floatingDateEmpbauche"></span></p>
+
+            </div>
+
+            
+    </div>
+    
+</div>
+<!-------------------------------- Taba3 il AI AGENT  ------------------------------------------------->
+ <button id="aiIconButton" title="Talk to AI"><i class="fas fa-robot"></i></button>
+    <div id="aiModal">   
+    <spline-viewer url="https://prod.spline.design/dwQs9CeuVXSEFh6Y/scene.splinecode"></spline-viewer>
+    
+        <div id="voiceBar">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div id="status">Click the icon to start</div>
+        <button 
+            id="closeModal" 
+            style="background: linear-gradient(to right, #dc3545, #ff6b6b, #ff9f43, #007bff); color: white; border: none; padding: 10px 20px; font-size: 14px; border-radius: 5px; cursor: pointer; transition: background 0.3s;" 
+            onmouseover="this.style.background='linear-gradient(to bottom, #dc3545, #ff6b6b, #ff9f43, #007bff)'" 
+            onmouseout="this.style.background='linear-gradient(to right, #dc3545, #ff6b6b, #ff9f43, #007bff)'">
+            Close
+        </button>
+
+    </div>
+
+    <script>
+        const aiIconButton = document.getElementById('aiIconButton');
+        const aiModal = document.getElementById('aiModal');
+        const closeModal = document.getElementById('closeModal');
+        const voiceBar = document.getElementById('voiceBar');
+        const status = document.getElementById('status');
+        let recognition;
+        let isListening = false;
+        let finalTranscript = '';
+        let silenceTimeout;
+
+
+        // Add this new function
+        function refreshSplineViewer() {
+            const splineViewer = document.querySelector('spline-viewer');
+            if (splineViewer) {
+                splineViewer.remove();
+            }
+            const newViewer = document.createElement('spline-viewer');
+            newViewer.setAttribute('url', 'https://prod.spline.design/dwQs9CeuVXSEFh6Y/scene.splinecode');
+            document.querySelector('#aiModal').prepend(newViewer);
+            // Re-apply logo removal
+            setTimeout(() => {
+                const shadow = newViewer.shadowRoot;
+                if (shadow) {
+                    const logoLink = shadow.querySelector('a');
+                    if (logoLink) {
+                        logoLink.remove();
+                    }
+                }
+            }, 1);
+        }
+
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = true;
+            recognition.interimResults = true;
+            recognition.lang = 'en-US';
+
+            recognition.onresult = async (event) => {
+                let interimTranscript = '';
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const transcript = event.results[i][0].transcript;
+                    if (event.results[i].isFinal) {
+                        finalTranscript += transcript + ' ';
+                    } else {
+                        interimTranscript += transcript;
+                    }
+                }
+                status.textContent = `You said: ${finalTranscript + interimTranscript}`;
+
+                clearTimeout(silenceTimeout);
+                silenceTimeout = setTimeout(async () => {
+                    if (finalTranscript.trim()) {
+                        try {
+                            const response = await fetch('{{ path('api_ask') }}', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ question: finalTranscript.trim() })
+                            });
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! Status: ${response.status}`);
+                            }
+                            const data = await response.json();
+                            if (data.answer) {
+                                status.textContent = `AI: ${data.answer}`;
+                                const utterance = new SpeechSynthesisUtterance(data.answer);
+                                utterance.lang = 'en-US';
+                                utterance.onstart = () => voiceBar.classList.add('active');
+                                utterance.onend = () => {
+                                    voiceBar.classList.remove('active');
+                                    if (isListening) recognition.start();
+                                };
+                                window.speechSynthesis.speak(utterance);
+                                recognition.stop();
+                            } else {
+                                status.textContent = 'Error: No response from AI';
+                            }
+                            finalTranscript = '';
+                        } catch (error) {
+                            status.textContent = `Fetch error: ${error.message}`;
+                        }
+                    }
+                }, 1500);
+            };
+
+            recognition.onerror = (event) => {
+                status.textContent = `Speech recognition error: ${event.error}`;
+                stopListening();
+            };
+
+            recognition.onend = () => {
+                if (isListening && !window.speechSynthesis.speaking) {
+                    recognition.start();
+                }
+            };
+        } else {
+            status.textContent = 'Web Speech API not supported';
+            aiIconButton.disabled = true;
+        }
+
+        // Replace the existing startListening function
+        async function startListening() {
+            isListening = true;
+            refreshSplineViewer(); // Refresh spline-viewer before showing modal
+            aiModal.classList.add('show');
+            aiIconButton.classList.add('wave');
+            status.textContent = 'Starting...';
+
+            try {
+                const response = await fetch('{{ path('api_greet') }}', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({})
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const data = await response.json();
+                if (data.greeting) {
+                    status.textContent = `AI: ${data.greeting}`;
+                    const utterance = new SpeechSynthesisUtterance(data.greeting);
+                    utterance.lang = 'en-US';
+                    utterance.onstart = () => voiceBar.classList.add('active');
+                    utterance.onend = () => {
+                        voiceBar.classList.remove('active');
+                        aiIconButton.classList.remove('wave');
+                        recognition.start();
+                        status.textContent = 'Listening...';
+                    };
+                    window.speechSynthesis.speak(utterance);
+                } else {
+                    status.textContent = 'Error: No greeting from AI';
+                    aiIconButton.classList.remove('wave');
+                    recognition.start();
+                }
+            } catch (error) {
+                status.textContent = `Greeting fetch error: ${error.message}`;
+                aiIconButton.classList.remove('wave');
+                recognition.start();
+            }
+        }
+
+        function stopListening() {
+            isListening = false;
+            aiModal.classList.remove('show');
+            aiIconButton.classList.remove('wave');
+            recognition.stop();
+            clearTimeout(silenceTimeout);
+            finalTranscript = '';
+            status.textContent = 'Click the icon to start';
+            window.speechSynthesis.cancel();
+            voiceBar.classList.remove('active');
+        }
+
+        aiIconButton.addEventListener('click', () => {
+            if (!isListening) {
+                startListening();
+            }
+        });
+
+        closeModal.addEventListener('click', () => {
+            stopListening();
+        });
+
+
+
+
+          // Remove Spline viewer logo link
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const splineViewer = document.querySelector('spline-viewer');
+                const shadow = splineViewer?.shadowRoot;
+                if (shadow) {
+                    const logoLink = shadow.querySelector('a');
+                    if (logoLink) {
+                        logoLink.remove();
+                        console.log('Lien supprimé.');
+                    }
+                } else {
+                    console.log('Le shadow DOM est fermé.');
+                }
+            }, 1);
+        });
+
+        
+    </script> 
+<!----------------------------------------------------------------------- ------------------------------------------------->
+
+<!---------------API SENDING telegramme Messages------------------------------>
+<script>
+document.getElementById('sendButton').addEventListener('click', function () {
+    // Récupérez le texte de la zone de description
+    const description = document.getElementById('descriptionInput').value;
+
+
+const description2 = `Anonymous message about organizer:
+Name: ${document.getElementById('floatingNomPrenom').textContent}
+Email: ${document.getElementById('floatingEmail').textContent}
+Phone: ${document.getElementById('floatingNum').textContent}
+Specialty: ${document.getElementById('floatingSpecialite').textContent}
+
+Message:\n ${document.getElementById('descriptionInput').value}`;
+
+    // Vérifiez si le message est vide
+    if (description.trim() === "") {
+        const emptyMessageErrorModal = document.getElementById("emptyMessageErrorModal");
+        const emptyMessageErrorBackdrop = document.getElementById("emptyMessageErrorModalBackdrop");
+        emptyMessageErrorModal.style.display = "block";
+        emptyMessageErrorBackdrop.style.display = "block";
+
+        document.getElementById("closeEmptyMessageErrorModal").onclick = () => {
+            emptyMessageErrorModal.style.display = "none";
+            emptyMessageErrorBackdrop.style.display = "none";
+        };
+        return;
+    }
+
+    // Envoyez le message au backend Symfony
+    fetch('/send-message', { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ message: description2 })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message) {
+            // Afficher la modale de succès
+            const successModal = document.getElementById("successModal");
+            const successBackdrop = document.getElementById("successModalBackdrop");
+            successModal.style.display = "block";
+            successBackdrop.style.display = "block";
+
+            document.getElementById("closeSuccessModal").onclick = () => {
+                successModal.style.display = "none";
+                successBackdrop.style.display = "none";
+                document.getElementById('descriptionInput').value = "";
+                //window.location.href = document.referrer; // Redirection vers la page précédente
+            };
+        } else if (data.error) {
+            // Afficher la modale d'erreur générique
+            const genericErrorModal = document.getElementById("genericErrorModal");
+            const genericErrorBackdrop = document.getElementById("genericErrorModalBackdrop");
+            genericErrorModal.style.display = "block";
+            genericErrorBackdrop.style.display = "block";
+
+            document.getElementById("closeGenericErrorModal").onclick = () => {
+                genericErrorModal.style.display = "none";
+                genericErrorBackdrop.style.display = "none";
+            };
+        }
+    })
+    .catch(error => {
+        console.error("Erreur réseau :", error);
+
+        // Afficher la modale d'erreur générique en cas d'échec réseau
+        const genericErrorModal = document.getElementById("genericErrorModal");
+        const genericErrorBackdrop = document.getElementById("genericErrorModalBackdrop");
+        genericErrorModal.style.display = "block";
+        genericErrorBackdrop.style.display = "block";
+
+        document.getElementById("closeGenericErrorModal").onclick = () => {
+            genericErrorModal.style.display = "none";
+            genericErrorBackdrop.style.display = "none";
+        };
+    });
+});
+</script>
+
+
+<!------------------------------------------------- Conteneur principal pour les cartes -------------------------------------------->
+<div class="cards-grid" id="organizersGrid" style="margin-top:64px;">
+    {% for organizer in organizers %}
+        <div class="card" data-id="{{ organizer.getId() }}"  data-state="{{ organizer.getStatut() }}" data-search="{{ organizer.getNomOrg() }} {{ organizer.getPrenomOrg() }} {{ organizer.getEmailOrg() }}   {{ organizer.getSpecialite() }}  {{ organizer.getNbexp() }}  {{ organizer.getSalaire() }}">
+            <img src="{{ asset(organizer.getImageOrg()) }}" alt="Profile" class="imageOrg RotationChargementPageImoRG" />
+            <div class="card-info">
+                <p><strong>{{ organizer.getNomOrg() }} {{ organizer.getPrenomOrg() }}</strong></p>
+                <p>{{ organizer.getEmailOrg() }}</p>
+                <p>Speciality : {{ organizer.getSpecialite() }}</p>
+                <p>years of experience : {{ organizer.getNbexp() }} ans</p>
+                <p>Salary : {{ organizer.getSalaire() }} DT</p>
+                <p class="state" >State : <span class="status-value">{{ organizer.getStatut() }}</span></p>
+            </div>
+            <div class="card-actions">
+                <button class="action-btn details-btn" data-id="{{ organizer.getId() }}"><i class="fa-solid fa-eye"></i> Détails</button>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
+
+
+</div>
+           
+
+
+
+
+<div style="height: 100px;background-color:white;">.</div>
+
+
+
+    <script src="filesOrganisateur/afficherOrganisateur.js"></script>
+
+
+    <!-- Inclure jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- Inclure le plugin autoTable pour jsPDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+   
+</body>
+</html>
+
+{%endblock %}
+
+

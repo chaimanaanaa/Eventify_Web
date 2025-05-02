@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une réservation{% endblock %}
+
+{% block body %}
+<div class="container py-5">
+    <h4 class="fw-bold py-3 mb-4">Créer une réservation</h4>
+
+    <div class="card p-4 shadow-sm">
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button class="btn btn-primary mt-3">Créer</button>
+        {{ form_end(form) }}
+    </div>
+
+    <a href="{{ path('app_reservation_index') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
+</div>
+{% endblock %}
