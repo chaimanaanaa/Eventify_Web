@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
+
 use App\Entity\Forum;
 use Doctrine\Persistence\ManagerRegistry;
 use Dompdf\Dompdf;
@@ -13,6 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Dompdf\Options as DompdfOptions;
+
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class ForumsBackController extends AbstractController
 {
@@ -70,6 +74,49 @@ class ForumsBackController extends AbstractController
         ]);
     }
 
+
+    #[Route('/admin/forum/delete/{id}', name: 'app_admin_forum_delete', methods: ['POST'])]
+public function adminDelete(
+    Forum $forum,
+    EntityManagerInterface $em,
+    Request $request,
+    CsrfTokenManagerInterface $csrfTokenManager
+): Response {
+    // Vérification CSRF uniquement
+    $submittedToken = $request->request->get('_token');
+    if (!$csrfTokenManager->isTokenValid(new CsrfToken('admin-delete-forum', $submittedToken))) {
+        if ($request->isXmlHttpRequest()) {
+            return $this->json([
+                'success' => false,
+                'message' => 'Token CSRF invalide'
+            ], 403);
+        }
+        throw $this->createAccessDeniedException('Token CSRF invalide');
+    }
+
+    try {
+        // Suppression directe sans vérification de rôle
+        $em->remove($forum);
+        $em->flush();
+
+        if ($request->isXmlHttpRequest()) {
+            return $this->json(['success' => true]);
+        }
+
+        $this->addFlash('success', 'Forum supprimé avec succès (admin)');
+        return $this->redirectToRoute('app_forumsBack');
+
+    } catch (\Exception $e) {
+        if ($request->isXmlHttpRequest()) {
+            return $this->json([
+                'success' => false,
+                'message' => 'Erreur lors de la suppression: '.$e->getMessage()
+            ], 500);
+        }
+        $this->addFlash('error', 'Erreur lors de la suppression admin');
+        return $this->redirectToRoute('app_forumsBack');
+    }
+}
 
    
 

@@ -190,8 +190,10 @@
                         <select id="role" name="role">
                             <option value="">Select Role</option>
 
+
                             <option value="CLIENT" {% if app.request.get('role') == 'CLIENT' %}selected{% endif %}>CLIENT</option>
                             <option value="PARTENAIRE" {% if app.request.get('role') == 'PARTENAIRE' %}selected{% endif %}>PARTENAIRE</option>
+
                         </select>
                         
 
@@ -821,11 +823,10 @@
             passwordError.textContent = ''; // Effacer les erreurs
         });
     </script>
-<<<<<<< HEAD
-=======
+
     <!--script pour capturé la photo de celui qui essaie d'ouvrir un compte-->
     
->>>>>>> 56496f74d318fd80e13c3bf9938b6e815c7d29dc
+
     <!--progress bar du mdp-->
     <script>
         function checkPasswordStrength() {

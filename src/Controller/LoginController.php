@@ -27,6 +27,9 @@ final class LoginController extends AbstractController
     // login
 
     /* #[Route('/login', name: 'app_login', methods: ['GET', 'POST'])]
+
+   /* #[Route('/login', name: 'app_login', methods: ['GET', 'POST'])]
+
     public function login(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
     {
         $alert = null;
@@ -114,7 +117,12 @@ final class LoginController extends AbstractController
         ]);
     }*/
 
+
     /*#[Route('/login', name: 'app_login', methods: ['GET', 'POST'])]
+
+   
+/*#[Route('/login', name: 'app_login', methods: ['GET', 'POST'])]
+
 public function login(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
 {
     $alert = null;
@@ -248,7 +256,11 @@ public function login(Request $request, EntityManagerInterface $entityManager, S
 }*/
 
 
+
     /*#[Route('/login', name: 'app_login', methods: ['GET', 'POST'])]
+
+#[Route('/login', name: 'app_login', methods: ['GET', 'POST'])]
+
 public function login(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
 {
     $alert = null;
@@ -301,6 +313,7 @@ public function login(Request $request, EntityManagerInterface $entityManager, S
                     'email' => $email, // Pré-remplir le champ email avec la valeur saisie
                 ]);
             }
+
         } 
         else {
             // Si aucun descripteur de visage n'est fourni, vérifier le mot de passe
@@ -374,6 +387,19 @@ public function login(Request $request, EntityManagerInterface $entityManager, S
                     ],
                     'email' => $email, // Pré-remplir le champ email avec la valeur saisie
                     'capturePhoto' => false, // Pas de capture
+
+        } else {
+            // Si aucun descripteur de visage n'est fourni, vérifier le mot de passe
+            $hashedPassword = hash('sha256', $password);
+            if ($user->getMdp() !== $hashedPassword) {
+                $alert = [
+                    'type' => 'error',
+                    'message' => 'Invalid password. Please try again.',
+                ];
+                return $this->render('login/index.html.twig', [
+                    'alert' => $alert,
+                    'email' => $email, // Pré-remplir le champ email avec la valeur saisie
+
                 ]);
             }
         }
@@ -435,6 +461,7 @@ public function login(Request $request, EntityManagerInterface $entityManager, S
         'alert' => $alert,
         'email' => $email, // Pré-remplir le champ email avec la valeur de la query string
     ]);
+
 }*/
     #[Route('/login', name: 'app_login', methods: ['GET', 'POST'])]
     public function login(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): Response
@@ -903,6 +930,56 @@ public function login(Request $request, EntityManagerInterface $entityManager, S
         }
         return sqrt($distance) < 0.6; // Seuil de tolérance
     }
+
+}
+
+//comparer faces pour la reconnaissance faciale
+
+
+#[Route('/compare-faces', name: 'compare_faces', methods: ['POST'])]
+public function compareFaces(Request $request, EntityManagerInterface $entityManager, SessionInterface $session): JsonResponse
+{
+    $data = json_decode($request->getContent(), true);
+    $capturedDescriptor = $data['descriptors'] ?? null;
+
+    if (!$capturedDescriptor) {
+        return new JsonResponse(['success' => false, 'message' => 'No face descriptor provided.'], 400);
+    }
+
+    $users = $entityManager->getRepository(User::class)->findAll();
+
+    foreach ($users as $user) {
+        $storedDescriptor = json_decode($user->getFaceDescriptor(), true);
+
+        if ($storedDescriptor && $this->compareDescriptors($capturedDescriptor, $storedDescriptor)) {
+            // Stocker les informations de l'utilisateur dans la session
+            $session->set('user_id', $user->getId());
+            $session->set('user_name', $user->getFirstName());
+            $session->set('user_email', $user->getEmail());
+            $session->set('user_role', $user->getRole());
+
+            // Vérifier le rôle de l'utilisateur
+            $role = strtoupper($user->getRole());
+            if ($role === 'ADMIN') {
+                return new JsonResponse(['success' => true, 'redirect' => '/dashboard']);
+            } else {
+                return new JsonResponse(['success' => true, 'redirect' => '/home']);
+            }
+        }
+    }
+
+    return new JsonResponse(['success' => false, 'message' => 'Face not recognized.']);
+}
+
+private function compareDescriptors(array $captured, array $stored): bool
+{
+    $distance = 0;
+    for ($i = 0; $i < count($captured); $i++) {
+        $distance += pow($captured[$i] - $stored[$i], 2);
+    }
+    return sqrt($distance) < 0.6; // Seuil de tolérance
+}
+
     // forgot password
 
 
@@ -945,6 +1022,7 @@ public function login(Request $request, EntityManagerInterface $entityManager, S
             $mailer = new Mailer($transport);
             // Préparer le contenu de l'email
             $emailMessage = (new Email());
+
             $emailMessage->from('dhiabouslimi80@gmail');
             $emailMessage->to($user->getEmail());
             $emailMessage->subject('Password Recovery Code');
@@ -962,6 +1040,26 @@ public function login(Request $request, EntityManagerInterface $entityManager, S
                 $logger->info('Email sent successfully to: ' . $user->getEmail());
 
                 //dd('Email sent successfully to: ' . $user->getEmail());
+
+
+            $emailMessage ->from('dhiabouslimi80@gmail');
+            $emailMessage->to($user->getEmail());
+            $emailMessage->subject('Password Recovery Code');
+            $emailMessage->text(
+                    $salutation . " " . $user->getFirstName() . " " . $user->getLastName() . ",\n\n" .
+                        "We received a request to reset your password. Use this code to complete the process:\n\n" .
+                        $resetCode . "\n\n" .
+                        "If you did not request a password reset, please ignore this email or contact our support team.\n\n" .
+                        "Best regards,\nEventify\nNour Bouslimi\nHead of Communications\nHexadevs Group\nEventify Application"
+                );
+                
+                
+            try {
+                $mailer->send($emailMessage);
+                $logger->info('Email sent successfully to: ' . $user->getEmail());
+                
+                //dd('Email sent successfully to: ' . $user->getEmail());
+                
 
                 $logger->info('Email sent successfully to: ' . $user->getEmail());
                 $alert = [
@@ -1000,6 +1098,7 @@ public function login(Request $request, EntityManagerInterface $entityManager, S
         dump($submittedCode, gettype($submittedCode));
         exit;*/
 
+
         // Convertir les deux valeurs en chaînes pour éviter les problèmes de type
         if ((string) $submittedCode === (string) $storedCode) {
             $logger->info('Verification code is correct.');
@@ -1010,6 +1109,18 @@ public function login(Request $request, EntityManagerInterface $entityManager, S
                 ],
             ]);
         }
+
+       // Convertir les deux valeurs en chaînes pour éviter les problèmes de type
+    if ((string) $submittedCode === (string) $storedCode) {
+        $logger->info('Verification code is correct.');
+        return $this->render('login/reset_password.html.twig', [
+            'alert' => [
+                'type' => 'success',
+                'message' => 'Code verified successfully. You can now reset your password.',
+            ],
+        ]);
+    }
+
 
         $logger->warning('Verification code is incorrect.');
         return $this->render('login/verify_code.html.twig', [
@@ -1072,7 +1183,10 @@ public function login(Request $request, EntityManagerInterface $entityManager, S
 
     //profile
 
-    #[Route('/profile', name: 'app_profile', methods: ['GET', 'POST'])]
+
+
+    #[Route('/profile', name: 'app_profile', methods: ['GET','POST'])]
+
     public function profile(SessionInterface $session, EntityManagerInterface $entityManager): Response
     {
         // Récupérer l'ID de user depuis  session
@@ -1136,6 +1250,7 @@ public function login(Request $request, EntityManagerInterface $entityManager, S
 
             // Gérer l'image si elle est téléchargée
             /** @var UploadedFile|null $profileImage */
+
             $profileImage = $request->files->get('fileInput');
             $capturedPhoto = $request->request->get('capturedPhoto');
             //dd($request->request->all());
@@ -1167,6 +1282,39 @@ public function login(Request $request, EntityManagerInterface $entityManager, S
                     return $this->redirectToRoute('app_signup');
                 }
             }
+
+        $profileImage = $request->files->get('fileInput');
+        $capturedPhoto = $request->request->get('capturedPhoto');
+        //dd($request->request->all());
+        if ($capturedPhoto) {
+            // Traiter la photo capturée (base64)
+            $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/public/assets';
+            $imageData = base64_decode(preg_replace('#^data:image/\w+;base64,#i', '', $capturedPhoto));
+            $newFilename = 'captured-' . uniqid() . '.png';
+        
+            try {
+                file_put_contents($uploadsDirectory . '/' . $newFilename, $imageData);
+                $user->setImg('assets/' . $newFilename);
+            } catch (\Exception $e) {
+                $this->addFlash('error', 'Failed to save the captured photo.');
+                return $this->redirectToRoute('app_signup');
+            }
+        } elseif ($profileImage) {
+            // Traiter l'image téléchargée
+            $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/public/assets';
+            $originalFilename = pathinfo($profileImage->getClientOriginalName(), PATHINFO_FILENAME);
+            $safeFilename = preg_replace('/[^a-zA-Z0-9_-]/', '_', $originalFilename);
+            $newFilename = $safeFilename . '-' . uniqid() . '.' . $profileImage->guessExtension();
+        
+            try {
+                $profileImage->move($uploadsDirectory, $newFilename);
+                $user->setImg('assets/' . $newFilename);
+            } catch (FileException $e) {
+                $this->addFlash('error', 'Failed to upload the image.');
+                return $this->redirectToRoute('app_signup');
+            }
+        } 
+
             // Sauvegarder les modifications dans la base de données
             $entityManager->flush();
 

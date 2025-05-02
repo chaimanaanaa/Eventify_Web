@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{ asset('filesOrganisateur/offre.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
+
 <!---------------------- prediction------------->
     <style>
         .prediction-circle-container {
@@ -49,6 +50,7 @@
             animation: pulse 2s infinite;
         }
     </style>
+
 </head>
 
 <body>
@@ -136,6 +138,7 @@
     </div>
 </div>
 <div id="errorModalBackdrop" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 9998;"></div>
+
 <!---------------------- prediction-------------------------->
 <!-- Prediction Modal with Enhanced UI -->
 <div id="predictionModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 30px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); border-radius: 15px; z-index: 9999; min-width: 300px;">
@@ -166,6 +169,7 @@
 
 
 <!------------------------------------------------------------------------->
+
 
 <div class="custom-container">
     <form method="POST" class="custom-form">
@@ -237,8 +241,10 @@
                     style="margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 5px;"></div>
             </div>
 
+
             <button type="button" id="predictButton" class="submitRequest" style="background-color: #EBEFEE;height:500px;">Predict Acceptance</button>
         
+
         </div><br><br>
 
         <!-- Submit Buttons -->
@@ -252,6 +258,7 @@
 </div>
 
 <script src="{{ asset('filesOrganisateur/ajouterOffre2.js') }}"></script>
+
 
 
 <!---------------------- prediction------------->
@@ -458,7 +465,8 @@ function closeCustomAlert() {
     backdrop.style.display = 'none';
 }
 </script>
-<!----------------------------------->
+
+
 </body>
 <div style="height: 100px;background-color:white;"></div>
 {% endblock %}

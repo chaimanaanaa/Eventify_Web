@@ -46,6 +46,13 @@ final class SignupController extends AbstractController
             $recaptchaResponse = $request->request->get('g-recaptcha-response'); // Récupérer la réponse reCAPTCHA
             $faceDescriptor = $request->request->get('faceDescriptor'); // Récupérer le descripteur de visage
 
+            // Vérifier si l'email existe déjà dans la base de données
+            $existingUser = $entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
+            if ($existingUser) {
+                $this->addFlash('error', 'This email is already registered. Please use a different email.');
+                return $this->redirectToRoute('app_signup');
+            }
+
             // Vérifier la réponse reCAPTCHA
             $secretKey = $_ENV['GOOGLE_RECAPTCHA_SECRET']; // Récupérer la clé secrète depuis .env
             $response = $httpClient->request('POST', 'https://www.google.com/recaptcha/api/siteverify', [
@@ -114,7 +121,8 @@ final class SignupController extends AbstractController
 
             // Définir les répertoires de destination
             $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/public/assets';
-            $javaAssetsDirectory = 'C:/Users/CHAIMA/Documents/Esprit 3eme/semestre 2/Projet integre Developpement Web Java/Integration/integration 2/FinaleJava/GestionUser/src/main/resources/assets';
+
+            $javaAssetsDirectory = 'C:/Users/MSI-PC/Desktop/FinaleJava A5er Version il dashboard imsal7a/FinaleJava/GestionUser/src/main/resources/assets';
 
 
             if ($profileImage) {

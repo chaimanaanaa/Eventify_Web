@@ -5,12 +5,16 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
   image_directoryOrg: "%kernel.project_dir%/public/filesOrganisateur/imageOrganisateurAMS"
-  image_directoryOrgPidev: "C:/Users/CHAIMA/Documents/Esprit 3eme/semestre 2/Projet integre Developpement Web Java/Integration/FinaleJava/GestionUser/src/filesOrganisateur/imageOrganisateurAMS"
+
+
+  image_directoryOrgPidev: "C:/Users/MSI-PC/Desktop/FinaleJava A5er Version il dashboard imsal7a/FinaleJava/GestionUser/src/filesOrganisateur/imageOrganisateurAMS"
   google_recaptcha_site_key: "%env(GOOGLE_RECAPTCHA_SITE_KEY)%"
   google_recaptcha_secret_key: "%env(GOOGLE_RECAPTCHA_SECRET)%"
   image_Forum: "%kernel.project_dir%/public/imagesForums"
   uploads_directory: "%kernel.project_dir%/public/uploads"
-  images_directory: '%kernel.project_dir%/public/uploads/images'
+
+
+  images_directory: "%kernel.project_dir%/public/uploads/images"
 
 services:
   # default configuration for services in *this* file

@@ -25,8 +25,10 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
+
 /// zidha lil ai agent
 use Symfony\Component\HttpClient\HttpClient;
+
 
 final class OffreController extends AbstractController{
      /*#[Route('/offre', name: 'app_offre')]
@@ -683,7 +685,9 @@ if (!$offer) {
 
 
 
-$organisateurs = $entityManager->getRepository(className: Organisateur::class)->findAll();
+
+$organisateurs = $entityManager->getRepository(Organisateur::class)->findAll();
+
 dump($organisateurs); // Vérifier les données récupérées
 
 
@@ -912,6 +916,7 @@ INSTRUCTIONS;
 
 
 
+
 /************************ AI agent Controller********************
  * ************************************************************
  ********************************************************/
@@ -1095,6 +1100,7 @@ public function ask(Request $request , EntityManagerInterface $entityManager): J
         return new JsonResponse(['error' => 'API error: ' . $e->getMessage()], 500);
     }
 }
+
 
 
 

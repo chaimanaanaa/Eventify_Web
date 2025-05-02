@@ -647,6 +647,93 @@
 }
 
 
+/* Style pour la section auteur */
+.author-info {
+    background-color: #f8f9fa;
+    border-radius: 8px 8px 0 0;
+}
+
+.initials-avatar {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* Style pour la date */
+.text-muted {
+    color: #6c757d;
+    font-size: 0.85rem;
+}
+
+/* Animation des coeurs */
+.heart-animation {
+    position: fixed;
+    pointer-events: none;
+    animation: heart-fly 3s ease-in-out forwards;
+    font-size: 20px;
+    z-index: 1000;
+}
+
+@keyframes heart-fly {
+    0% {
+        transform: translate(0, 0) scale(0.5);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(0, -100px) scale(1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(var(--random-x), var(--random-y)) scale(0.2);
+        opacity: 0;
+    }
+}
+
+/* Animation de confetti like coeur */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background-color: #f00;
+    opacity: 0;
+    animation: confetti-fall 3s ease-in forwards;
+    z-index: 1000;
+}
+
+@keyframes confetti-fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/*dislike-animation*/
+/* Animation des dislikes */
+.dislike-animation {
+    position: fixed;
+    pointer-events: none;
+    animation: dislike-fly 3s ease-in-out forwards;
+    font-size: 20px;
+    z-index: 1000;
+}
+
+@keyframes dislike-fly {
+    0% {
+        transform: translate(0, 0) scale(0.5);
+        opacity: 1;
+    }
+    50% {
+        transform: translate(0, 50px) scale(1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translate(var(--random-x), var(--random-y)) scale(0.2);
+        opacity: 0;
+    }
+}
 
 
 
@@ -655,6 +742,55 @@
     color: #844006 !important;
     border-color: #ADC29B !important;
 }
+
+
+
+
+/* ================ Auto-complétion ================ */
+.suggestion-box {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ADC29B;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+}
+
+.suggestion-item {
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.suggestion-item:hover {
+    background-color: #f8f9fa;
+    color: #844062;
+}
+
+.suggestion-loading {
+    padding: 8px 12px;
+    color: #6c757d;
+    font-style: italic;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 </style>
 </head>
@@ -688,6 +824,7 @@
 </section>
 
 <div style="height: 100px;"></div>
+
 <div class="position-fixed top-0 end-0 p-3" style="z-index: 2000">
         {% for message in app.flashes('error') %}
             <div class="alert alert-danger alert-dismissible fade show">
@@ -705,22 +842,52 @@
                 <div class="input-group">
                     <span class="input-group-text bg-white border-end-0">
                         <i class="fas fa-search text-muted"></i>
+
+
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 2000">
+    {% for message in app.flashes('error') %}
+        <div class="alert alert-danger alert-dismissible fade show">
+            <i class="fas fa-exclamation-triangle me-2"></i>
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="container mt-4">
+    <div class="row align-items-center mb-4 g-3">
+        <!-- Barre de recherche améliorée -->
+        <div class="col-md-6">
+            <div class="search-container">
+                <div class="input-group">
+                    <span class="input-group-text">
+                        <i class="fas fa-search"></i>
+
                     </span>
                     <input 
                         type="text" 
                         id="dynamicSearchInput"
+
                         class="form-control border-start-0 ps-0" 
                         placeholder="Search..." 
                         aria-label="Recherche dynamique"
                         autocomplete="off"
                         value="{{ app.request.query.get('search') }}"
                         style="height: 45px; border-radius: 0 8px 8px 0">
+
+                        class="form-control" 
+                        placeholder="Search forums..." 
+                        aria-label="Recherche dynamique"
+                        autocomplete="off"
+                        value="{{ app.request.query.get('search') }}">
+
                 </div>
                 <div class="search-loader d-none position-absolute end-0 top-50 translate-middle-y me-3">
                     <i class="fas fa-spinner fa-spin text-purple"></i>
                 </div>
             </div>
         </div>
+
 
         <!-- Bouton Create Forum stylisé -->
         {% if not is_ajax_request %}
@@ -730,12 +897,69 @@
             </a>
         </div>
         {% endif %}
+
+        <!-- Boutons Create Forum et Historique -->
+        <div class="col-md-6 d-flex justify-content-end gap-2">
+            <button id="history-toggle" class="btn btn-primary" style="background-color: #844062; border: none;">
+                <i class="fas fa-history me-1"></i> History
+            </button>
+            
+            <!-- Panneau d'historique -->
+            <div id="history-panel" class="d-none position-fixed bg-white p-3 shadow rounded" 
+                 style="right:20px; top:120px; width:350px; max-height:500px; overflow-y:auto; z-index:1000;">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h5 class="mb-0">
+                        <i class="fas fa-history me-2"></i>Historique des actions
+                    </h5>
+                    <button class="btn btn-sm btn-outline-secondary" onclick="document.getElementById('history-panel').classList.add('d-none')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div id="history-content">
+                    {% set persistent_history = app.session.get('persistent_history', [])|reverse %}
+                    {% set history_flashes = app.flashes('history')|reverse %}
+                    {% set all_history = persistent_history|merge(history_flashes)|slice(0, 10) %}
+                    
+                    {% if all_history is not empty %}
+                        {% for item in all_history %}
+                            <div class="mb-3 p-3 border-bottom history-item">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge bg-{{ item.color|default('primary') }} text-white">
+                                        <i class="fas fa-{{ item.icon|default('info-circle') }} me-1"></i>
+                                        {{ item.label|default(item.action|capitalize) }}
+                                    </span>
+                                    <small class="text-muted">{{ item.time }}</small>
+                                </div>
+                                <div class="fw-bold">{{ item.title }}</div>
+                                <div class="d-flex justify-content-between align-items-center mt-1">
+                                    <small class="text-muted">Par {{ item.user }}</small>
+                                    <small class="text-muted">#{{ item.id }}</small>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="text-muted text-center py-3">
+                            <i class="fas fa-info-circle me-1"></i> Aucune action récente
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            {% if not is_ajax_request %}
+            <a href="{{ path('app_forums_new') }}" class="btn btn-create-forum">
+                <i class="fas fa-plus-circle"></i> Create Forum
+            </a>
+            {% endif %}
+        </div>
+
     </div>
 </div>
 
 <div class="container mt-5">
     <div id="forums-container">
         {% if not is_ajax_request|default(false) %}
+
             <div class="row mb-4">
                 <div class="col-12 d-flex justify-content-center">
                     <div class="btn-group" role="group">
@@ -764,9 +988,38 @@
                            style="width: auto;">
                            Baby Shower
                         </a>
+
+            <!-- Filtres de catégorie améliorés -->
+            <div class="category-buttons">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        <div class="btn-group" role="group">
+                            <a href="{{ path('app_forums') }}" 
+                               class="btn {{ not app.request.query.get('category') ? 'active' : '' }}">
+                               <i class="fas fa-th-large me-2"></i>All
+                            </a>
+                            <a href="{{ path('app_forums', {'category': 'Mariage'}) }}" 
+                               class="btn {{ app.request.query.get('category') == 'Mariage' ? 'active' : '' }}">
+                               <i class="fas fa-ring me-2"></i>Mariage
+                            </a>
+                            <a href="{{ path('app_forums', {'category': 'Anniversaire'}) }}" 
+                               class="btn {{ app.request.query.get('category') == 'Anniversaire' ? 'active' : '' }}">
+                               <i class="fas fa-birthday-cake me-2"></i>Anniversaire
+                            </a>
+                            <a href="{{ path('app_forums', {'category': 'Graduation'}) }}" 
+                               class="btn {{ app.request.query.get('category') == 'Graduation' ? 'active' : '' }}">
+                               <i class="fas fa-graduation-cap me-2"></i>Graduation
+                            </a>
+                            <a href="{{ path('app_forums', {'category': 'Baby_Shower'}) }}" 
+                               class="btn {{ app.request.query.get('category') == 'Baby_Shower' ? 'active' : '' }}">
+                               <i class="fas fa-baby me-2"></i>Baby Shower
+                            </a>
+                        </div>
+
                     </div>
                 </div>
             </div>
+
 
             <div class="row mb-4">
                 <div class="col-md-6 offset-md-3">
@@ -801,11 +1054,51 @@
     </div>
 {% endif %}
 
+
+            <!-- Tri amélioré -->
+            <div class="sort-container">
+                <div class="row">
+                    <div class="col-md-6 offset-md-3">
+                        <form method="GET" action="{{ path('app_forums') }}" class="d-flex align-items-center justify-content-center">
+                            {% if app.request.query.get('category') %}
+                                <input type="hidden" name="category" value="{{ app.request.query.get('category') }}">
+                            {% endif %}
+                            <label for="sort" class="me-2">
+                                <i class="fas fa-sort-amount-down me-1"></i>Sort by:
+                            </label>
+                            <select name="sort" id="sort" class="form-select" onchange="this.form.submit()">
+                                <option value="newest" {{ app.request.query.get('sort') == 'newest' ? 'selected' }}>
+                                    <i class="fas fa-clock me-1"></i>Newest
+                                </option>
+                                <option value="oldest" {{ app.request.query.get('sort') == 'oldest' ? 'selected' }}>
+                                    <i class="fas fa-history me-1"></i>Oldest
+                                </option>
+                                <option value="popular" {{ app.request.query.get('sort') == 'popular' ? 'selected' }}>
+                                    <i class="fas fa-fire me-1"></i>Popular
+                                </option>
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if single_forum_mode %}
+            <div class="col-12 mb-3">
+                <a href="{{ path('app_forums') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Back
+                </a>
+            </div>
+        {% endif %}
+
+        <!-- Liste des forums -->
+
         <div class="row justify-content-center" id="forumsList">
             {% if forums is defined and forums is not empty %}
                 {% for forum in forums %}
                     <div class="col-lg-8 col-md-10 mb-4">
                         <div class="card shadow-lg forum-card">
+
                             <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #ADC29B; color: white;">
                                 <h3 class="h5 mb-0">{{ forum.categorie|upper }}</h3>
                                 <div class="btn-group">
@@ -833,6 +1126,89 @@
 </div>
                             <div class="card-body text-center">
                                 <!-- Description avec système de traduction -->
+
+                            <!-- En-tête du forum -->
+                            <div class="card-header d-flex justify-content-between align-items-center" style="background-color: #ADC29B; color: white;">
+                                <h3 class="h5 mb-0">{{ forum.categorie|upper }}</h3>
+                                <div class="btn-group">
+                                    {% if session.get('user_id') and forum.user and session.get('user_id') == forum.user.id %}
+                                        <a href="{{ path('app_forum_edit', {'id': forum.id}) }}" class="btn btn-sm btn-outline-light me-2">
+                                            <i class="fas fa-edit me-1"></i> Edit
+                                        </a>
+                                        <form method="POST" action="{{ path('app_forum_delete', {'id': forum.id}) }}" class="d-inline">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete-forum') }}">
+                                            <button type="submit" class="btn btn-sm btn-outline-light" onclick="return confirm('Are you sure you want to delete this forum?')">
+                                                <i class="fas fa-trash me-1"></i> Delete
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- Informations de l'auteur -->
+                            <div class="author-info d-flex align-items-center p-3" style="border-bottom: 1px solid #eee;">
+                                {% if forum.user is defined and forum.user is not null %}
+                                    {% if forum.user.img is defined and forum.user.img is not null %}
+                                        <img src="{{ asset(forum.user.img) }}"
+                                             alt="Photo de profil"
+                                             class="rounded-circle me-3"
+                                             style="width: 50px; height: 50px; object-fit: cover; border: 2px solid #ADC29B;">
+                                    {% else %}
+                                        <div class="rounded-circle me-3 d-flex align-items-center justify-content-center initials-avatar"
+                                             style="width: 50px; height: 50px; background-color: #844062; color: white;">
+                                            {% if forum.user.firstName is defined and forum.user.lastName is defined %}
+                                                {{ forum.user.firstName|first|upper }}{{ forum.user.lastName|first|upper }}
+                                            {% else %}
+                                                <i class="fas fa-user"></i>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                    
+                                    <div>
+                                        <h6 class="mb-0" style="color: #844062; font-weight: 600;">
+                                            {% if forum.user.firstName is defined and forum.user.lastName is defined %}
+                                                {{ forum.user.firstName }} {{ forum.user.lastName }}
+                                            {% else %}
+                                                Utilisateur
+                                            {% endif %}
+                                        </h6>
+                                        <small class="text-muted">
+                                            <i class="far fa-clock me-1"></i> {{ forum.date|date('d/m/Y à H:i') }}
+                                        </small>
+                                    </div>
+                                {% else %}
+                                    <div class="rounded-circle me-3 d-flex align-items-center justify-content-center"
+                                         style="width: 50px; height: 50px; background-color: #6c757d; color: white;">
+                                        <i class="fas fa-user-secret"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0" style="color: #6c757d; font-weight: 600;">
+                                            Anonymous
+                                        </h6>
+                                        <small class="text-muted">
+                                            <i class="far fa-clock me-1"></i> {{ forum.date|date('d/m/Y à H:i') }}
+                                        </small>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Image du forum -->
+                            <div class="card-img-container text-center">
+                                {% if forum.img != 'default.jpg' %}
+                                    <img src="{{ path('app_forum_image', {'id': forum.img}) }}" 
+                                         alt="Image du forum {{ forum.categorie }}"
+                                         class="img-fluid mx-auto d-block">
+                                {% else %}
+                                    <img src="{{ asset('images/default_forum.jpg') }}" 
+                                         alt="Image par défaut"
+                                         class="img-fluid mx-auto d-block">
+                                {% endif %}
+                            </div>
+
+                            <!-- Corps du forum -->
+                            <div class="card-body text-center">
+                                <!-- Description avec traduction -->
+
                                 <div class="forum-translation">
                                     <p class="card-text forum-description" 
                                        id="forum-description-{{ forum.id }}"
@@ -855,7 +1231,11 @@
                                     
                                     <div class="translation-status" id="translation-status-{{ forum.id }}"></div>
                                 </div>
-                               
+
+
+
+                                <!-- Actions (like, dislike, comment, share) -->
+
                                 <div class="card-actions">
                                     <button class="btn btn-outline-primary btn-like" data-forum-id="{{ forum.id }}">
                                         <i class="far fa-thumbs-up"></i> Like 
@@ -873,11 +1253,15 @@
                                         <i class="fas fa-share"></i> Share
                                     </button>
                                 </div>
-                                
+
+
+                                <!-- Section des commentaires -->
+
                                 <div id="comments-{{ forum.id }}" class="comments-section">
                                     <div class="existing-comments">
                                         {% for comment in forum.comments %}
                                             <div class="comment" id="comment-{{ comment.IdCmn }}">
+
                                                 <div class="comment-date">
                                                     {{ comment.date|date('d/m/Y H:i') }}
                                                 </div>
@@ -900,11 +1284,69 @@
                                                             <i class="fas fa-trash"></i> Delete
                                                         </button>
                                                     </form>
+
+                                                <div class="comment-author d-flex align-items-center mb-2">
+                                                    {% if comment.user.img %}
+                                                        <img src="{{ asset(comment.user.img) }}"
+                                                             alt="{{ comment.user.firstName }}"
+                                                             class="rounded-circle me-2"
+                                                             style="width: 36px; height: 36px; object-fit: cover; border: 1px solid #ADC29B;">
+                                                    {% else %}
+                                                        <div class="rounded-circle me-2 d-flex align-items-center justify-content-center"
+                                                             style="width: 36px; height: 36px; background-color: #844062; color: white; font-size: 0.8rem;">
+                                                            {{ comment.user.firstName|first|upper }}{{ comment.user.lastName|first|upper }}
+                                                        </div>
+                                                    {% endif %}
+                                                    <div>
+                                                        <strong style="color: #844062;">{{ comment.user.firstName }}</strong>
+                                                        <small class="text-muted ms-2">{{ comment.date|date('d/m/Y H:i') }}</small>
+                                                    </div>
+                                                </div>
+
+                                                <div class="comment-content" id="comment-content-{{ comment.IdCmn }}">
+                                                    {{ comment.sujet }}
+                                                </div>
+
+                                                <div class="comment-actions">
+                                                    {% if session.get('user_id') and comment.user and session.get('user_id') == comment.user.id %}
+                                                        <button class="btn-edit-comment" onclick="
+                                                            document.getElementById('comment-content-{{ comment.IdCmn }}').style.display = 'none';
+                                                            document.querySelector('#comment-{{ comment.IdCmn }} .btn-edit-comment').style.display = 'none';
+                                                            document.querySelector('#comment-{{ comment.IdCmn }} .btn-delete-comment').style.display = 'none';
+                                                            document.querySelector('#comment-{{ comment.IdCmn }} .btn-sentiment').style.display = 'none';
+                                                            document.getElementById('edit-form-{{ comment.IdCmn }}').style.display = 'block';
+                                                            document.querySelector('#edit-form-{{ comment.IdCmn }} textarea').focus();
+                                                        ">
+                                                            <i class="fas fa-edit"></i> Edit
+                                                        </button>
+                                                        <form method="POST" action="{{ path('comment_delete', {'id': comment.IdCmn}) }}" class="d-inline">
+                                                            <input type="hidden" name="_token" value="{{ csrf_token('delete-comment' ~ comment.IdCmn) }}">
+                                                            <button type="submit" class="btn-delete-comment" style="border-color: #ADC29B; color: #844062;" onclick="return confirm('Are you sure you want to delete this comment?')">
+                                                                <i class="fas fa-trash"></i> Delete
+                                                            </button>
+                                                        </form>
+                                                    {% endif %}
+                                                    
+                                                    <!-- Bouton d'analyse de sentiment pour le commentaire -->
+                                                    <button type="button" class="btn-sentiment" 
+                                                            onclick="analyzeCommentSentiment('{{ comment.IdCmn }}')"
+                                                            style="background: #ADC29B; color: white; padding: 4px 8px; border-radius: 4px; border: none;">
+                                                        <i class="fas fa-feather-alt"></i> Analyze
+                                                    </button>
+                                                    
+                                                    <!-- Résultat de l'analyse -->
+                                                    <span id="sentiment-result-{{ comment.IdCmn }}" class="sentiment-feedback ms-2"></span>
+
+
                                                     <form id="edit-form-{{ comment.IdCmn }}" class="edit-comment-form" method="POST" action="{{ path('comment_edit', {'id': comment.IdCmn}) }}">
                                                         <input type="hidden" name="_token" value="{{ csrf_token('edit-comment' ~ comment.IdCmn) }}">
                                                         <textarea name="content" class="form-control">{{ comment.sujet }}</textarea>
                                                         <button type="submit" class="btn btn-sm mt-2" style="border-color: #ADC29B; color: #844062;">
+
                                                             <i class="fas fa-save"></i> Enregistrer
+
+                                                            <i class="fas fa-save"></i> Save
+
                                                         </button>
                                                     </form>
                                                 </div>
@@ -916,6 +1358,7 @@
                                         {% endfor %}
                                     </div>
                                     
+
                                <div class="comment-form">
     <form action="{{ path('app_comment_add', {'forumId': forum.id}) }}" method="post" 
           class="d-flex align-items-end gap-2 w-100" id="comment-form-{{ forum.id }}">
@@ -953,6 +1396,55 @@
         </button>
     </form>
 </div>
+
+                                    <div class="comment-form">
+                                        <form action="{{ path('app_comment_add', {'forumId': forum.id}) }}" 
+                                              method="post" 
+                                              class="d-flex align-items-end gap-2 w-100" 
+                                              id="comment-form-{{ forum.id }}"
+                                              onsubmit="return validateComment(this)">
+                                            <div class="comment-input-container position-relative flex-grow-1">
+                                                <textarea name="comment_content" 
+                                                          id="comment-textarea-{{ forum.id}}"
+                                                          class="form-control {{ app.session.get('comment_errors_' ~ forum.id) ? 'is-invalid shake' : '' }}"
+                                                          rows="1" 
+                                                          placeholder="Write a comment..."
+                                                          style="width: 100%; min-height: 40px; padding-right: 40px;">{{ app.session.get('comment_content_' ~ forum.id) }}</textarea>
+                                                
+                                                
+                                                
+                                                <!-- Boîte de suggestions -->
+                                                <div class="suggestion-box" id="suggestion-box-{{ forum.id }}"></div>
+                                                
+                                                <!-- Affichage du résultat du sentiment -->
+                                                <div id="sentiment-result-{{ forum.id }}" class="mt-1"></div>
+                                                
+                                                {% if app.session.get('comment_errors_' ~ forum.id) %}
+                                                    <div class="invalid-feedback d-block mt-1">
+                                                        {% for error in app.session.get('comment_errors_' ~ forum.id) %}
+                                                            <div>{{ error }}</div>
+                                                        {% endfor %}
+                                                    </div>
+                                                {% endif %}
+                                        
+                                                <div class="emoji-container">
+                                                    <button type="button" class="emoji-toggle-btn" id="emoji-toggle-{{ forum.id }}">
+                                                        <i class="far fa-smile"></i>
+                                                    </button>
+                                                    <div class="emoji-window" id="emoji-window-{{ forum.id }}">
+                                                        <div class="emoji-list">
+                                                            😀 😃 😄 😁 😆 😅 😂 🤣 😊 😇
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <button type="submit" class="btn btn-post-comment" style="width: 15%; min-width: 80px; margin-bottom: 8px;">
+                                                <i class="far fa-paper-plane"></i> 
+                                            </button>
+                                        </form>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -982,6 +1474,86 @@
 <div style="height: 100px;"></div>
 
 <script>
+
+//////////////////////////////////////////////////////badwords
+// Fonction de validation côté client
+async function validateComment(form) {
+    const textarea = form.querySelector('textarea');
+    const content = textarea.value.trim();
+    const forumId = form.id.split('-')[2];
+    const feedback = document.getElementById(`badword-feedback-${forumId}`);
+    
+    // Validation basique
+    if (content.length < 5) {
+        feedback.textContent = 'Le commentaire doit contenir au moins 5 caractères';
+        feedback.style.display = 'block';
+        textarea.classList.add('is-invalid');
+        return false;
+    }
+    
+    // Vérification des mots interdits
+    const hasBadWords = await checkBadWords(content);
+    if (hasBadWords) {
+        const useCensored = confirm('Votre commentaire contient des mots inappropriés. Voulez-vous utiliser une version corrigée?');
+        if (useCensored) {
+            const censored = await getCensoredText(content);
+            textarea.value = censored;
+        } else {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+// Vérification en temps réel
+async function checkBadWordsLive(textarea) {
+    const content = textarea.value;
+    const forumId = textarea.id.split('-')[2];
+    const feedback = document.getElementById(`badword-feedback-${forumId}`);
+    
+    if (content.length > 3) { // Seulement si assez de texte
+        const hasBadWords = await checkBadWords(content);
+        if (hasBadWords) {
+            feedback.textContent = 'Mot(s) inapproprié(s) détecté(s)';
+            feedback.style.display = 'block';
+            textarea.classList.add('is-badword');
+        } else {
+            feedback.style.display = 'none';
+            textarea.classList.remove('is-badword');
+        }
+    } else {
+        feedback.style.display = 'none';
+        textarea.classList.remove('is-badword');
+    }
+}
+
+// Fonctions API
+async function checkBadWords(text) {
+    try {
+        const response = await fetch(`https://www.purgomalum.com/service/containsprofanity?text=${encodeURIComponent(text)}`);
+        return await response.text() === 'true';
+    } catch (error) {
+        console.error('API Error:', error);
+        return false;
+    }
+}
+
+async function getCensoredText(text) {
+    try {
+        const response = await fetch(`https://www.purgomalum.com/service/json?text=${encodeURIComponent(text)}`);
+        const data = await response.json();
+        return data.result || text;
+    } catch (error) {
+        console.error('API Error:', error);
+        return text;
+    }
+}
+
+
+
+///////////////////////////////////////////////////////traduction
+
 document.addEventListener('DOMContentLoaded', function() {
     // Gestion des traductions
     document.querySelectorAll('.translate-btn').forEach(btn => {
@@ -1093,6 +1665,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+
 // Liste des emojis disponibles
 const EMOJIS = [
     "😀", "😃", "😄", "😁", "😆", "😅", "😂", "🤣", "😊", "😇",
@@ -1165,6 +1738,7 @@ function initializeEmojis() {
     });
 }
 
+
 // Fonction pour réinitialiser tout après une recherche AJAX
 function initializeAfterAjax() {
     initializeCommentButtons();
@@ -1210,11 +1784,99 @@ document.addEventListener('DOMContentLoaded', function() {
     function performSearch(searchTerm) {
         const url = new URL(window.location.href);
         const params = new URLSearchParams(url.search);
+
+ // Fonction pour réinitialiser tout après une recherche AJAX
+    function initializeAfterAjax() {
+        initializeCommentButtons();
+        initializeEmojis();
+        addForumIdToFormAction();
+    }
+
+    // Fonction pour ajouter l'ID du forum aux actions des formulaires
+    function addForumIdToFormAction() {
+        document.querySelectorAll('.comment-form form').forEach(form => {
+            const forumId = form.action.split('/').pop();
+            form.action = form.action.includes('?') ? form.action : form.action + '?openForum=' + forumId;
+        });
+        
+        document.querySelectorAll('.edit-comment-form').forEach(form => {
+            const forumId = form.closest('.comments-section').id.split('-')[1];
+            form.action = form.action.includes('?') ? form.action : form.action + '?openForum=' + forumId;
+        });
+    }
+
+   document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('dynamicSearchInput');
+    const loader = document.querySelector('.search-loader');
+    let searchTimeout;
+    let lastController;
+
+    if (searchInput) {
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.trim();
+            
+            if (searchTerm.length > 0) {
+                loader.classList.remove('d-none');
+                
+                // Annuler la requête précédente
+                if (lastController) {
+                    lastController.abort();
+                }
+                
+                clearTimeout(searchTimeout);
+                
+                searchTimeout = setTimeout(() => {
+                    performSearch(searchTerm);
+                }, 300);
+            } else {
+                loader.classList.add('d-none');
+                resetSearchResults();
+            }
+        });
+    }
+
+    function resetSearchResults() {
+        const url = new URL(window.location.href);
+        url.searchParams.delete('search');
+        
+        const controller = new AbortController();
+        lastController = controller;
+        
+        fetch(url.toString(), {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' },
+            signal: controller.signal
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Network error');
+            return response.text();
+        })
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const newContent = doc.getElementById('forumsList');
+            
+            if (newContent) {
+                document.getElementById('forumsList').innerHTML = newContent.innerHTML;
+                initializeAfterAjax();
+            }
+        })
+        .catch(error => {
+            if (error.name !== 'AbortError') {
+                console.error('Error:', error);
+            }
+        });
+    }
+
+    function performSearch(searchTerm) {
+        const url = new URL(window.location.href);
+        const params = new URLSearchParams();
+
         
         params.set('search', searchTerm);
         params.set('ajax', '1');
         
         // Garder les autres paramètres
+
         const category = url.searchParams.get('category');
         const sort = url.searchParams.get('sort');
         
@@ -1252,6 +1914,61 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialisation au premier chargement
     initializeAfterAjax();
 
+        const currentParams = new URLSearchParams(window.location.search);
+        ['category', 'sort'].forEach(param => {
+            if (currentParams.has(param)) {
+                params.set(param, currentParams.get(param));
+            }
+        });
+        
+        const controller = new AbortController();
+        lastController = controller;
+        
+        fetch(`${url.pathname}?${params.toString()}`, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            signal: controller.signal
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Search failed');
+            return response.text();
+        })
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const newContent = doc.getElementById('forumsList');
+            
+            if (newContent) {
+                document.getElementById('forumsList').innerHTML = newContent.innerHTML;
+                initializeAfterAjax();
+            }
+        })
+        .catch(error => {
+            if (error.name !== 'AbortError') {
+                console.error('Error:', error);
+                document.getElementById('forumsList').innerHTML = `
+                    <div class="col-12">
+                        <div class="alert alert-danger text-center py-4">
+                            <h4 class="alert-heading">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                Search error
+                            </h4>
+                            <p class="mb-0">Please try again</p>
+                        </div>
+                    </div>`;
+            }
+        })
+        .finally(() => {
+            loader.classList.add('d-none');
+        });
+    }
+
+        // Initialisation au premier chargement
+        initializeAfterAjax();
+
+
     // Garder ouvert le forum concerné après action
     const urlParams = new URLSearchParams(window.location.search);
     const openForumId = urlParams.get('openForum');
@@ -1267,18 +1984,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.querySelectorAll('.btn-like, .btn-dislike').forEach(btn => {
     btn.addEventListener('click', async function() {
+
         const button = this;
         const forumId = button.dataset.forumId;
         const isLike = button.classList.contains('btn-like');
         
         // Désactiver le bouton pendant la requête
         button.disabled = true;
+
+        const forumId = this.dataset.forumId;
+        const isLike = this.classList.contains('btn-like');
+
         
         try {
             const response = await fetch(`/reaction/${isLike ? 'like' : 'dislike'}/${forumId}`, {
                 method: 'POST',
                 headers: {
-                    'Accept': 'application/json'
+
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+
                 }
             });
             
@@ -1286,12 +2011,14 @@ document.querySelectorAll('.btn-like, .btn-dislike').forEach(btn => {
             
             if (data.status === 'success') {
                 // Mise à jour des compteurs
+
                 document.querySelectorAll(`.btn-like[data-forum-id="${forumId}"] .like-count`).forEach(el => {
                     el.textContent = data.nblike;
                 });
                 document.querySelectorAll(`.btn-dislike[data-forum-id="${forumId}"] .dislike-count`).forEach(el => {
                     el.textContent = data.nbdislike;
                 });
+
                 
                 // Mise à jour visuelle
                 const likeBtn = document.querySelector(`.btn-like[data-forum-id="${forumId}"]`);
@@ -1302,16 +2029,26 @@ document.querySelectorAll('.btn-like, .btn-dislike').forEach(btn => {
             }
         } catch (error) {
             console.error('Error:', error);
+
         } finally {
             button.disabled = false;
+
         }
     });
 });
+
 
 // Initialisation
 document.querySelectorAll('.btn-like, .btn-dislike').forEach(btn => {
     btn.addEventListener('click', handleReaction);
 });
+
+
+
+
+//share
+
+
 
 function shareForum(forumId) {
     const shareUrl = `${window.location.origin}/forums?show_forum=${forumId}`;
@@ -1347,6 +2084,7 @@ function copyToClipboard(text) {
         .then(() => alert('Lien copié avec succès!'))
         .catch(err => console.error('Erreur:', err));
 }
+
 
 // Détection des mots interdits avant soumission
 document.querySelectorAll('.comment-form form').forEach(form => {
@@ -1405,6 +2143,7 @@ document.querySelectorAll('.comment-form form').forEach(form => {
     });
 });
 
+
 document.addEventListener('DOMContentLoaded', function() {
     // Validation IMMÉDIATE au clic
     document.querySelectorAll('.comment-form form').forEach(form => {
@@ -1462,5 +2201,406 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+
+
+// Debug des clics
+document.addEventListener('DOMContentLoaded', function() {
+    // Écouteur pour les boutons Edit
+    document.querySelectorAll('[id^="edit-forum-"]').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            console.log('Edit clické', this.href);
+        });
+    });
+
+    // Écouteur pour les formulaires Delete
+    document.querySelectorAll('[id^="delete-form-"]').forEach(form => {
+        form.addEventListener('submit', function(e) {
+            console.log('Delete soumis', this.action);
+        });
+    });
+});
+
+
+
+
+//like-coeur
+document.querySelectorAll('.btn-like').forEach(btn => {
+    btn.addEventListener('click', async function() {
+        const forumId = this.dataset.forumId;
+        const buttonRect = this.getBoundingClientRect();
+        
+        // Créer des coeurs animés
+        createHearts(buttonRect.left + buttonRect.width/2, buttonRect.top);
+        
+        // Désactiver le bouton pendant la requête
+        this.disabled = true;
+        
+        try {
+            const response = await fetch(`/reaction/like/${forumId}`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            const data = await response.json();
+            
+            if (data.status === 'success') {
+                // Mise à jour des compteurs
+                document.querySelectorAll(`.btn-like[data-forum-id="${forumId}"] .like-count`).forEach(el => {
+                    el.textContent = data.nblike;
+                });
+                document.querySelectorAll(`.btn-dislike[data-forum-id="${forumId}"] .dislike-count`).forEach(el => {
+                    el.textContent = data.nbdislike;
+                });
+                
+                // Mise à jour visuelle
+                const likeBtn = document.querySelector(`.btn-like[data-forum-id="${forumId}"]`);
+                const dislikeBtn = document.querySelector(`.btn-dislike[data-forum-id="${forumId}"]`);
+                
+                likeBtn.classList.toggle('active', data.current_action === 'like');
+                dislikeBtn.classList.toggle('active', data.current_action === 'dislike');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        } finally {
+            this.disabled = false;
+        }
+    });
+});
+
+function createHearts(x, y) {
+    const colors = ['#ff0000', '#ff69b4', '#ff1493', '#c71585'];
+    const hearts = ['❤️', '💖', '💗', '💓', '💞', '💕'];
+    
+    for (let i = 0; i < 15; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'heart-animation';
+        heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+        heart.style.left = `${x}px`;
+        heart.style.top = `${y}px`;
+        heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Position finale aléatoire
+        const randomX = (Math.random() - 0.5) * 200;
+        const randomY = -Math.random() * 200 - 100;
+        heart.style.setProperty('--random-x', `${randomX}px`);
+        heart.style.setProperty('--random-y', `${randomY}px`);
+        
+        document.body.appendChild(heart);
+        
+        // Supprimer après l'animation
+        setTimeout(() => {
+            heart.remove();
+        }, 3000);
+    }
+    
+    // Ajouter aussi des confettis
+    createConfetti(x, y);
+}
+
+function createConfetti(x, y) {
+    const colors = ['#ff0000', '#ff69b4', '#00ff00', '#ffff00', '#00ffff', '#ff00ff'];
+    
+    for (let i = 0; i < 30; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = `${x + (Math.random() - 0.5) * 100}px`;
+        confetti.style.top = `${y}px`;
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.width = `${Math.random() * 8 + 4}px`;
+        confetti.style.height = `${Math.random() * 8 + 4}px`;
+        confetti.style.animationDuration = `${Math.random() * 2 + 2}s`;
+        
+        document.body.appendChild(confetti);
+        
+        setTimeout(() => {
+            confetti.remove();
+        }, 3000);
+    }
+}
+
+async function sendLikeRequest(forumId, button) {
+    button.disabled = true;
+    
+    try {
+        const response = await fetch(`/reaction/like/${forumId}`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+        
+        const data = await response.json();
+        
+        if (data.status === 'success') {
+            // Mise à jour des compteurs
+            document.querySelectorAll(`.btn-like[data-forum-id="${forumId}"] .like-count`).forEach(el => {
+                el.textContent = data.nblike;
+            });
+            
+            // Mise à jour visuelle
+            const likeBtn = document.querySelector(`.btn-like[data-forum-id="${forumId}"]`);
+            likeBtn.classList.toggle('active', data.current_action === 'like');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+    } finally {
+        button.disabled = false;
+    }
+}
+
+//dislike-emoji
+
+document.querySelectorAll('.btn-dislike').forEach(btn => {
+    btn.addEventListener('click', async function() {
+        const forumId = this.dataset.forumId;
+        const buttonRect = this.getBoundingClientRect();
+        
+        // Créer des animations de dislike (pouces vers le bas)
+        createDislikeAnimation(buttonRect.left + buttonRect.width/2, buttonRect.top);
+        
+        // Désactiver le bouton pendant la requête
+        this.disabled = true;
+        
+        try {
+            const response = await fetch(`/reaction/dislike/${forumId}`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+            
+            const data = await response.json();
+            
+            if (data.status === 'success') {
+                // Mise à jour des compteurs
+                document.querySelectorAll(`.btn-like[data-forum-id="${forumId}"] .like-count`).forEach(el => {
+                    el.textContent = data.nblike;
+                });
+                document.querySelectorAll(`.btn-dislike[data-forum-id="${forumId}"] .dislike-count`).forEach(el => {
+                    el.textContent = data.nbdislike;
+                });
+                
+                // Mise à jour visuelle
+                const likeBtn = document.querySelector(`.btn-like[data-forum-id="${forumId}"]`);
+                const dislikeBtn = document.querySelector(`.btn-dislike[data-forum-id="${forumId}"]`);
+                
+                likeBtn.classList.toggle('active', data.current_action === 'like');
+                dislikeBtn.classList.toggle('active', data.current_action === 'dislike');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        } finally {
+            this.disabled = false;
+        }
+    });
+});
+
+function createDislikeAnimation(x, y) {
+    const thumbs = ['👎', '🤮', '😠', '💔']; // Emojis pour le dislike
+    const colors = ['#ff0000', '#8b0000', '#800080', '#4b0082']; // Couleurs sombres
+    
+    for (let i = 0; i < 10; i++) {
+        const thumb = document.createElement('div');
+        thumb.className = 'dislike-animation';
+        thumb.innerHTML = thumbs[Math.floor(Math.random() * thumbs.length)];
+        thumb.style.left = `${x}px`;
+        thumb.style.top = `${y}px`;
+        thumb.style.color = colors[Math.floor(Math.random() * colors.length)];
+        
+        // Position finale aléatoire
+        const randomX = (Math.random() - 0.5) * 200;
+        const randomY = Math.random() * 200 + 50; // Descendent vers le bas
+        thumb.style.setProperty('--random-x', `${randomX}px`);
+        thumb.style.setProperty('--random-y', `${randomY}px`);
+        
+        document.body.appendChild(thumb);
+        
+        // Supprimer après l'animation
+        setTimeout(() => {
+            thumb.remove();
+        }, 3000);
+    }
+}
+
+//generate_mot
+
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.comment-input-container textarea').forEach(textarea => {
+        const forumId = textarea.id.split('-')[2];
+        const suggestionBox = document.getElementById(`suggestion-box-${forumId}`);
+
+        textarea.addEventListener('input', async (e) => {
+            const text = e.target.value.trim();
+            const lastWord = getLastWord(text);
+
+            if (lastWord.length < 2) {
+                hideSuggestions();
+                return;
+            }
+
+            showLoading();
+
+            try {
+                const res = await fetch(`https://api.datamuse.com/words?sp=${lastWord}*&max=5`);
+                const words = await res.json();
+
+                const suggestions = words.map(w => w.word).filter(w => w !== lastWord);
+
+                if (suggestions.length > 0) {
+                    showSuggestions(suggestions);
+                } else {
+                    hideSuggestions();
+                }
+
+            } catch (err) {
+                console.error("Erreur avec Datamuse :", err);
+                showError("Erreur de réseau");
+            }
+        });
+
+        function getLastWord(text) {
+            const words = text.split(/\s+/);
+            return words[words.length - 1] || '';
+        }
+
+        function showSuggestions(suggestions) {
+            suggestionBox.innerHTML = '';
+            suggestions.forEach(word => {
+                const div = document.createElement('div');
+                div.className = 'suggestion-item';
+                div.textContent = word;
+                div.style.cursor = 'pointer';
+                div.style.padding = '5px';
+                div.style.borderBottom = '1px solid #ddd';
+                div.addEventListener('click', () => applySuggestion(word));
+                suggestionBox.appendChild(div);
+            });
+            suggestionBox.style.display = 'block';
+        }
+
+        function applySuggestion(word) {
+            const words = textarea.value.trim().split(/\s+/);
+            words[words.length - 1] = word;
+            textarea.value = words.join(' ') + ' ';
+            hideSuggestions();
+            textarea.focus();
+        }
+
+        function showLoading() {
+            suggestionBox.innerHTML = '<div style="padding:5px; color:gray;">...</div>';
+            suggestionBox.style.display = 'block';
+        }
+
+        function hideSuggestions() {
+            suggestionBox.style.display = 'none';
+        }
+
+        function showError(message) {
+            suggestionBox.innerHTML = `<div style="color:red; padding:5px;">${message}</div>`;
+            suggestionBox.style.display = 'block';
+        }
+    });
+});
+
+
+
+
+
+
+
+/////////////////////////////history
+document.addEventListener('turbo:before-stream-render', (event) => {
+    const stream = event.detail.newStream;
+    
+    if (stream.action === 'append' && stream.target === 'history-content') {
+        const template = stream.template;
+        const data = template.dataset;
+        
+        // Création de l'entrée d'historique
+        const entry = document.createElement('div');
+        entry.className = 'mb-2 p-2 border-bottom';
+        entry.innerHTML = `
+            <div class="d-flex justify-content-between">
+                <span class="badge ${getBadgeClass(data.action)}">
+                    ${data.action.toUpperCase()}
+                </span>
+                <small class="text-muted">${data.time}</small>
+            </div>
+            <div>${data.title}</div>
+            <small class="text-muted">Par ${data.user}</small>
+        `;
+        
+        // Remplacement du template par notre entrée personnalisée
+        template.replaceWith(entry);
+    }
+});
+
+function getBadgeClass(action) {
+    switch(action) {
+        case 'create': return 'bg-success';
+        case 'update': return 'bg-warning';
+        case 'delete': return 'bg-danger';
+        default: return 'bg-secondary';
+    }
+}
+// Remplacer l'ancien gestionnaire de clic par ceci :
+document.getElementById('history-toggle').addEventListener('click', function() {
+    const panel = document.getElementById('history-panel');
+    panel.classList.toggle('d-none');
+    
+    // Animation fluide
+    if (!panel.classList.contains('d-none')) {
+        panel.style.opacity = '0';
+        panel.style.transform = 'translateY(20px)';
+        panel.style.transition = 'all 0.3s ease';
+        
+        setTimeout(() => {
+            panel.style.opacity = '1';
+            panel.style.transform = 'translateY(0)';
+        }, 10);
+    }
+});
+
+
+
+///sentiment
+function analyzeCommentSentiment(commentId) {
+    const commentContent = document.getElementById(`comment-content-${commentId}`).textContent.trim();
+    const resultElement = document.getElementById(`sentiment-result-${commentId}`);
+    
+    if (!commentContent) {
+        resultElement.innerHTML = '<span class="text-danger">No content to analyze</span>';
+        return;
+    }
+    
+    resultElement.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Analyzing...';
+    
+    fetch('/api/sentiment', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify({ comment: commentContent })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            resultElement.innerHTML = `Sentiment: ${data.result}`;
+        } else {
+            resultElement.innerHTML = `<span class="text-danger">${data.message || 'Analysis failed'}</span>`;
+        }
+    })
+    .catch(error => {
+        resultElement.innerHTML = '<span class="text-danger">Error analyzing sentiment</span>';
+        console.error('Error:', error);
+    });
+}
+
+
+
 </script>
 {% endblock %}

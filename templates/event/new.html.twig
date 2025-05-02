@@ -14,7 +14,9 @@
                 <div class="card-body">
                     <h3 class="form-title">Add new Pack</h3>
                     
-                    {{ form_start(form, {'attr': {'class': 'event-form'}}) }}
+
+{{ form_start(form, {'attr': {'class': 'event-form', 'novalidate': 'novalidate'}}) }}
+
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label">Select your event's category</label>

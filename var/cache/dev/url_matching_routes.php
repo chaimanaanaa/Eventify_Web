@@ -14,6 +14,8 @@ return [
         '/_profiler/phpinfo' => [[['_route' => '_profiler_phpinfo', '_controller' => 'web_profiler.controller.profiler::phpinfoAction'], null, null, null, false, false, null]],
         '/_profiler/xdebug' => [[['_route' => '_profiler_xdebug', '_controller' => 'web_profiler.controller.profiler::xdebugAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
+        '/api/autocomplete' => [[['_route' => 'comment_autocomplete', '_controller' => 'App\\Controller\\CommentController::autocomplete'], null, ['POST' => 0], null, false, false, null]],
+        '/api/sentiment' => [[['_route' => 'api_sentiment', '_controller' => 'App\\Controller\\CommentController::analyzeSentiment'], null, ['POST' => 0], null, false, false, null]],
         '/dashboard' => [[['_route' => 'app_dashboard', '_controller' => 'App\\Controller\\DashboardController::index'], null, null, null, false, false, null]],
         '/staff' => [[['_route' => 'app_staff', '_controller' => 'App\\Controller\\DashboardController::staff'], null, ['GET' => 0], null, false, false, null]],
         '/logoutBack' => [[['_route' => 'app_logoutBack', '_controller' => 'App\\Controller\\DashboardController::logoutBack'], null, ['GET' => 0], null, false, false, null]],
@@ -55,18 +57,10 @@ return [
         '/logisticsback' => [[['_route' => 'app_logisticsBack', '_controller' => 'App\\Controller\\LogistiqueController::logisticsBack'], null, null, null, false, false, null]],
         '/shop' => [[['_route' => 'app_shop', 'categoryId' => null, '_controller' => 'App\\Controller\\LogistiqueController::Show'], null, null, null, false, false, null]],
         '/cart' => [[['_route' => 'cart_view', '_controller' => 'App\\Controller\\LogistiqueController::viewCart'], null, null, null, false, false, null]],
-        '/cartempty' => [[['_route' => 'cart_empty', '_controller' => 'App\\Controller\\LogistiqueController::emptyCart'], null, null, null, false, false, null]],
         '/categories' => [[['_route' => 'category_list', '_controller' => 'App\\Controller\\LogistiqueController::categoriesAll'], null, null, null, false, false, null]],
         '/categorynew' => [[['_route' => 'category_create', '_controller' => 'App\\Controller\\LogistiqueController::createCategory'], null, null, null, false, false, null]],
         '/categoryedit' => [[['_route' => 'category_edit', '_controller' => 'App\\Controller\\LogistiqueController::updateCategory'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/categorydelete' => [[['_route' => 'category_delete', '_controller' => 'App\\Controller\\LogistiqueController::deleteCategory'], null, ['POST' => 0], null, false, false, null]],
-        '/favorites' => [[['_route' => 'view_favorites', '_controller' => 'App\\Controller\\LogistiqueController::viewFavorites'], null, null, null, false, false, null]],
-        '/favorites/count' => [[['_route' => 'favorites_count', '_controller' => 'App\\Controller\\LogistiqueController::getFavoritesCount'], null, null, null, false, false, null]],
-        '/favorites/remove-all' => [[['_route' => 'favorites_remove_all', '_controller' => 'App\\Controller\\LogistiqueController::removeAllFavorites'], null, ['POST' => 0], null, false, false, null]],
-        '/create-checkout-session' => [[['_route' => 'create_checkout_session', '_controller' => 'App\\Controller\\LogistiqueController::createCheckoutSession'], null, null, null, false, false, null]],
-        '/payment-success' => [[['_route' => 'payment_success', '_controller' => 'App\\Controller\\LogistiqueController::paymentSuccess'], null, null, null, false, false, null]],
-        '/payment-cash' => [[['_route' => 'payment_cash', '_controller' => 'App\\Controller\\LogistiqueController::paymentCash'], null, null, null, false, false, null]],
-        '/download-transactions' => [[['_route' => 'download_transactions', '_controller' => 'App\\Controller\\LogistiqueController::downloadTransactions'], null, null, null, false, false, null]],
         '/offre/add' => [[['_route' => 'add_offre', '_controller' => 'App\\Controller\\OffreController::addOffre'], null, ['POST' => 0], null, false, false, null]],
         '/offre/generate-ai' => [[['_route' => 'generate_ai_description', '_controller' => 'App\\Controller\\OffreController::generateAiDescription'], null, ['POST' => 0], null, false, false, null]],
         '/offre/weather' => [[['_route' => 'weather_analysis', '_controller' => 'App\\Controller\\OffreController::weatherAnalysis'], null, ['POST' => 0], null, false, false, null]],
@@ -144,63 +138,54 @@ return [
                     .'|/edit(*:364)'
                     .'|(*:372)'
                 .')'
-                .'|/f(?'
-                    .'|orum/(?'
-                        .'|image/([^/]++)(*:408)'
-                        .'|delete/([^/]++)(*:431)'
-                        .'|translate/([^/]++)(*:457)'
-                    .')'
-                    .'|avorites/(?'
-                        .'|add/([^/]++)(*:490)'
-                        .'|remove/([^/]++)(*:513)'
-                        .'|check/([^/]++)(*:535)'
-                    .')'
+                .'|/forum/(?'
+                    .'|image/([^/]++)(*:405)'
+                    .'|delete/([^/]++)(*:428)'
+                    .'|translate/([^/]++)(*:454)'
                 .')'
+                .'|/admin/forum/delete/([^/]++)(*:491)'
                 .'|/user(?'
-                    .'|/toggle\\-block/([^/]++)(*:576)'
+                    .'|/toggle\\-block/([^/]++)(*:530)'
                     .'|s/([^/]++)(?'
-                        .'|(*:597)'
-                        .'|/edit(*:610)'
-                        .'|(*:618)'
+                        .'|(*:551)'
+                        .'|/edit(*:564)'
+                        .'|(*:572)'
                     .')'
                 .')'
-                .'|/l(?'
-                    .'|ogisticsDelete(?'
-                        .'|/([^/]++)(*:659)'
-                        .'|Back/([^/]++)(*:680)'
-                    .')'
-                    .'|ive/([^/]++)(*:701)'
+                .'|/logisticsDelete(?'
+                    .'|/([^/]++)(*:610)'
+                    .'|Back/([^/]++)(*:631)'
                 .')'
                 .'|/o(?'
                     .'|ffre/(?'
-                        .'|cancel/([^/]++)(*:738)'
-                        .'|edit/([^/]++)(*:759)'
-                        .'|delete/([^/]++)(*:782)'
-                        .'|affecter/([^/]++)(*:807)'
+                        .'|cancel/([^/]++)(*:668)'
+                        .'|edit/([^/]++)(*:689)'
+                        .'|delete/([^/]++)(*:712)'
+                        .'|affecter/([^/]++)(*:737)'
                     .')'
                     .'|rganisateur/(?'
-                        .'|delete/([^/]++)(*:846)'
-                        .'|([^/]++)(*:862)'
-                        .'|edit/([^/]++)(*:883)'
+                        .'|delete/([^/]++)(*:776)'
+                        .'|([^/]++)(*:792)'
+                        .'|edit/([^/]++)(*:813)'
                     .')'
                 .')'
-                .'|/AffichetgeOrgOffreTraite/([^/]++)(*:927)'
+                .'|/AffichetgeOrgOffreTraite/([^/]++)(*:857)'
                 .'|/re(?'
                     .'|action/(?'
-                        .'|like/([^/]++)(*:964)'
-                        .'|dislike/([^/]++)(*:988)'
+                        .'|like/([^/]++)(*:894)'
+                        .'|dislike/([^/]++)(*:918)'
                     .')'
-                    .'|ponse/add/([^/]++)(*:1015)'
+                    .'|ponse/add/([^/]++)(*:945)'
                     .'|servation/(?'
                         .'|([^/]++)(?'
-                            .'|(*:1048)'
-                            .'|/edit(*:1062)'
-                            .'|(*:1071)'
+                            .'|(*:977)'
+                            .'|/edit(*:990)'
+                            .'|(*:998)'
                         .')'
-                        .'|event/([^/]++)/reserve(*:1103)'
+                        .'|event/([^/]++)/reserve(*:1029)'
                     .')'
                 .')'
-                .'|/delete_rec/([^/]++)(*:1134)'
+                .'|/delete_rec/([^/]++)(*:1060)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -220,35 +205,32 @@ return [
         351 => [[['_route' => 'app_event_show', '_controller' => 'App\\Controller\\EventController::show'], ['id'], ['GET' => 0], null, false, true, null]],
         364 => [[['_route' => 'app_event_edit', '_controller' => 'App\\Controller\\EventController::edit'], ['id'], ['POST' => 0], null, false, false, null]],
         372 => [[['_route' => 'app_event_delete', '_controller' => 'App\\Controller\\EventController::delete'], ['id'], ['POST' => 0, 'DELETE' => 1], null, false, true, null]],
-        408 => [[['_route' => 'app_forum_image', '_controller' => 'App\\Controller\\ForumController::getImage'], ['id'], null, null, false, true, null]],
-        431 => [[['_route' => 'app_forum_delete', '_controller' => 'App\\Controller\\ForumController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        457 => [[['_route' => 'forum_translate', '_controller' => 'App\\Controller\\ForumController::translateForum'], ['id'], ['POST' => 0], null, false, true, null]],
-        490 => [[['_route' => 'add_to_favorites', '_controller' => 'App\\Controller\\LogistiqueController::addToFavorites'], ['id'], null, null, false, true, null]],
-        513 => [[['_route' => 'remove_from_favorites', '_controller' => 'App\\Controller\\LogistiqueController::removeFromFavorites'], ['id'], null, null, false, true, null]],
-        535 => [[['_route' => 'check_favorite', '_controller' => 'App\\Controller\\LogistiqueController::checkFavorite'], ['id'], null, null, false, true, null]],
-        576 => [[['_route' => 'app_user_toggle_block', '_controller' => 'App\\Controller\\LoginController::toggleBlock'], ['id'], ['POST' => 0], null, false, true, null]],
-        597 => [[['_route' => 'app_user_show', '_controller' => 'App\\Controller\\SignupController::show'], ['id_user'], ['GET' => 0], null, false, true, null]],
-        610 => [[['_route' => 'app_user_edit', '_controller' => 'App\\Controller\\SignupController::edit'], ['id_user'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        618 => [[['_route' => 'app_user_delete', '_controller' => 'App\\Controller\\SignupController::delete'], ['id_user'], ['POST' => 0], null, false, true, null]],
-        659 => [[['_route' => 'app_logistic_delete', '_controller' => 'App\\Controller\\LogistiqueController::deleteLogistic'], ['id'], null, null, false, true, null]],
-        680 => [[['_route' => 'app_logistic_delete_back', '_controller' => 'App\\Controller\\LogistiqueController::deleteLogisticBack'], ['id'], null, null, false, true, null]],
-        701 => [[['_route' => 'app_live', '_controller' => 'App\\Controller\\LogistiqueController::showLive'], ['id'], ['GET' => 0], null, false, true, null]],
-        738 => [[['_route' => 'cancel_offre', '_controller' => 'App\\Controller\\OffreController::cancelOffre'], ['id'], ['POST' => 0], null, false, true, null]],
-        759 => [[['_route' => 'edit_offre', '_controller' => 'App\\Controller\\OffreController::editOffre'], ['id'], ['PUT' => 0], null, false, true, null]],
-        782 => [[['_route' => 'delete_offre', '_controller' => 'App\\Controller\\OffreController::deleteoffreAdmin'], ['id'], ['POST' => 0], null, false, true, null]],
-        807 => [[['_route' => 'app_offer_assign', '_controller' => 'App\\Controller\\OffreController::assignOrganizer'], ['id'], ['PUT' => 0], null, false, true, null]],
-        846 => [[['_route' => 'delete_organisateur', '_controller' => 'App\\Controller\\OrganisateurController::deleteOrganisateur'], ['id'], ['DELETE' => 0], null, false, true, null]],
-        862 => [[['_route' => 'app_organisateur_details', '_controller' => 'App\\Controller\\OrganisateurController::getOrganisateurDetails'], ['id'], ['GET' => 0], null, false, true, null]],
-        883 => [[['_route' => 'edit_organisateur', '_controller' => 'App\\Controller\\OrganisateurController::editOrganisateur'], ['id'], ['PUT' => 0], null, false, true, null]],
-        927 => [[['_route' => 'app_AffichetgeOrgOffreTraite_details', '_controller' => 'App\\Controller\\OffreController::getOrganisateurDetails'], ['id'], ['GET' => 0], null, false, true, null]],
-        964 => [[['_route' => 'reaction_like', '_controller' => 'App\\Controller\\ReactionController::like'], ['id'], ['POST' => 0], null, false, true, null]],
-        988 => [[['_route' => 'reaction_dislike', '_controller' => 'App\\Controller\\ReactionController::dislike'], ['id'], ['POST' => 0], null, false, true, null]],
-        1015 => [[['_route' => 'reponse_add', '_controller' => 'App\\Controller\\ReponseController::addResponse'], ['id'], ['POST' => 0], null, false, true, null]],
-        1048 => [[['_route' => 'app_reservation_show', '_controller' => 'App\\Controller\\ReservationController::show'], ['idRes'], ['GET' => 0], null, false, true, null]],
-        1062 => [[['_route' => 'app_reservation_edit', '_controller' => 'App\\Controller\\ReservationController::edit'], ['idRes'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        1071 => [[['_route' => 'app_reservation_delete', '_controller' => 'App\\Controller\\ReservationController::delete'], ['idRes'], ['POST' => 0], null, false, true, null]],
-        1103 => [[['_route' => 'app_reservation_create', '_controller' => 'App\\Controller\\ReservationController::create'], ['id'], ['POST' => 0], null, false, false, null]],
-        1134 => [
+        405 => [[['_route' => 'app_forum_image', '_controller' => 'App\\Controller\\ForumController::getImage'], ['id'], null, null, false, true, null]],
+        428 => [[['_route' => 'app_forum_delete', '_controller' => 'App\\Controller\\ForumController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        454 => [[['_route' => 'forum_translate', '_controller' => 'App\\Controller\\ForumController::translateForum'], ['id'], ['POST' => 0], null, false, true, null]],
+        491 => [[['_route' => 'app_admin_forum_delete', '_controller' => 'App\\Controller\\ForumsBackController::adminDelete'], ['id'], ['POST' => 0], null, false, true, null]],
+        530 => [[['_route' => 'app_user_toggle_block', '_controller' => 'App\\Controller\\LoginController::toggleBlock'], ['id'], ['POST' => 0], null, false, true, null]],
+        551 => [[['_route' => 'app_user_show', '_controller' => 'App\\Controller\\SignupController::show'], ['id_user'], ['GET' => 0], null, false, true, null]],
+        564 => [[['_route' => 'app_user_edit', '_controller' => 'App\\Controller\\SignupController::edit'], ['id_user'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        572 => [[['_route' => 'app_user_delete', '_controller' => 'App\\Controller\\SignupController::delete'], ['id_user'], ['POST' => 0], null, false, true, null]],
+        610 => [[['_route' => 'app_logistic_delete', '_controller' => 'App\\Controller\\LogistiqueController::deleteLogistic'], ['id'], null, null, false, true, null]],
+        631 => [[['_route' => 'app_logistic_delete_back', '_controller' => 'App\\Controller\\LogistiqueController::deleteLogisticBack'], ['id'], null, null, false, true, null]],
+        668 => [[['_route' => 'cancel_offre', '_controller' => 'App\\Controller\\OffreController::cancelOffre'], ['id'], ['POST' => 0], null, false, true, null]],
+        689 => [[['_route' => 'edit_offre', '_controller' => 'App\\Controller\\OffreController::editOffre'], ['id'], ['PUT' => 0], null, false, true, null]],
+        712 => [[['_route' => 'delete_offre', '_controller' => 'App\\Controller\\OffreController::deleteoffreAdmin'], ['id'], ['POST' => 0], null, false, true, null]],
+        737 => [[['_route' => 'app_offer_assign', '_controller' => 'App\\Controller\\OffreController::assignOrganizer'], ['id'], ['PUT' => 0], null, false, true, null]],
+        776 => [[['_route' => 'delete_organisateur', '_controller' => 'App\\Controller\\OrganisateurController::deleteOrganisateur'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        792 => [[['_route' => 'app_organisateur_details', '_controller' => 'App\\Controller\\OrganisateurController::getOrganisateurDetails'], ['id'], ['GET' => 0], null, false, true, null]],
+        813 => [[['_route' => 'edit_organisateur', '_controller' => 'App\\Controller\\OrganisateurController::editOrganisateur'], ['id'], ['PUT' => 0], null, false, true, null]],
+        857 => [[['_route' => 'app_AffichetgeOrgOffreTraite_details', '_controller' => 'App\\Controller\\OffreController::getOrganisateurDetails'], ['id'], ['GET' => 0], null, false, true, null]],
+        894 => [[['_route' => 'reaction_like', '_controller' => 'App\\Controller\\ReactionController::like'], ['id'], ['POST' => 0], null, false, true, null]],
+        918 => [[['_route' => 'reaction_dislike', '_controller' => 'App\\Controller\\ReactionController::dislike'], ['id'], ['POST' => 0], null, false, true, null]],
+        945 => [[['_route' => 'reponse_add', '_controller' => 'App\\Controller\\ReponseController::addResponse'], ['id'], ['POST' => 0], null, false, true, null]],
+        977 => [[['_route' => 'app_reservation_show', '_controller' => 'App\\Controller\\ReservationController::show'], ['idRes'], ['GET' => 0], null, false, true, null]],
+        990 => [[['_route' => 'app_reservation_edit', '_controller' => 'App\\Controller\\ReservationController::edit'], ['idRes'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        998 => [[['_route' => 'app_reservation_delete', '_controller' => 'App\\Controller\\ReservationController::delete'], ['idRes'], ['POST' => 0], null, false, true, null]],
+        1029 => [[['_route' => 'app_reservation_create', '_controller' => 'App\\Controller\\ReservationController::create'], ['id'], ['POST' => 0], null, false, false, null]],
+        1060 => [
             [['_route' => 'app_reclamation_delete', '_controller' => 'App\\Controller\\ReclamationController::delete'], ['id'], ['GET' => 0, 'DELETE' => 1], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

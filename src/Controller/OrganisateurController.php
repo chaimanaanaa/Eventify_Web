@@ -566,8 +566,10 @@ public function modifierOrgPage(Request $request, EntityManagerInterface $entity
             $organisateur->setDateNaissance($data['date_naissance'] ?? '');
             $organisateur->setSpecialite($data['specialite'] ?? '');
             $organisateur->setDateEmbauche($data['date_embauche'] ?? '');
+
             $organisateur->setNbexp(isset($data['nbexp']) ? (int)$data['nbexp'] : null);          
             $organisateur->setSalaire(isset($data['salaire']) ? (float)$data['salaire'] : null);
+
             $organisateur->setEmployment($data['employment'] ?? null);
             $organisateur->setSkills($data['skills'] ?? null);
             $organisateur->setLonguage($data['longuage'] ?? null);

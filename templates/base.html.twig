@@ -108,7 +108,9 @@
         <div class="mb-4">
             <p class="form-label mb-2">Login with Face Recognition!</p>
             <div class="camera-container">
-                <video id="camera" autoplay muted style="width: 200px; height: auto; border-radius: 10px;margin-left:80px;"></video>
+
+                <video id="camera" autoplay  style="width: 200px; height: auto; border-radius: 10px;margin-left:80px;"></video>
+
                 <canvas id="capturedCanvas" style="display: none;"></canvas>
                 <div class="col-lg-5 col-md-7 col-8 mx-auto">
                     <button type="button" class="form-control" onclick="capturePhoto()" style="background-color:#844062;color:white;margin-left:10px;">Capture Photo</button>
@@ -378,8 +380,7 @@
             await startCamera();
         };
     </script>
-    <!--script pour capturé la photo de celui qui essaie d'ouvrir un compte-->
-    
+
         <!-- Leaflet JS -->
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
         <!-- Initialize the Map -->
@@ -455,6 +456,7 @@
                 });
             });
         </script>
+
 <script>
 // Sélectionner l'image GIF
 const cursorGif = document.createElement('img');
@@ -480,6 +482,7 @@ document.addEventListener('mousemove', (event) => {
     cursorGif.style.top = imageY + 'px';
 });
 </script>
+
 
     </footer>
     {% endblock %}

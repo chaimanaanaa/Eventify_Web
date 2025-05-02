@@ -147,7 +147,9 @@ class User
     #[Assert\NotBlank(message: "Role is required.")]
     #[Assert\Choice(
 
+
         choices: ["CLIENT", "PARTENAIRE"],
+
         message: "Choose a valid role: Client, or Partner."
     )]
     private string $role;

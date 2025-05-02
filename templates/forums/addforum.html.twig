@@ -200,6 +200,7 @@
             {{ form_start(form, {'attr': {'class': 'custom-form membership-form shadow-lg p-4', 'id': 'forumForm'}}) }}
                 <h4 class="text-white mb-4">New Forum</h4>
                 
+
                 {# Champ Catégorie #}
                 <div class="radio-group">
                     <span class="category-label">Category</span>
@@ -220,6 +221,7 @@
                 </div>
                 
                 {# Champ Description #}
+
                 <div class="form-floating mb-3">
                     {{ form_widget(form.description, {
                         'attr': {
@@ -238,6 +240,34 @@
                         </div>
                     {% endif %}
                 </div>
+
+                <div class="form-floating mb-3 position-relative">
+    <textarea id="speechResult" 
+              name="{{ form.description.vars.full_name }}"
+              class="form-control {{ form.description.vars.errors|length > 0 ? 'is-invalid' : '' }}"
+              placeholder="Description"
+              style="height: 150px; padding-right: 40px;"></textarea>
+    <label for="speechResult">Description</label>
+    
+    {# Bouton microphone avec onclick direct #}
+    <button type="button" 
+            onclick="startRecognition()"
+            class="btn btn-sm position-absolute bg-transparent border-0"
+            style="right: 10px; bottom: 15px; z-index: 10; color: #844062;"
+            title="Dictée vocale">
+        <i class="fas fa-microphone"></i>
+    </button>
+    
+    {% if form.description.vars.errors|length > 0 %}
+        <div class="invalid-feedback">
+            {% for error in form.description.vars.errors %}
+                {{ error.message }}
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+
                 
                  {# SECTION IMAGE CORRIGÉE - SOLUTION DÉFINITIVE #}
                 <div class="mb-3">
@@ -268,11 +298,22 @@
                     {{ form_errors(form.imageFile) }}
                 </div>
 
+                  
+                  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="anonymous" name="anonymous">
+    <label class="form-check-label" for="anonymous">
+        <i class="fas fa-user-secret me-1"></i> Publier anonymement
+    </label>
+    <small class="text-muted d-block">Votre nom ne sera pas affiché</small>
+</div>
+
 
                 <button type="submit" class="form-control btn btn-primary mt-3">
                     <i class="fas fa-save me-2"></i> Create Forum
                 </button>
+
             {{ form_end(form) }}
+
         </div>
     </div>
     <div style="height: 100px;"></div>
@@ -324,5 +365,56 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+
+//
+
+
+function startRecognition() {
+    if (!('webkitSpeechRecognition' in window)) {
+        alert("Ce navigateur ne supporte pas la reconnaissance vocale. Utilise Google Chrome !");
+        return;
+    }
+
+    const recognition = new webkitSpeechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.lang = 'fr-FR';
+
+    recognition.onresult = function(event) {
+        let interimTranscript = '';
+        let finalTranscript = '';
+
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+            const transcript = event.results[i][0].transcript;
+            if (event.results[i].isFinal) {
+                finalTranscript += transcript;
+            } else {
+                interimTranscript += transcript;
+            }
+        }
+
+        document.getElementById("speechResult").value = finalTranscript || interimTranscript;
+    };
+
+    recognition.onerror = function(event) {
+        if(event.error === 'no-speech') {
+            console.log("Aucun son détecté - nouvelle tentative...");
+            recognition.stop();
+            setTimeout(() => recognition.start(), 500);
+        } else {
+            console.error("Erreur reconnaissance vocale:", event.error);
+        }
+    };
+
+    recognition.onend = function() {
+        recognition.start(); // Redémarre automatiquement
+    };
+
+    recognition.start();
+}
+
+
+
 </script>
 {% endblock %}
