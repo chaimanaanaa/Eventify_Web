@@ -29,7 +29,7 @@ class ReactionController extends AbstractController
         
         // Reset dislike si existant
         if ($reaction->getDislike() === 1) {
-            $reaction->setDislike(0)
+            $reaction->setDislike(dislike: 0)
                      ->setNbdislike(max(0, $reaction->getNbdislike() - 1));
         }
         

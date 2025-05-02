@@ -1,0 +1,135 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+<section class="hero-section hero-50 d-flex justify-content-center align-items-center" id="section_1">
+    <div class="section-overlay"></div>
+    <svg viewBox="0 0 1962 178" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path fill="#ADC29B" d="M 0 114 C 118.5 114 118.5 167 237 167 L 237 167 L 237 0 L 0 0 Z" stroke-width="0"></path>
+        <path fill="#ADC29B" d="M 236 167 C 373 167 373 128 510 128 L 510 128 L 510 0 L 236 0 Z" stroke-width="0"></path>
+        <path fill="#ADC29B" d="M 509 128 C 607 128 607 153 705 153 L 705 153 L 705 0 L 509 0 Z" stroke-width="0"></path>
+        <path fill="#ADC29B" d="M 704 153 C 812 153 812 113 920 113 L 920 113 L 920 0 L 704 0 Z" stroke-width="0"></path>
+        <path fill="#ADC29B" d="M 919 113 C 1048.5 113 1048.5 148 1178 148 L 1178 148 L 1178 0 L 919 0 Z" stroke-width="0"></path>
+        <path fill="#ADC29B" d="M 1177 148 C 1359.5 148 1359.5 129 1542 129 L 1542 129 L 1542 0 L 1177 0 Z" stroke-width="0"></path>
+        <path fill="#ADC29B" d="M 1541 129 C 1751.5 129 1751.5 138 1962 138 L 1962 138 L 1962 0 L 1541 0 Z" stroke-width="0"></path>
+    </svg>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <h1 class="text-white mb-4 pb-2">Event Listing</h1>
+                <a href="#" class="btn custom-btn smoothscroll me-3">Explore Events</a>
+            </div>
+        </div>
+    </div>
+
+    <svg viewBox="0 0 1962 178" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path fill="#ffffff" d="M 0 114 C 118.5 114 118.5 167 237 167 L 237 167 L 237 0 L 0 0 Z" stroke-width="0"></path>
+        <path fill="#ffffff" d="M 236 167 C 373 167 373 128 510 128 L 510 128 L 510 0 L 236 0 Z" stroke-width="0"></path>
+        <path fill="#ffffff" d="M 509 128 C 607 128 607 153 705 153 L 705 153 L 705 0 L 509 0 Z" stroke-width="0"></path>
+        <path fill="#ffffff" d="M 704 153 C 812 153 812 113 920 113 L 920 113 L 920 0 L 704 0 Z" stroke-width="0"></path>
+        <path fill="#ffffff" d="M 919 113 C 1048.5 113 1048.5 148 1178 148 L 1178 148 L 1178 0 L 919 0 Z" stroke-width="0"></path>
+        <path fill="#ffffff" d="M 1177 148 C 1359.5 148 1359.5 129 1542 129 L 1542 129 L 1542 0 L 1177 0 Z" stroke-width="0"></path>
+        <path fill="#ffffff" d="M 1541 129 C 1751.5 129 1751.5 138 1962 138 L 1962 138 L 1962 0 L 1541 0 Z" stroke-width="0"></path>
+    </svg>
+</section>
+<div style="height:100px;">.</div>
+<section class="reclamation-list">
+    <div class="container">
+        <h2 class="mb-4">Reclamation List</h2>
+        <div class="row">
+            {% for reclamation in reclamation %}
+                <div class="card-container">
+                    <div class="card-inner">
+                        <!-- Front of Card -->
+                        <div class="card-front">
+                            <h5>{{ reclamation.titre }}</h5>
+                            <p><strong>Date:</strong> {{ reclamation.date|date('Y-m-d H:i') }}</p>
+                            {% if reclamation.imgRec %}
+                                <img src="{{ asset('uploads/' ~ reclamation.imgRec) }}" alt="Image" class="img-fluid">
+                            {% else %}
+                                <p>No Image</p>
+                            {% endif %}
+                            <p><strong>Status:</strong> {{ reclamation.statu }}</p>
+                            
+                            <!-- Response count badge -->
+                            {% if reclamation.reponses|length > 0 %}
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+                                    {{ reclamation.reponses|length }}
+                                </span>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Back of Card -->
+                        <div class="card-back">
+                            <p><strong>Subject:</strong> {{ reclamation.sujet }}</p>
+                            
+                            <div class="card-actions mt-3">
+                                <a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}" class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-pencil"></i> Edit
+                                </a>
+                                <a href="{{ path('app_reclamation_delete', {id: reclamation.id}) }}" 
+                                   class="btn btn-sm btn-outline-danger delete-btn"
+                                   data-id="{{ reclamation.id }}"
+                                   onclick="return confirm('Delete this reclamation?')">
+                                    <i class="bi bi-trash"></i> Delete
+                                </a>
+                            </div>
+                            
+                            <!-- RESPONSE SECTION ADDED HERE -->
+                            <div class="responses-section mt-3">
+                                {% if reclamation.reponses|length > 0 %}
+                                <button class="btn btn-sm btn-outline-info w-100 toggle-response" 
+                                        type="button" 
+                                        data-bs-toggle="collapse" 
+                                        data-bs-target="#responses-{{ reclamation.id }}"
+                                        onclick="event.stopPropagation()">
+                                    <i class="bi bi-chevron-down"></i> 
+                                    View Responses ({{ reclamation.reponses|length }})
+                                </button>
+                                    
+                                    <div class="collapse mt-2" id="responses-{{ reclamation.id }}">
+                                        {% for response in reclamation.reponses %}
+                                            <div class="response-card card mb-2">
+                                                <div class="card-body p-2">
+                                                    <div class="d-flex justify-content-between">
+                                                        <small class="text-muted">
+                                                            {{ response.user ? response.user.email : 'Admin' }}
+                                                        </small>
+                                                        <small class="text-muted">
+                                                            {{ response.date|date('Y-m-d H:i') }}
+                                                        </small>
+                                                    </div>
+                                                    <p class="mb-0 mt-1">{{ response.text }}</p>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <div class="alert alert-info mb-0 p-2 text-center">
+                                        No responses yet
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12 text-center">
+                    <p>No reclamations found.</p>
+                </div>
+            {% endfor %}
+            
+            <div class="card-container add-card-container">
+                <a href="{{ path('app_reclamation_add') }}" id="add-btn-card" class="add-btn-card">
+                    <span>+</span>
+                    <span>Add New</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div style="height:100px;">.</div>
+    <script src="{{ asset('js/rec_card.js') }}"></script>
+ <link rel="stylesheet" href="{{ asset('css/rec_card.css') }}">
+{% endblock %}

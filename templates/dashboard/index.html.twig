@@ -94,15 +94,15 @@
                                 <i class="icon-base bx bx-dots-vertical-rounded text-body-secondary"></i>
                               </button>
                               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
-                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                                <a class="dropdown-item" href="{{path('app_staff')}}">View More</a>
+                               
                               </div>
                             </div>
                           </div>
-                          <p class="mb-1">Profit</p>
-                          <h4 class="card-title mb-3">$12,628</h4>
+                          <p class="mb-1">Total Users</p>
+                          
                           <small class="text-success fw-medium"
-                            ><i class="icon-base bx bx-up-arrow-alt"></i> +72.80%</small
+                            ><i class="icon-base bx bx-up-arrow-alt"></i>{{total_users}}</small
                           >
                         </div>
                       </div>
@@ -326,108 +326,78 @@
                 </div>
               </div>
               <div class="row">
-                <!-- Order Statistics -->
-                <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-6">
-                  <div class="card h-100">
-                    <div class="card-header d-flex justify-content-between">
-                      <div class="card-title mb-0">
-                        <h5 class="mb-1 me-2">Order Statistics</h5>
-                        <p class="card-subtitle">42.82k Total Sales</p>
-                      </div>
-                      <div class="dropdown">
-                        <button
-                          class="btn text-body-secondary p-0"
-                          type="button"
-                          id="orederStatistics"
-                          data-bs-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="false">
-                          <i class="icon-base bx bx-dots-vertical-rounded icon-lg"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="orederStatistics">
-                          <a class="dropdown-item" href="javascript:void(0);">Select All</a>
-                          <a class="dropdown-item" href="javascript:void(0);">Refresh</a>
-                          <a class="dropdown-item" href="javascript:void(0);">Share</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="card-body">
-                      <div class="d-flex justify-content-between align-items-center mb-6">
-                        <div class="d-flex flex-column align-items-center gap-1">
-                          <h3 class="mb-1">8,258</h3>
-                          <small>Total Orders</small>
-                        </div>
-                        <div id="orderStatisticsChart"></div>
-                      </div>
-                      <ul class="p-0 m-0">
-                        <li class="d-flex align-items-center mb-5">
-                          <div class="avatar flex-shrink-0 me-3">
-                            <span class="avatar-initial rounded bg-label-primary"
-                              ><i class="icon-base bx bx-mobile-alt"></i
-                            ></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <h6 class="mb-0">Electronic</h6>
-                              <small>Mobile, Earbuds, TV</small>
-                            </div>
-                            <div class="user-progress">
-                              <h6 class="mb-0">82.5k</h6>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="d-flex align-items-center mb-5">
-                          <div class="avatar flex-shrink-0 me-3">
-                            <span class="avatar-initial rounded bg-label-success"
-                              ><i class="icon-base bx bx-closet"></i
-                            ></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <h6 class="mb-0">Fashion</h6>
-                              <small>T-shirt, Jeans, Shoes</small>
-                            </div>
-                            <div class="user-progress">
-                              <h6 class="mb-0">23.8k</h6>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="d-flex align-items-center mb-5">
-                          <div class="avatar flex-shrink-0 me-3">
-                            <span class="avatar-initial rounded bg-label-info"
-                              ><i class="icon-base bx bx-home-alt"></i
-                            ></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <h6 class="mb-0">Decor</h6>
-                              <small>Fine Art, Dining</small>
-                            </div>
-                            <div class="user-progress">
-                              <h6 class="mb-0">849k</h6>
-                            </div>
-                          </div>
-                        </li>
-                        <li class="d-flex align-items-center">
-                          <div class="avatar flex-shrink-0 me-3">
-                            <span class="avatar-initial rounded bg-label-secondary"
-                              ><i class="icon-base bx bx-football"></i
-                            ></span>
-                          </div>
-                          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="me-2">
-                              <h6 class="mb-0">Sports</h6>
-                              <small>Football, Cricket Kit</small>
-                            </div>
-                            <div class="user-progress">
-                              <h6 class="mb-0">99</h6>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+                <!-- user Statistics -->
+               
+<div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-6">
+  <div class="card h-100">
+    <div class="card-header d-flex justify-content-between">
+      <div class="card-title mb-0">
+        <h5 class="mb-1 me-2">Users' Statistics</h5>
+        <p class="card-subtitle">Statistics by Role</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="d-flex justify-content-between align-items-center mb-6">
+        <div class="d-flex flex-column align-items-center gap-1">
+          <h3 class="mb-1">{{ totalCount }}</h3>
+          <small>Total Roles</small>
+        </div>
+        <!-- Conteneur pour le graphique -->
+        <div id="userStatisticsChart" style="width: 120px; height: 120px;"></div>
+      </div>
+      <ul class="p-0 m-0">
+        <li class="d-flex align-items-center mb-5">
+          <div class="avatar flex-shrink-0 me-3">
+            <span class="avatar-initial rounded bg-label-primary">
+              <i class="icon-base bx bx-user"></i>
+            </span>
+          </div>
+          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+            <div class="me-2">
+              <h6 class="mb-0">Client</h6>
+              <small>Who wanna book an event or an equipment</small>
+            </div>
+            <div class="user-progress">
+              <h6 class="mb-0">{{ clientCount }}</h6>
+            </div>
+          </div>
+        </li>
+        <li class="d-flex align-items-center mb-5">
+          <div class="avatar flex-shrink-0 me-3">
+            <span class="avatar-initial rounded bg-label-success">
+              <i class="icon-base bx bx-user"></i>
+            </span>
+          </div>
+          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+            <div class="me-2">
+              <h6 class="mb-0">Partner</h6>
+              <small>Who wanna propose equipment or local</small>
+            </div>
+            <div class="user-progress">
+              <h6 class="mb-0">{{ partnerCount }}</h6>
+            </div>
+          </div>
+        </li>
+        <li class="d-flex align-items-center mb-5">
+          <div class="avatar flex-shrink-0 me-3">
+            <span class="avatar-initial rounded bg-label-info">
+              <i class="icon-base bx bx-user"></i>
+            </span>
+          </div>
+          <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+            <div class="me-2">
+              <h6 class="mb-0">Admin</h6>
+              <small>The Administrator</small>
+            </div>
+            <div class="user-progress">
+              <h6 class="mb-0">{{ adminCount }}</h6>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
                 <!--/ Order Statistics -->
 
                 <!-- Expense Overview -->
@@ -647,6 +617,32 @@
 
 
     <!-- Core JS -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var options = {
+          series: [{{ clientCount }}, {{ partnerCount }}, {{ adminCount }}],
+          chart: {
+            type: 'donut',
+            height: 120
+          },
+          labels: ['Client', 'Partner', 'Admin'],
+          colors: ['#7367F0', '#28C76F', '#00CFE8'],
+          legend: {
+            show: false
+          },
+          dataLabels: {
+            enabled: true,
+            style: {
+              colors: ['#000000'] // Définit la couleur du texte en noir
+            }
+          }
+        };
+    
+        var chart = new ApexCharts(document.querySelector("#userStatisticsChart"), options);
+        chart.render();
+      });
+    </script>
 
     <script src="admin/assets/vendor/libs/jquery/jquery.js"></script>
 

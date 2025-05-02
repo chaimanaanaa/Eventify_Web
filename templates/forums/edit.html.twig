@@ -162,9 +162,24 @@
                     {% endfor %}
                 </div>
                 
+                {# Champ Description #}
                 <div class="form-floating mb-3">
-                    {{ form_widget(form.description, {'attr': {'class': 'form-control', 'placeholder': 'Description', 'style': 'height: 150px'}}) }}
-                    <label for="floatingTextarea">Description</label>
+                    {{ form_widget(form.description, {
+                        'attr': {
+                            'class': 'form-control' ~ (form.description.vars.errors|length > 0 ? ' is-invalid' : ''),
+                            'placeholder': 'Description',
+                            'style': 'height: 150px',
+                            'id': 'forumDescription'
+                        }
+                    }) }}
+                    <label for="forumDescription">Description</label>
+                    {% if form.description.vars.errors|length > 0 %}
+                        <div class="invalid-feedback">
+                            {% for error in form.description.vars.errors %}
+                                {{ error.message }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
                 </div>
                 
                 <div class="mb-3">
@@ -219,5 +234,43 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
+     document.addEventListener('DOMContentLoaded', function() {
+        // Récupérer l'élément de description et l'élément de message d'erreur
+        const descriptionField = document.querySelector('[name="description"]');
+        const errorMessage = document.createElement('div');
+        errorMessage.classList.add('error-message');
+        errorMessage.style.color = 'red';
+        errorMessage.style.fontSize = '12px';
+        errorMessage.style.marginTop = '5px';
+
+        // Ajouter le message d'erreur juste après le champ
+        descriptionField.insertAdjacentElement('afterend', errorMessage);
+
+        // Fonction pour vérifier la saisie
+        function validateDescription() {
+            if (descriptionField.value.trim() === '') {
+                errorMessage.textContent = 'La description ne peut pas être vide.';
+                return false;
+            } else if (descriptionField.value.trim().length < 10) {
+                errorMessage.textContent = 'La description doit contenir au moins 10 caractères.';
+                return false;
+            } else {
+                errorMessage.textContent = '';
+                return true;
+            }
+        }
+
+        // Ajouter un événement à chaque fois que l'utilisateur tape
+        descriptionField.addEventListener('input', function() {
+            validateDescription();
+        });
+
+        // Empêcher la soumission si le champ description est invalide
+        document.querySelector('form').addEventListener('submit', function(event) {
+            if (!validateDescription()) {
+                event.preventDefault();
+            }
+        });
+    });
 </script>
 {% endblock %}

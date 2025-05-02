@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 #[ORM\Entity]
 class Offre
 {
@@ -15,33 +17,48 @@ class Offre
     private int $id_offre;
 
     #[ORM\Column(type: "string", length: 600)]
+    #[Assert\NotBlank(message: "The description cannot be empty.")]
+    #[Assert\Length(max: 600, maxMessage: "The description cannot exceed {{ limit }} characters")]
     private string $description;
 
     #[ORM\Column(type: "string", length: 50)]
+    #[Assert\NotBlank(message: "The subject cannot be empty.")]
+    #[Assert\Length(max: 50, maxMessage: "The subject cannot exceed {{ limit }} characters.")]
     private string $objet;
 
     #[ORM\Column(type: "string", length: 50)]
+    #[Assert\NotBlank(message: "The status cannot be empty.")]
+    #[Assert\Choice(choices: ["pending", "accepted", "rejected"], message: "Statut invalide")]
     private string $statu;
 
     #[ORM\Column(name:"date_demande",type: "datetime")]
+    #[Assert\NotNull(message: "The request date cannot be empty.")]
     private \DateTimeInterface $date_demande;
 
     #[ORM\Column(name:"type_evenement",type: "string", length: 255, nullable: true)]
+    #[Assert\NotBlank(message: "The event type cannot be empty.")]
     private ?string $type_evenement = null;
 
     #[ORM\Column(name:"dateDebutEvenement",type: "string", length: 255, nullable: true)]
+    #[Assert\NotBlank(message: "The start date cannot be empty.")]
     private ?string $dateDebutEvenement = null;
 
     #[ORM\Column(name:"dateFinEvenement",type: "string", length: 255, nullable: true)]
+    #[Assert\NotBlank(message: "The end date cannot be empty.")]
     private ?string $dateFinEvenement = null;
 
     #[ORM\Column(name:"lieuEvenement",type: "string", length: 255, nullable: true)]
+    #[Assert\NotBlank(message: "The location cannot be empty.")]
     private ?string $lieuEvenement = null;
 
     #[ORM\Column(type: "float", nullable: true)]
+    #[Assert\NotBlank(message: "The budget cannot be empty.")]
+    #[Assert\GreaterThan(value: 0, message: "The budget must be greater than 0.")]
     private ?float $budget = null;
 
     #[ORM\Column(name:"nombreInvite",type: "integer", nullable: true)]
+    #[Assert\NotBlank(message: "The number of guests cannot be empty.")]
+    #[Assert\GreaterThan(value: 0, message: "The number of guests must be greater than 0.")]
     private ?int $nombreInvite = null;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: "offres")]
@@ -49,7 +66,7 @@ class Offre
     private ?User $user = null;
 
     #[ORM\ManyToOne(targetEntity: Organisateur::class)]
-    #[ORM\JoinColumn(name: "id_organisateur", referencedColumnName: "id_organisateur", nullable: true)]
+    #[ORM\JoinColumn(name: "id_organisateur", referencedColumnName: "id_organisateur", onDelete: "CASCADE" ,nullable: true)]
     private ?Organisateur $organisateur = null;
 
     public function __construct()

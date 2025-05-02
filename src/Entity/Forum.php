@@ -21,7 +21,7 @@ class Forum
     private string $img;
 
     #[ORM\Column(length: 1000)]
-    #[Assert\NotBlank(message: "La description ne peut pas être vide")]
+    #[Assert\NotBlank(message: "The description  cannot be empty.")]
     #[Assert\Length(
         min: 10,
         minMessage: "La description doit contenir au moins {{ limit }} caractères"
@@ -29,7 +29,7 @@ class Forum
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]
-    #[Assert\NotBlank(message: "Veuillez sélectionner une catégorie")]
+    #[Assert\NotBlank(message: "Please select a category")]
     private ?string $categorie = null;
 
 
