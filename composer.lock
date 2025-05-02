@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6092a6f3542b9395bc1b07ebec4c88c2",
+    "content-hash": "a339458bce4cc55ac49fb78e2b8ef677",
     "packages": [
         {
             "name": "composer/pcre",
@@ -1980,6 +1980,7 @@
             "time": "2024-12-05T17:15:07+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "php-ai/php-ml",
             "version": "0.10.0",
             "source": {
@@ -2033,6 +2034,8 @@
             "time": "2022-11-09T09:25:29+00:00"
         },
         {
+=======
+>>>>>>> 56496f74d318fd80e13c3bf9938b6e815c7d29dc
             "name": "phpdocumentor/reflection-common",
             "version": "2.2.0",
             "source": {

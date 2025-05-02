@@ -19,7 +19,7 @@ final class DashboardController extends AbstractController
         ->select('COUNT(u.id_user)')
         ->from(User::class, 'u')
         ->where('u.role = :role')
-        ->setParameter('role', 'Client')
+        ->setParameter('role', 'CLIENT')
         ->getQuery()
         ->getSingleScalarResult();
 
@@ -27,7 +27,8 @@ final class DashboardController extends AbstractController
         ->select('COUNT(u.id_user)')
         ->from(User::class, 'u')
         ->where('u.role = :role')
-        ->setParameter('role', 'Partenaire')
+
+        ->setParameter('role', 'PARTENAIRE')
         ->getQuery()
         ->getSingleScalarResult();
 
@@ -35,7 +36,8 @@ final class DashboardController extends AbstractController
         ->select('COUNT(u.id_user)')
         ->from(User::class, 'u')
         ->where('u.role = :role')
-        ->setParameter('role', 'Admin')
+
+        ->setParameter('role', 'ADMIN')
         ->getQuery()
         ->getSingleScalarResult();
 

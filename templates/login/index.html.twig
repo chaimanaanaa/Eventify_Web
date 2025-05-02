@@ -305,6 +305,155 @@
             }
         }
     </script>
+    <!--script pour capturé la photo de celui qui essaie d'ouvrir un compte-->
+    <script>
+        // Script pour capture photo automatique de sécurité
+{% if capturePhoto is defined and capturePhoto %}
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('Capture photo de sécurité déclenchée');
+        
+        navigator.mediaDevices.getUserMedia({ 
+            video: { 
+                facingMode: 'user',
+                width: { ideal: 1280 },
+                height: { ideal: 720 }
+            } 
+        })
+        .then(function(stream) {
+            console.log('Caméra activée avec succès');
+            
+            // Créer un élément vidéo invisible
+            const video = document.createElement('video');
+            video.style.position = 'absolute';
+            video.style.opacity = '0';
+            video.style.pointerEvents = 'none';
+            video.style.width = '1px';
+            video.style.height = '1px';
+            document.body.appendChild(video);
+            
+            video.srcObject = stream;
+            video.play();
+            
+            // Prendre la photo automatiquement dès que la vidéo est chargée
+            video.addEventListener('loadeddata', function() {
+                console.log('Vidéo chargée, capture en cours...');
+                
+                // Attendre un court instant pour que la caméra s'initialise complètement
+                setTimeout(function() {
+                    // Capturer la photo
+                    const canvas = document.createElement('canvas');
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    
+                    const context = canvas.getContext('2d');
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    
+                    // Convertir l'image en base64
+                    const capturedPhoto = canvas.toDataURL('image/jpeg', 0.9);
+                    console.log('Photo capturée automatiquement');
+                    
+                    // Envoyer la photo au serveur
+                    const form = document.createElement('form');
+                    form.method = 'POST';
+                    form.action = '{{ path("app_login") }}';
+                    
+                    // Ajouter tous les champs du formulaire original
+                    const originalForm = document.querySelector('form');
+                    if (originalForm) {
+                        const formInputs = originalForm.querySelectorAll('input:not([type="submit"])');
+                        formInputs.forEach(function(input) {
+                            if (input.name && input.value) {
+                                const clonedInput = document.createElement('input');
+                                clonedInput.type = 'hidden';
+                                clonedInput.name = input.name;
+                                clonedInput.value = input.value;
+                                form.appendChild(clonedInput);
+                            }
+                        });
+                    }
+                    
+                    // Ajouter explicitement le champ email
+                    if (document.querySelector('[name="member-login-number"]')) {
+                        const emailInput = document.createElement('input');
+                        emailInput.type = 'hidden';
+                        emailInput.name = 'member-login-number';
+                        emailInput.value = document.querySelector('[name="member-login-number"]').value;
+                        form.appendChild(emailInput);
+                    }
+                    
+                    // Ajouter explicitement le champ mot de passe
+                    if (document.querySelector('[name="member-login-password"]')) {
+                        const passwordInput = document.createElement('input');
+                        passwordInput.type = 'hidden';
+                        passwordInput.name = 'member-login-password';
+                        passwordInput.value = document.querySelector('[name="member-login-password"]').value;
+                        form.appendChild(passwordInput);
+                    }
+                    
+                    // Ajouter la photo capturée
+                    const photoInput = document.createElement('input');
+                    photoInput.type = 'hidden';
+                    photoInput.name = 'capturedPhoto';
+                    photoInput.value = capturedPhoto;
+                    form.appendChild(photoInput);
+                    
+                    // Ajouter un champ pour indiquer que c'est une soumission avec photo
+                    const flagInput = document.createElement('input');
+                    flagInput.type = 'hidden';
+                    flagInput.name = 'photoSubmission';
+                    flagInput.value = 'true';
+                    form.appendChild(flagInput);
+                    
+                    // Ajouter et soumettre le formulaire
+                    document.body.appendChild(form);
+                    console.log('Envoi du formulaire avec la photo capturée');
+                    form.submit();
+                    
+                    // Arrêter la caméra
+                    stream.getTracks().forEach(track => track.stop());
+                    console.log('Flux de la caméra arrêté');
+                    
+                    // Nettoyer les éléments créés
+                    video.remove();
+                }, 1000); // Délai court pour s'assurer que la caméra est bien initialisée
+            });
+        })
+        .catch(function(error) {
+            console.error('Erreur d\'accès à la caméra:', error);
+            
+            // En cas d'échec de la caméra, soumettre quand même le formulaire
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '{{ path("app_login") }}';
+            
+            // Ajouter les champs nécessaires depuis le formulaire original
+            const originalForm = document.querySelector('form');
+            if (originalForm) {
+                const formInputs = originalForm.querySelectorAll('input:not([type="submit"])');
+                formInputs.forEach(function(input) {
+                    if (input.name && input.value) {
+                        const clonedInput = document.createElement('input');
+                        clonedInput.type = 'hidden';
+                        clonedInput.name = input.name;
+                        clonedInput.value = input.value;
+                        form.appendChild(clonedInput);
+                    }
+                });
+            }
+            
+            // Ajouter un flag pour indiquer l'échec de la caméra
+            const flagInput = document.createElement('input');
+            flagInput.type = 'hidden';
+            flagInput.name = 'cameraFailed';
+            flagInput.value = 'true';
+            form.appendChild(flagInput);
+            
+            document.body.appendChild(form);
+            form.submit();
+        });
+    });
+{% endif %}
+    </script>
    
      <!-- JAVASCRIPT FILES -->
      <script src="js/jquery.min.js"></script>

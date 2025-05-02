@@ -399,7 +399,8 @@ public function traduireTexte(Request $request)
     }
 
     // Préparer la commande avec encodage UTF-8 explicite
-    $pythonScriptPath = 'C:\\Users\\MSI-PC\\Desktop\\traduction\\traduction.py';
+
+    $pythonScriptPath = 'C:\\eventifySymfony\\traductiontraduction.py';
     $process = new Process([
         'python', 
         '-X', 'utf8',  // Force l'UTF-8 pour Python

@@ -114,7 +114,8 @@ final class SignupController extends AbstractController
 
             // Définir les répertoires de destination
             $uploadsDirectory = $this->getParameter('kernel.project_dir') . '/public/assets';
-            $javaAssetsDirectory = 'C:/Users/MSI-PC/Desktop/FinaleJava A5er Version il dashboard imsal7a/FinaleJava/GestionUser/src/main/resources/assets';
+            $javaAssetsDirectory = 'C:/Users/CHAIMA/Documents/Esprit 3eme/semestre 2/Projet integre Developpement Web Java/Integration/integration 2/FinaleJava/GestionUser/src/main/resources/assets';
+
 
             if ($profileImage) {
                 // Traiter l'image téléchargée

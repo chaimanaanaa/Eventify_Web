@@ -146,7 +146,8 @@ class User
     #[ORM\Column(name: "role", type: "string", length: 30)]
     #[Assert\NotBlank(message: "Role is required.")]
     #[Assert\Choice(
-        choices: ["Client", "Partenaire"],
+
+        choices: ["CLIENT", "PARTENAIRE"],
         message: "Choose a valid role: Client, or Partner."
     )]
     private string $role;
