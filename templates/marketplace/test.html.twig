@@ -1,0 +1,250 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+<section class="hero-section hero-50 d-flex justify-content-center align-items-center" id="section_1" style="background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/images/cart.png'); background-size: cover; background-position: center; min-height: 60vh;">
+    <div class="container position-relative z-index-1">
+        <div class="row">
+            <div class="col-lg-8 col-12 text-center text-lg-start">
+                <h1 class="eventify-title display-4 fw-bold mb-4 text-white">Welcome to Eventify Marketplace</h1>
+                <p class="lead text-white mb-4">Discover everything you need for your perfect event</p>
+                
+                <!-- Search bar in hero section -->
+                <div class="search-container bg-white rounded-pill shadow-sm mb-4" style="max-width: 600px;">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-0 rounded-pill py-3 px-4" placeholder="Search for  venues, equipment...">
+                        <button class="btn btn-primary rounded-pill px-4" type="button">
+                            <i class="bi bi-search"></i> Search
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="d-flex gap-3 justify-content-center justify-content-lg-start">
+                    <a href="{{ path('cart_view') }}" class="btn btn-primary btn-lg px-4 py-2 rounded-pill">
+                        <i class="bi bi-cart3 me-2"></i>View Cart
+                    </a>
+                    <a href="#marketplace" class="btn btn-outline-light btn-lg px-4 py-2 rounded-pill">
+                        Browse Items
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <svg viewBox="0 0 1962 178" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="position: absolute; bottom: 0; left: 0; width: 100%; height: auto;">
+        <path fill="#ADC29B" d="M 0 114 C 118.5 114 118.5 167 237 167 L 237 167 L 237 0 L 0 0 Z" stroke-width="0"></path>
+        <path fill="#ADC29B" d="M 236 167 C 373 167 373 128 510 128 L 510 128 L 510 0 L 236 0 Z" stroke-width="0"></path>
+        <path fill="#ADC29B" d="M 509 128 C 607 128 607 153 705 153 L 705 153 L 705 0 L 509 0 Z" stroke-width="0"></path>
+        <path fill="#ADC29B" d="M 704 153 C 812 153 812 113 920 113 L 920 113 L 920 0 L 704 0 Z" stroke-width="0"></path>
+        <path fill="#ADC29B" d="M 919 113 C 1048.5 113 1048.5 148 1178 148 L 1178 148 L 1178 0 L 919 0 Z" stroke-width="0"></path>
+        <path fill="#ADC29B" d="M 1177 148 C 1359.5 148 1359.5 129 1542 129 L 1542 129 L 1542 0 L 1177 0 Z" stroke-width="0"></path>
+        <path fill="#ADC29B" d="M 1541 129 C 1751.5 129 1751.5 138 1962 138 L 1962 138 L 1962 0 L 1541 0 Z" stroke-width="0"></path>
+    </svg>
+</section>
+
+<div class="container mt-5" id="marketplace">
+    <div class="row">
+        <!-- Filter Column with Create Buttons -->
+        <div class="col-md-3 order-md-2 mb-4">
+            <div class="card shadow-sm sticky-top" style="top: 20px;">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="bi bi-funnel me-2"></i>Filters</h5>
+                    
+                </div>
+                <div class="card-body">
+                    <!-- Create Logistic Button -->
+                    <div class="d-grid mb-4">
+                        <a href="{{ path('app_logistics') }}" class="btn btn-primary">
+                            <i class="bi bi-plus-circle me-1"></i> Add Logistic
+                        </a>
+                    </div>
+                    
+                    <!-- Category Filter -->
+                    <div class="mb-4">
+                        <label class="form-label fw-bold d-block mb-3">Categories</label>
+                        <div class="category-filter">
+                            <a href="{{ path('app_shop') }}" 
+                               class="category-item {% if not selectedCategory %}active{% endif %} d-flex align-items-center mb-2 p-2 rounded-3">
+                                <div class="category-icon bg-light-primary d-flex align-items-center justify-content-center rounded-2 me-3" style="width: 40px; height: 40px;">
+                                    <i class="bi bi-grid text-primary"></i>
+                                </div>
+                                <span>All Categories</span>
+                            </a>
+                            
+                            {% for category in categories %}
+                                <a href="{{ path('app_shop', { 'categoryId': category.id }) }}" 
+                                   class="category-item {% if selectedCategory == category.id %}active{% endif %} d-flex align-items-center mb-2 p-2 rounded-3">
+                                    <div class="category-img rounded-2 me-3 overflow-hidden" style="width: 40px; height: 40px;">
+                                        <img src="{{ asset(category.image) }}" alt="{{ category.name }}" class="img-fluid h-100 w-100 object-fit-cover">
+                                    </div>
+                                    <span>{{ category.name }}</span>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <!-- Type Filter -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Type</label>
+                        <select class="form-select">
+                            <option>All Types</option>
+                            <option>Equipment</option>
+                            <option>Venue</option>
+                            <option>Service</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Reset Button -->
+                    <button class="btn btn-outline-danger w-100" onclick="window.location.href='{{ path('app_shop') }}'">
+                        <i class="bi bi-x-circle me-1"></i>Reset Filters
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Column -->
+        <div class="col-md-9 order-md-1">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="mb-0">
+                    {% if selectedCategory and categories[selectedCategory] is defined %}
+                        <img src="{{ asset(categories[selectedCategory].image) }}" alt="{{ categories[selectedCategory].name }}" style="width: 32px; height: 32px; object-fit: cover; border-radius: 6px;" class="me-2">
+                        {{ categories[selectedCategory].name }}
+                    {% else %}
+                        <i class="bi bi-grid-fill me-2 text-primary"></i>All Items
+                    {% endif %}
+                </h2>
+                <span class="badge bg-primary rounded-pill px-3 py-2">{{ logistic|length }} items</span>
+            </div>
+
+            {% if logistic is not empty %}
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    {% for item in logistic %}
+                        <div class="col">
+                            <div class="card h-100 shadow-hover">
+                                {% if item.user.id == currentUserId %}
+                                    <span class="position-absolute top-0 start-0 m-2 badge bg-warning" style="z-index: 10;">
+                                        <i class="bi bi-star-fill me-1"></i>Your Item
+                                    </span>
+                                {% endif %}
+                                
+                                <div class="card-img-top position-relative" style="height: 200px; overflow: hidden;">
+                                    {% if item.image %}
+                                        <img src="{{ asset(item.image) }}" class="img-fluid h-100 w-100 object-fit-cover" alt="{{ item.nom }}">
+                                    {% else %}
+                                        <div class="d-flex align-items-center justify-content-center bg-light h-100">
+                                            <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+                                        </div>
+                                    {% endif %}
+                                </div>
+
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ item.nom }}</h5>
+                                    <p class="card-text text-muted">{{ item.description|length > 100 ? item.description|slice(0, 100) ~ '...' : item.description }}</p>
+                                    
+                                    <div class="item-details" style="max-height: 0; overflow: hidden; transition: max-height 0.3s ease;">
+                                        <hr class="my-2">
+                                        <div class="row small text-muted">
+                                            <div class="col-6">
+                                                <div><i class="bi bi-tag me-1"></i> {{ item.type }}</div>
+                                                <div><i class="bi bi-box me-1"></i> {{ item.quantite }}</div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div><i class="bi bi-people me-1"></i> {{ item.capacite }}</div>
+                                                <div><i class="bi bi-geo-alt me-1"></i> {{ item.lieux }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <span class="h5 text-primary mb-0">{{ item.prix }} TND</span>
+                                        <button class="btn btn-sm btn-outline-secondary toggle-details">
+                                            <i class="bi bi-three-dots"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="card-footer bg-transparent">
+                                    {% if item.user.id == currentUserId %}
+                                        <div class="d-flex justify-content-end gap-2">
+                                            <a href="{{ path('app_logistic_update', { 'id': item.id }) }}" class="btn btn-sm btn-outline-primary">
+                                                <i class="bi bi-pencil-square me-1"></i>Edit
+                                            </a>
+                                            <form method="post" action="{{ path('app_logistic_delete', {'id': item.id}) }}" onsubmit="return confirm('Are you sure?');">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ item.id) }}">
+                                                <button class="btn btn-sm btn-outline-danger">
+                                                    <i class="bi bi-trash me-1"></i>Delete
+                                                </button>
+                                            </form>
+                                        </div>
+                                    {% else %}
+                                        <a href="{{ path('cart_add', { 'id': item.id }) }}" class="btn btn-primary w-100">
+                                            <i class="bi bi-cart-plus me-1"></i>Add to Cart
+                                        </a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="text-center py-5 my-5">
+                    <i class="bi bi-box-seam display-4 text-muted mb-4"></i>
+                    <h3 class="text-muted">No items found</h3>
+                    <p class="text-muted">Try adjusting your filters or check back later.</p>
+                    <div class="mt-4">
+                        <a href="{{ path('app_logistics') }}" class="btn btn-primary">
+                            <i class="bi bi-plus-circle me-1"></i> Add Your First Logistic
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Existing styles... */
+    
+    /* New button styles */
+    .card-header .btn-success {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+    }
+    
+    .empty-state-button {
+        transition: all 0.3s ease;
+    }
+    
+    .empty-state-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    /* New hover effect for cards */
+    .shadow-hover {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .shadow-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+</style>
+
+<script>
+    // Toggle additional details
+    document.querySelectorAll('.toggle-details').forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const details = this.closest('.card-body').querySelector('.item-details');
+            details.style.maxHeight = details.style.maxHeight === '0px' ? '100px' : '0px';
+            this.innerHTML = details.style.maxHeight === '0px' ? 
+                '<i class="bi bi-three-dots"></i>' : 
+                '<i class="bi bi-x"></i>';
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,733 @@
+
+/************************************************
+*************** Ajouter Offre *******************
+**************************************************
+**************************************************
+*/
+
+
+.custom-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.custom-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #844062;
+    margin-bottom: 30px;
+}
+
+.custom-form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Grid Layout */
+.custom-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.custom-column {
+    flex: 1;
+}
+
+.custom-column-full {
+    width: 100%;
+    text-align: center;
+}
+
+/* Form Fields */
+.custom-field {
+    margin-bottom: 20px;
+}
+
+.custom-label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.custom-input,
+.custom-select,
+.custom-textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.custom-textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.custom-error {
+    font-size: 12px;
+    color: red;
+    margin-top: 5px;
+}
+
+/* Buttons */
+.custom-button {
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.custom-button-primary {
+    background-color: #844062;
+    color: white;
+}
+
+.custom-button-primary:hover {
+    background-color: #6a3251;
+}
+
+.custom-button-secondary {
+    background-color: #28a745;
+    color: white;
+}
+
+.custom-button-secondary:hover {
+    background-color: #218838;
+}
+
+/* Flexbox Helper */
+.custom-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+/* Card */
+.custom-card {
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 15px;
+    text-align: center;
+    height: 500px;
+    width: 400px;
+}
+
+.custom-weather-info p {
+    font-size: 14px;
+    color: black;
+    margin: 5px 0;
+}
+
+/* Submit Buttons */
+.custom-submit-buttons {
+    margin-top: 30px;
+}
+
+.custom-submit-buttons .custom-button {
+    margin: 0 10px;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+}
+
+
+/**** les action */
+.actionBtn
+{
+
+}
+.actionBtn:hover {
+
+    transform: scale(1.009);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.submitRequest
+{
+    width: 200px;
+    height: 50px;
+    border-radius: 20px;
+    margin-right: 5px;
+}
+.submitRequest:hover
+{
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+/***/
+.custom-card {
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 15px;
+    text-align: center;
+    height: 500px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-weather-info {
+    flex-grow: 1;
+    overflow-y: auto; /* Ajout du défilement vertical si nécessaire */
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 5px;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.custom-weather-info p {
+    font-size: 14px;
+    color: black;
+    margin: 0;
+    padding: 5px;
+    background: white;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/************************************************
+*************** Afficher Offre *******************
+**************************************************
+**************************************************
+*//* Base Styles */
+.offers-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    gap: 15px;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.filter-btn.active {
+    background-color: #844062;
+    color: white;
+}
+
+/* Grid Layout */
+.offers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s forwards;
+}
+
+@keyframes fadeInUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Flip Card Styles */
+.offer-card {
+    perspective: 1000px;
+    height: 350px;
+}
+
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+
+.offer-card.flipped .card-inner {
+    transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+}
+
+/* Card Header */
+.card-header {
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #eee;
+    position: relative;
+}
+
+.card-header h3 {
+    margin: 0;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+.status-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    
+    font-weight: bold;
+}
+
+.status-badge.pending {
+    background-color:  #d4edda;
+    color: #155724;
+}
+
+.status-badge.treated {
+    background-color:#fff3cd;
+    color: #856404;
+}
+.status-badge.canceled {
+    background-color: #000000a9; /* Red color for canceled */
+    color: white;
+}
+
+/* Card Body */
+.card-body {
+    padding: 15px;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.card-body p {
+    margin: 8px 0;
+    color: #555;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-body i {
+    width: 20px;
+    color: #844062;
+}
+
+.description-content {
+    height: 100%;
+    overflow-y: auto;
+    padding-right: 5px;
+    line-height: 1.5;
+}
+
+/* Card Footer & Actions */
+.card-footer {
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.flip-btn {
+    padding: 8px 15px;
+    background-color: #844062;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.flip-btn:hover {
+    background-color: #6a3251;
+    transform: scale(1.05);
+}
+
+.view-btn {
+    padding: 8px 15px;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.view-btn:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .offers-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .card-footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .flip-btn, .view-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+
+
+/***
+*/
+/* Style pour le dos de la carte */
+.card-back {
+    transform: rotateY(180deg);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.full-details {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.detail-item {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.detail-label {
+    font-weight: bold;
+    color: #844062;
+    min-width: 120px;
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+}
+
+.detail-label i {
+    width: 16px;
+    text-align: center;
+}
+
+.detail-value {
+    flex: 1;
+    word-break: break-word;
+}
+
+/* Barre de défilement personnalisée */
+.full-details::-webkit-scrollbar {
+    width: 6px;
+}
+
+.full-details::-webkit-scrollbar-track {
+    background: #f8f9fa;
+    border-radius: 3px;
+}
+
+.full-details::-webkit-scrollbar-thumb {
+    background-color: #844062;
+    border-radius: 3px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .detail-item {
+        flex-direction: column;
+        gap: 2px;
+    }
+    
+    .detail-label {
+        min-width: auto;
+    }
+}
+/* Ajoutez ceci à votre fichier CSS */
+.offer-card:not(.flipped):hover .card-front {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    transition: all 0.3s ease;
+}
+
+/* Désactivez l'animation hover quand la carte est flipée */
+.offer-card.flipped .card-front {
+    transform: none;
+    box-shadow: none;
+}
+
+
+
+/** recherche filtrage ***/
+.search-and-sort {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 20px;
+}
+
+.search-container {
+    position: relative;
+    flex: 1;
+    max-width: 400px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 15px 10px 35px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #844062;
+    box-shadow: 0 0 5px rgba(132, 64, 98, 0.3);
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+}
+
+.sort-container {
+    min-width: 200px;
+}
+
+.sort-select {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 14px;
+    background-color: white;
+    cursor: pointer;
+    appearance: none;
+}
+
+.sort-select:focus {
+    outline: none;
+    border-color: #844062;
+}
+
+/**************************************************************
+************* affichage organisateur front *******************
+**************************************************************/
+/* Send button */
+.SendTeleBtn {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.SendTeleBtn:hover {
+    opacity: 0.9;
+    transform: scale(1.1);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 8px;
+}
+
+
+.SendRequest:hover {
+    transform: scale(1.05);
+}
+
+
+
+
+
+
+/*********************************************************************
+************* affichage Detail ortanisateur offre traite  *******************
+**********************************************************************/
+
+/* Animation pour les détails flottants */
+#floatingDetails {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0;
+    transition: all 0.5s ease;
+    z-index: 9999;
+    width: 700px;
+    max-width: 90%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+#floatingDetails.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Animation pour les cartes */
+.offer-card {
+    transition: all 0.5s ease;
+}
+
+/* Style pour l'image de l'organisateur */
+.imageOrg {
+    position: relative;
+    /* ... autres styles ... */
+}
+
+.imageOrg::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 10px;
+    right: 10px;
+    height: 20px;
+    background: radial-gradient(ellipse at center, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 70%);
+    filter: blur(5px);
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transform: rotateX(90deg) translateZ(-20px);
+    transform-origin: 50% 100%;
+}
+
+.imageOrg:hover::after {
+    opacity: 0.6;
+    transform: rotateX(90deg) translateZ(-30px) scale(1.05);
+}
+
+
+
+
+/***********************************************************
+*******drop dow menue ili fo offre admin pending  **********
+************************************************************/
+.offer-actions {
+    position: relative;
+    display: inline-block;
+    z-index: 1000;
+}
+
+.action-toggle-btn {
+    background: #844062;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.action-toggle-btn:hover {
+    background: #6a3251;
+    transform: translateY(-2px);
+}
+
+.toggle-arrow {
+    font-size: 12px;
+    transition: transform 0.3s ease;
+}
+
+.action-dropdown {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    padding: 10px;
+    width: 220px;
+    z-index: 1001;
+    display: none;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 5px;
+}
+
+.action-form {
+    display: contents;
+}
+
+.action-btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.action-btn.primary {
+    background: #844062;
+    color: white;
+}
+
+.action-btn.secondary {
+    background: #f0f0f0;
+    color: #333;
+}
+
+.action-btn:hover {
+    transform: translateX(5px);
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.show-dropdown {
+    display: flex;
+    animation: slideUp 0.3s ease forwards;
+}
+
+/* Assure que rien ne coupe le dropdown */
+.cards-grid, .card, .card-actions {
+    overflow: visible !important;
+}
+

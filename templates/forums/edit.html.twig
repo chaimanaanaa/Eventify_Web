@@ -1,0 +1,276 @@
+{% extends "base.html.twig" %}
+
+{% block content %}
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* Style spécifique pour le bouton Retour */
+.btn-back {
+    background-color: #ADC29B;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-back:hover {
+    background-color: #8aa778;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    color: white;
+}
+
+.btn-back i {
+    transition: transform 0.3s ease;
+}
+
+.btn-back:hover i {
+    transform: translateX(-3px);
+}
+
+/* Styles personnalisés pour les radio buttons */
+.radio-group {
+    background-color: transparent;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.radio-option {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    color: white;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.radio-option input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.radio-checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 22px;
+    width: 22px;
+    background-color: transparent;
+    border: 2px solid #ADC29B;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.radio-option:hover input ~ .radio-checkmark {
+    background-color: rgba(173, 194, 155, 0.1);
+}
+
+.radio-option input:checked ~ .radio-checkmark {
+    background-color: transparent;
+    border-color: #ADC29B;
+}
+
+.radio-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.radio-option input:checked ~ .radio-checkmark:after {
+    display: block;
+}
+
+.radio-option .radio-checkmark:after {
+    top: 3px;
+    left: 3px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ADC29B;
+}
+
+/* Style pour le label de la catégorie */
+.category-label {
+    color: white;
+    margin-bottom: 15px;
+    display: block;
+    font-weight: 500;
+}
+</style>
+</head>
+
+<section class="hero-section hero-50 d-flex justify-content-center align-items-center" id="section_1">
+    <div class="section-overlay"></div>
+    <div class="section-overlay" style="background: url('images/test2.png') center/cover no-repeat;"></div>
+    <svg viewBox="0 0 1962 178" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#ADC29B" d="M 0 114 C 118.5 114 118.5 167 237 167 L 237 167 L 237 0 L 0 0 Z" stroke-width="0"></path> <path fill="#ADC29B" d="M 236 167 C 373 167 373 128 510 128 L 510 128 L 510 0 L 236 0 Z" stroke-width="0"></path> <path fill="#ADC29B" d="M 509 128 C 607 128 607 153 705 153 L 705 153 L 705 0 L 509 0 Z" stroke-width="0"></path><path fill="#ADC29B" d="M 704 153 C 812 153 812 113 920 113 L 920 113 L 920 0 L 704 0 Z" stroke-width="0"></path><path fill="#ADC29B" d="M 919 113 C 1048.5 113 1048.5 148 1178 148 L 1178 148 L 1178 0 L 919 0 Z" stroke-width="0"></path><path fill="#ADC29B" d="M 1177 148 C 1359.5 148 1359.5 129 1542 129 L 1542 129 L 1542 0 L 1177 0 Z" stroke-width="0"></path><path fill="#ADC29B" d="M 1541 129 C 1751.5 129 1751.5 138 1962 138 L 1962 138 L 1962 0 L 1541 0 Z" stroke-width="0"></path></svg>
+
+    <div class="container">
+        <div class="row">
+           
+        </div>
+    </div>
+
+    <svg viewBox="0 0 1962 178" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#ffffff" d="M 0 114 C 118.5 114 118.5 167 237 167 L 237 167 L 237 0 L 0 0 Z" stroke-width="0"></path> <path fill="#ffffff" d="M 236 167 C 373 167 373 128 510 128 L 510 128 L 510 0 L 236 0 Z" stroke-width="0"></path> <path fill="#ffffff" d="M 509 128 C 607 128 607 153 705 153 L 705 153 L 705 0 L 509 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 704 153 C 812 153 812 113 920 113 L 920 113 L 920 0 L 704 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 919 113 C 1048.5 113 1048.5 148 1178 148 L 1178 148 L 1178 0 L 919 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 1177 148 C 1359.5 148 1359.5 129 1542 129 L 1542 129 L 1542 0 L 1177 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 1541 129 C 1751.5 129 1751.5 138 1962 138 L 1962 138 L 1962 0 L 1541 0 Z" stroke-width="0"></path></svg>
+</section>
+
+<div style="height: 100px;"></div>
+
+<div class="row mb-3">
+    <div class="col-12">
+        <a href="{{ path('app_forums') }}" class="btn btn-back">
+            <i class="fas fa-arrow-left me-2"></i>
+        </a>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row align-items-center">
+        <!-- Colonne pour l'image à gauche -->
+        <div class="col-md-6 d-none d-md-block">
+            <div class="text-center">
+                <img src="{{ asset('images/post.png') }}" alt="Forum Illustration" class="img-fluid rounded shadow" style="max-height: 500px;">
+            </div>
+        </div>
+        
+        <!-- Colonne pour le formulaire à droite -->
+        <div class="col-md-6">
+            <form action="{{ path('app_forum_edit', {'id': forum.id}) }}" method="post" class="custom-form membership-form shadow-lg p-4" role="form" enctype="multipart/form-data">
+                <h4 class="text-white mb-4">Edit Forum</h4>
+                
+                <input type="hidden" name="id" value="{{ forum.id }}">
+                
+                <!-- Radio buttons pour la catégorie -->
+                <div class="radio-group">
+                    <span class="category-label">Category</span>
+                    {% for child in form.categorie %}
+                        <label class="radio-option">
+                            {{ form_widget(child, {'attr': {'class': 'd-none'}}) }}
+                            <span class="radio-checkmark"></span>
+                            {{ child.vars.label }}
+                        </label>
+                    {% endfor %}
+                </div>
+                
+                {# Champ Description #}
+                <div class="form-floating mb-3">
+                    {{ form_widget(form.description, {
+                        'attr': {
+                            'class': 'form-control' ~ (form.description.vars.errors|length > 0 ? ' is-invalid' : ''),
+                            'placeholder': 'Description',
+                            'style': 'height: 150px',
+                            'id': 'forumDescription'
+                        }
+                    }) }}
+                    <label for="forumDescription">Description</label>
+                    {% if form.description.vars.errors|length > 0 %}
+                        <div class="invalid-feedback">
+                            {% for error in form.description.vars.errors %}
+                                {{ error.message }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label text-white">Image</label>
+                    <div class="position-relative">
+                        {{ form_widget(form.imageFile, {'attr': {'class': 'form-control d-none', 'onchange': 'previewImage(this)'}}) }}
+                        <label for="{{ form.imageFile.vars.id }}" class="btn btn-outline-light w-100">
+                            <i class="fas fa-image me-2"></i> Change Image
+                        </label>
+                        <div id="imagePreview" class="mt-3 text-center">
+                            {% if forum.img starts with 'img_' %}
+                                <img src="{{ path('app_forum_image', {'id': forum.img}) }}" 
+                                     class="img-fluid rounded" style="max-height: 200px;">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+                {{ form_row(form._token) }}
+                
+                <button type="submit" class="form-control btn btn-primary mt-3" style="background-color: #844062;">
+                    <i class="fas fa-save me-2"></i> Save Changes
+                </button>
+            </form>
+        </div>
+    </div>
+    <div style="height: 100px;"></div>
+</div>
+
+<script>
+    function previewImage(input) {
+        const previewContainer = document.getElementById('imagePreview');
+        const previewImg = previewContainer.querySelector('img');
+        
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                if (!previewImg) {
+                    const newImg = document.createElement('img');
+                    newImg.src = e.target.result;
+                    newImg.className = 'img-fluid rounded';
+                    newImg.style.maxHeight = '200px';
+                    previewContainer.innerHTML = '';
+                    previewContainer.appendChild(newImg);
+                } else {
+                    previewImg.src = e.target.result;
+                }
+                previewContainer.style.display = 'block';
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+     document.addEventListener('DOMContentLoaded', function() {
+        // Récupérer l'élément de description et l'élément de message d'erreur
+        const descriptionField = document.querySelector('[name="description"]');
+        const errorMessage = document.createElement('div');
+        errorMessage.classList.add('error-message');
+        errorMessage.style.color = 'red';
+        errorMessage.style.fontSize = '12px';
+        errorMessage.style.marginTop = '5px';
+
+        // Ajouter le message d'erreur juste après le champ
+        descriptionField.insertAdjacentElement('afterend', errorMessage);
+
+        // Fonction pour vérifier la saisie
+        function validateDescription() {
+            if (descriptionField.value.trim() === '') {
+                errorMessage.textContent = 'La description ne peut pas être vide.';
+                return false;
+            } else if (descriptionField.value.trim().length < 10) {
+                errorMessage.textContent = 'La description doit contenir au moins 10 caractères.';
+                return false;
+            } else {
+                errorMessage.textContent = '';
+                return true;
+            }
+        }
+
+        // Ajouter un événement à chaque fois que l'utilisateur tape
+        descriptionField.addEventListener('input', function() {
+            validateDescription();
+        });
+
+        // Empêcher la soumission si le champ description est invalide
+        document.querySelector('form').addEventListener('submit', function(event) {
+            if (!validateDescription()) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>
+{% endblock %}

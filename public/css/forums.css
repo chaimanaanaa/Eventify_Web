@@ -1,0 +1,112 @@
+/* Styles généraux */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.hero-section {
+  position: relative;
+  height: 300px;
+  background: url("images/test2.png") center/cover no-repeat;
+}
+
+.search-container {
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.create-forum-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #844062;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.category-btn {
+  padding: 10px 20px;
+  margin: 0 5px;
+  border: 1px solid #adc29b;
+  border-radius: 5px;
+  color: #844062;
+  text-decoration: none;
+}
+
+.category-btn.active {
+  background-color: #adc29b;
+  color: white;
+}
+
+.forum-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #adc29b;
+  color: white;
+  padding: 15px;
+  border-radius: 10px 10px 0 0;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.card-actions a,
+.card-actions button {
+  margin-left: 10px;
+  color: white;
+  text-decoration: none;
+}
+
+.comments-section {
+  display: none;
+  padding: 15px;
+  border-top: 1px solid #ddd;
+}
+
+.comment {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+}
+
+.no-comments {
+  text-align: center;
+  color: #888;
+}
+
+.comment-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+}
+
+.post-comment-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #844062;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
