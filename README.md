@@ -1,109 +1,178 @@
-# Eventify
+# 🎉 Eventify
 
-Eventify is a robust event management platform designed to streamline the organization of events such as weddings, birthdays, graduations, and more. It includes a web application built with Symfony, a desktop application developed in Java, and a feature-rich backend ,frontend powered by FastAPI. Eventify leverages cutting-edge technologies like Three.js, Gemini AI, and T5-base to deliver an interactive, secure, and intelligent event planning experience. All major components support full CRUD (Create, Read, Update, Delete) operations for seamless data management.
+_Eventify is a robust event management platform designed to streamline the organization of events such as weddings, birthdays, graduations, and more._
 
-## Table of Contents
-- [Features](#features)
-- [Technologies](#technologies)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
+✨ It includes:
+- A **web app** built with Symfony
+- A **desktop app** in Java
+- A **backend & frontend** powered by FastAPI
 
----
-
-## Features
-
-### User Management
-- **CRUD Operations**: Full create, read, update, and delete functionality for user accounts.
-- **Account Creation**: Users can create accounts with real-time image capture via MediaDevices and auto-generated passwords.
-- **Authentication**: Secure login using facial recognition (FastAPI.js) or email/password with pre-filled email.
-- **Profile Management**: Users can edit or delete their profiles.
-- **Admin Dashboard**: Admins can view user statistics, perform dynamic searches with AJAX, filter data, and export to Excel.
-- **Security**: After three incorrect password attempts, a photo of the unauthorized user is emailed to the account owner.
-
-### Event Management
-- **CRUD Operations**: Complete create, read, update, and delete functionality for events.
-- **Custom Event Creation**: Users can define event types (e.g., weddings, birthdays), dates, times, and details.
-- **3D Virtual Room Setup**: Interactive 3D event space visualization with Three.js, featuring drag-and-drop for furniture and decorations.
-- **Chatbot Assistant**: Guides users through event creation with relevant questions.
-- **PDF Preview**: Generate a PDF of the event setup for planning.
-- **Interactive Calendar**: Built with FullCalendar for viewing, managing, and reserving events with advanced filtering.
-- **Price Estimation**: Real-time cost estimates in TND and EUR using a currency exchange rate API.
-- **Event Approval**: Admins can approve or reject event requests based on availability.
-
-### Forums
-- **CRUD Operations**: Full create, read, update, and delete functionality for posts and comments, including anonymous posts.
-- **Post Creation**: Users can share event experiences; others can like, dislike, or comment with emojis.
-- **Sentiment Analysis**: Comments analyzed for sentiment using Gemini AI.
-- **Bad Word Filtering**: Inappropriate content filtered with Pergomalum API.
-- **Speech-to-Text**: Comment input via WebkitSpeech for speech-to-text.
-- **Autocomplete**: Comment suggestions powered by Datamuse API.
-- **Translation & History**: Posts and comments support translation via DeepTranslator and maintain a history log.
-
-### Organizer Recommendations
-- **CRUD Operations**: Create, read, update, and delete functionality for organizer assignments and recommendations.
-- **Intelligent Assignment**: Organizers recommended to clients using Gemini AI based on event needs.
-- **Data Extraction**: Extract event data with InfraDeep AI.
-- **Voice Assistant**: AI-powered voice assistant aids clients in selecting organizers.
-- **Offer Prediction**: Clients view the likelihood of offer acceptance/rejection.
-- **Anonymous Feedback**: Clients can submit anonymous feedback about organizers.
-- **Event Date Weather**: Check weather forecasts for event dates using Open Meteo API before submitting offers.
-
-### Reclamation System
-- **CRUD Operations**: Create, read, update, and delete functionality for user complaints.
-- **Issue Reporting**: Complaints summarized using T5-base for admin review.
-- **Event Generation**: Generate event visuals with Gemini API and BLIP for image-based event creation.
-
-### Logistics & Marketplace
-- **CRUD Operations**: Full create, read, update, and delete functionality for products and transactions.
-- **Product Listings**: Users can add products for sale or purchase from the marketplace.
-- **Voice Search**: Search products with WebkitVoice Recognition.
-- **Geolocation**: View product locations using Leaflet and OpenStreetMap.
-- **Live Product View**: Real-time previews via IP Webcam.
-- **Checkout**: Payments via Stripe or cash on delivery.
-- **Favorites & Filters**: Add products to favorites and filter by price or type.
-- **Receipts**: Generate receipts as QR codes or PDFs.
-- **Admin Logistics**: Admins can manage logistics, filter transactions, and export daily reports to Excel.
+🔧 It uses cutting-edge tech: **Three.js**, **Gemini AI**, **T5-base**, and more.
+🧩 All components support full **CRUD** (Create, Read, Update, Delete) operations.
 
 ---
 
-## Technologies
--**Data Storage**:SQL: For data storage and management-
--**Backend**: Symfony (PHP), FastAPI (Python), Uvicorn server
-- **Frontend**: HTML, CSS, JavaScript, AJAX, Three.js, FullCalendar
+## 📚 Table of Contents
+
+- [🎯 Features](#-features)
+  - [👤 User Management](#-user-management)
+  - [📅 Event Management](#-event-management)
+  - [💬 Forums](#-forums)
+  - [🧠 Organizer Recommendations](#-organizer-recommendations)
+  - [📢 Reclamation System](#-reclamation-system)
+  - [🛒 Logistics & Marketplace](#-logistics--marketplace)
+- [🛠 Technologies](#-technologies)
+- [📦 Installation](#-installation)
+- [🚀 Usage](#-usage)
+- [🤝 Contributing](#-contributing)
+- [📝 License](#-license)
+- [📬 Contact](#-contact)
+
+---
+
+## 🎯 Features
+
+### 👤 User Management
+- ✅ **CRUD Operations** for users  
+- 📸 Real-time photo capture using **MediaDevices**
+- 🔐 Login via **facial recognition (FastAPI.js)** or email/password
+- 🛠 Profile edit & delete
+- 📊 Admin dashboard with **AJAX search**, filter, Excel export
+- 🛡 Security: **Unauthorized access alert via photo to email**
+
+### 📅 Event Management
+- ✅ **Full CRUD** for events
+- 📝 Custom event types, dates, details
+- 🧩 **3D Room Setup** with drag-drop via **Three.js**
+- 🤖 **Chatbot assistant** to guide event creation
+- 📄 **PDF preview** of setups
+- 🗓 **FullCalendar** for reservations
+- 💰 Real-time **TND/EUR** price estimation
+- ✅ **Admin approval system**
+
+### 💬 Forums
+- ✅ **CRUD** for posts, comments (including anonymous)
+- ❤️ Emojis for reactions
+- 🧠 Sentiment analysis via **Gemini AI**
+- 🚫 Bad word filter (**Pergomalum API**)
+- 🎙 Speech-to-text via **WebkitSpeech**
+- 💡 **Autocomplete** from Datamuse API
+- 🌍 Translate via **DeepTranslator**, keep **edit history**
+
+### 🧠 Organizer Recommendations
+- ✅ **CRUD** for organizer records
+- 🧠 Smart assignment via **Gemini AI**
+- 📊 Event data extracted via **InfraDeep AI**
+- 🗣 Voice assistant helps in organizer selection
+- 🔮 Offer prediction
+- 🕵 Anonymous feedback
+- 🌤 Weather forecast using **Open Meteo API**
+
+### 📢 Reclamation System
+- ✅ **CRUD** for user complaints
+- 🧾 Summarized issues via **T5-base**
+- 🖼 Event visuals via **Gemini API + BLIP**
+
+### 🛒 Logistics & Marketplace
+- ✅ **CRUD** for products & orders
+- 📦 Product listings + real-time IP Webcam preview
+- 🎤 Voice search via **WebkitVoice**
+- 📍 View location with **Leaflet** & **OpenStreetMap**
+- 💳 Checkout with **Stripe** or COD
+- ⭐ Favorite & filter products
+- 🧾 **Receipts**: QR Code or PDF
+- 📊 Admin daily Excel export
+
+---
+
+## 🛠 Technologies
+
+- **Data Storage**: SQL
+- **Backend**: Symfony (PHP), FastAPI (Python), Uvicorn
+- **Frontend**: HTML, CSS, JS, AJAX, Three.js, FullCalendar
 - **Desktop App**: Java
 - **AI/ML**: Gemini AI, T5-base, BLIP, InfraDeep
-- **APIs**: Open Meteo, Pergomalum, Datamuse, DeepTranslator, Currency Exchange Rate API
+- **APIs**: Open Meteo, Pergomalum, Datamuse, DeepTranslator
 - **Maps**: Leaflet, OpenStreetMap
 - **Payments**: Stripe
 - **Other**: WebkitSpeech, MediaDevices, IP Webcam
 
 ---
 
-## Installation
+## 📦 Installation
 
 ### Prerequisites
-- PHP >= 8.0
-- Composer
-- Node.js >= 16
-- Python >= 3.8
-- Java >= 17
-- MySQL or another compatible database
-- FastAPI and Uvicorn
-- Stripe account for payments
+- ✅ PHP >= 8.0  
+- ✅ Composer  
+- ✅ Node.js >= 16  
+- ✅ Python >= 3.8  
+- ✅ Java >= 17  
+- ✅ MySQL  
+- ✅ FastAPI, Uvicorn  
+- ✅ Stripe account
 
+---
 
-**Clone the Repository**
-   ```bash
-   git clone https://github.com/si-war/eventify.git
+## 🚀 Usage
 
+### 🌐 Web Application
+1. Open [http://localhost:8000](http://localhost:8000)
+2. Create account or log in with face/email
+3. Use dashboard to manage everything
 
-** License **
-Distributed under the MIT License. See LICENSE for more information.
+### 💻 Desktop Application
+1. Launch the Java desktop app
+2. Log in using the same credentials
+3. Access features offline
 
-**Contact**
-Project Team - contact@eventify.com
-Project Link: https://github.com/si-war/eventify
+### 🌟 Key Highlights
+- 🧩 3D Room Planner  
+- 🤖 Organizer AI Assistant  
+- 💬 Community Forum  
+- 🛒 Marketplace management  
 
+---
+
+## 🤝 Contributing
+
+### 🐛 Reporting Issues
+- Use GitHub Issues for bugs or feature requests  
+- Include steps and screenshots if possible
+
+### 🧑‍💻 Code Contributions
+- Fork → New Branch → Pull Request  
+- Follow code style & docs conventions
+
+### 📏 Dev Guidelines
+- Clean, documented code  
+- Include tests for new features  
+- Keep documentation up to date
+
+### 💬 Community Support
+- Help others in Discussions  
+- Improve docs/tutorials  
+- Share your usage of Eventify  
+
+---
+
+## 📝 License
+
+Licensed under the **MIT License**
+
+---
+
+## 📬 Contact
+
+For questions or partnerships:
+- 📧 Email: `eventify@gmail.com`  
+- 🐙 GitHub: [https://github.com/si-war/eventify](https://github.com/si-war/eventify)
+
+### 👥 Project Team:
+- 👤 User Mgmt: bouslimi.nourelhouda@esprit.tn  
+- 📦 Logistics: siwarchayada@esprit.tn  
+- 💬 Forums: eya.ounich@esprit.tn  
+- 📅 Events: farah.benchikha@esprit.tn  
+- 📢 Reclamations: khalil.benchaabane@esprit.tn  
+- 🧠 Organizer & Offers: chaima.naanaa@esprit.tn  
+
+🔗 Join the forum and connect with the community!
