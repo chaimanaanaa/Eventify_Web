@@ -75,7 +75,8 @@ _Eventify is a robust event management platform designed to streamline the organ
 
 ### 🛒 Logistics & Marketplace
 - ✅ **CRUD** for products & orders
-- 📦 Product listings + real-time IP Webcam preview
+- 📦 Product listings 
+-  real-time IP Webcam preview
 - 🎤 Voice search via **WebkitVoice**
 - 📍 View location with **Leaflet** & **OpenStreetMap**
 - 💳 Checkout with **Stripe** or COD
@@ -95,7 +96,10 @@ _Eventify is a robust event management platform designed to streamline the organ
 - **APIs**: Open Meteo, Pergomalum, Datamuse, DeepTranslator
 - **Maps**: Leaflet, OpenStreetMap
 - **Payments**: Stripe
+- -  real-time IP Webcam preview
+
 - **Other**: WebkitSpeech, MediaDevices, IP Webcam
+
 
 ---
 
