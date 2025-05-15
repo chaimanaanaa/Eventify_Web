@@ -222,7 +222,8 @@ Licensed under the **MIT License**
 
 For questions or partnerships:
 - 📧 Email: `eventify11@yahoo.com`  
-
+- Facebook :
+![496510515_547067088227474_2767002007671711219_n](https://github.com/user-attachments/assets/a40f3c59-df1b-4d3b-8beb-c33b20970cb7)
 
 ### 👥 Project Team:
 - 👤 User Mgmt: bouslimi.nourelhouda@esprit.tn  
