@@ -221,7 +221,7 @@ Licensed under the **MIT License**
 ## 📬 Contact
 
 For questions or partnerships:
-- 📧 Email: `eventify@gmail.com`  
+- 📧 Email: `eventify11@yahoo.com`  
 - 🐙 GitHub: [https://github.com/si-war/eventify](https://github.com/si-war/eventify)
 
 ### 👥 Project Team:
