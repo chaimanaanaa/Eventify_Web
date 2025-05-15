@@ -222,7 +222,7 @@ Licensed under the **MIT License**
 
 For questions or partnerships:
 - 📧 Email: `eventify11@yahoo.com`  
-- 🐙 GitHub: [https://github.com/si-war/eventify](https://github.com/si-war/eventify)
+
 
 ### 👥 Project Team:
 - 👤 User Mgmt: bouslimi.nourelhouda@esprit.tn  
