@@ -1,7 +1,11 @@
 # 🎉 Eventify
 
 _Eventify is a robust event management platform designed to streamline the organization of events such as weddings, birthdays, graduations, and more._
+## 📺 Demo
 
+🎥 [Watch the Demo](https://drive.google.com/file/d/1K0Sp3uzfb06SYD4sVKfBbgYiaODymoxw/view?usp=drive_link)
+
+---
 ✨ It includes:
 - A **web app** built with Symfony
 - A **desktop app** in Java
