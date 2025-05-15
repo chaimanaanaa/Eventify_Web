@@ -33,6 +33,13 @@ _Eventify is a robust event management platform designed to streamline the organ
 ## 🎯 Features
 
 ### 👤 User Management
+
+![Capture d'écran 2025-05-15 023505](https://github.com/user-attachments/assets/b1576b98-d52f-4061-aa9b-5f348ed4d2c9)
+![Capture d'écran 2025-05-15 023550](https://github.com/user-attachments/assets/ecc91041-6b80-41c1-a53c-274ed965576d)
+
+![Capture d'écran 2025-05-15 023904](https://github.com/user-attachments/assets/c8a69b69-3f5a-40e8-9ea7-e450ba524e2a)
+
+
 - ✅ **CRUD Operations** for users  
 - 📸 Real-time photo capture using **MediaDevices**
 - 🔐 Login via **facial recognition (FastAPI.js)** or email/password
@@ -41,7 +48,19 @@ _Eventify is a robust event management platform designed to streamline the organ
 - 🛡 Security: **Unauthorized access alert via photo to email**
 
 ### 📅 Event Management
+
+
+![Capture d'écran 2025-05-15 023639](https://github.com/user-attachments/assets/9c53a051-da0e-42f1-9366-703314843b21)
+![Capture d'écran 2025-05-15 032024](https://github.com/user-attachments/assets/4e0d5581-94f9-49bc-9e26-1686eb81fb8c)
+
+
+![Capture d'écran 2025-05-15 032114](https://github.com/user-attachments/assets/c2a1c6b1-8be7-486d-8a25-9c5ee81d8386)
+
+![Capture d'écran 2025-05-15 032251](https://github.com/user-attachments/assets/3e93f777-9cc6-43c7-8450-d2e99d3c3f92)
+
+
 - ✅ **Full CRUD** for events
+
 - 📝 Custom event types, dates, details
 - 🧩 **3D Room Setup** with drag-drop via **Three.js**
 - 🤖 **Chatbot assistant** to guide event creation
@@ -51,6 +70,14 @@ _Eventify is a robust event management platform designed to streamline the organ
 - ✅ **Admin approval system**
 
 ### 💬 Forums
+
+
+![Capture d'écran 2025-05-15 023658](https://github.com/user-attachments/assets/eb95818f-a5a5-4389-823e-02c747320c86)
+
+
+![Capture d'écran 2025-05-15 032323](https://github.com/user-attachments/assets/b07a5767-2ba1-4b18-b131-5f876399cc38)
+
+
 - ✅ **CRUD** for posts, comments (including anonymous)
 - ❤️ Emojis for reactions
 - 🧠 Sentiment analysis via **Gemini AI**
@@ -60,6 +87,12 @@ _Eventify is a robust event management platform designed to streamline the organ
 - 🌍 Translate via **DeepTranslator**, keep **edit history**
 
 ### 🧠 Organizer Recommendations
+
+
+![Capture d'écran 2025-05-15 023806](https://github.com/user-attachments/assets/fb64d6cc-dbad-4dbb-866c-dca80c46c642)
+
+![Capture d'écran 2025-05-15 032406](https://github.com/user-attachments/assets/62b91a98-decb-4463-9f2c-57cf32c06335)
+
 - ✅ **CRUD** for organizer records
 - 🧠 Smart assignment via **Gemini AI**
 - 📊 Event data extracted via **InfraDeep AI**
@@ -69,11 +102,31 @@ _Eventify is a robust event management platform designed to streamline the organ
 - 🌤 Weather forecast using **Open Meteo API**
 
 ### 📢 Reclamation System
+
+
+![Capture d'écran 2025-05-15 023722](https://github.com/user-attachments/assets/5ab27e5a-3177-41aa-af9f-ee5e81442d20)
+
+
+![Capture d'écran 2025-05-15 032339](https://github.com/user-attachments/assets/ed8d3442-976a-4933-b48d-5cd475c5c936)
+
+
 - ✅ **CRUD** for user complaints
 - 🧾 Summarized issues via **T5-base**
 - 🖼 Event visuals via **Gemini API + BLIP**
 
 ### 🛒 Logistics & Marketplace
+
+
+![Capture d'écran 2025-05-15 023827](https://github.com/user-attachments/assets/3bc31ce3-6aa1-4f8e-8bb1-288ec9a1f05b)
+
+![Capture d'écran 2025-05-15 032446](https://github.com/user-attachments/assets/fdf2e0e1-25f6-4d2f-93ce-402cb22ffd98)
+
+![Capture d'écran 2025-05-15 032510](https://github.com/user-attachments/assets/87eac786-d71b-40fa-b8f5-1033d5b41ab7)
+
+![Capture d'écran 2025-05-15 032547](https://github.com/user-attachments/assets/64941e1b-2490-466c-ba25-7b2a21a0104f)
+
+
+
 - ✅ **CRUD** for products & orders
 - 📦 Product listings 
 -  real-time IP Webcam preview
